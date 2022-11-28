@@ -19,7 +19,7 @@
                         <div class="card-header text-white bg-info">
                             <p class="card-text">
                                 <h5 class="card-title">
-                                    @item.Description
+                                    @item.Description.ToUpper()
 @*                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                                     {
                                         
@@ -40,6 +40,7 @@
                             <p class="card-text"><b>Description: </b>@item.Description</p>
                             <p class="card-text"><b>Start Time: </b>@item.StartTime.ToString("hh : mm")</p>
                             <p class="card-text"><b>End Time: </b>@item.EndTime.ToString("hh : mm")</p>
+                            <p class="card-text"><b>Day of week: </b>@item.DayOfWeek.ToString()</p>
                             <p class="card-text ">
                                 <b>Status: </b>
                                 @if (DateTime.Now >= item.StartTime && DateTime.Now <= item.EndTime)

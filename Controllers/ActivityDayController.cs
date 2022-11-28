@@ -22,7 +22,7 @@ namespace FamilyActivity.WebMvc.Controllers
  
             List<ViewActivityDays> allActivties = new List<ViewActivityDays>();  
             string table = "activiesDays";
-            string connString = "Server = 127.0.0.1; uid=root; pwd=xxx; Database=activityDb;";
+            string connString = "Server = 127.0.0.1; uid=root; pwd=Alicja@13; Database=activityDb;";
 
             Console.WriteLine("Connection to mysql database");
             using (MySqlConnection conn = new MySqlConnection())
@@ -45,7 +45,8 @@ namespace FamilyActivity.WebMvc.Controllers
                             Picture = reader["Picture"].ToString(),
                             Description = reader["Description"].ToString(),
                             StartTime  = GetTime(reader["starttime"].ToString()),
-                            EndTime  = DateTime.Parse(reader["endtime"].ToString())
+                            EndTime  = DateTime.Parse(reader["endtime"].ToString()),
+                            DayOfWeek  = (DayOfWeek)reader["dayofweek"]
                         });
                     }
                     Console.WriteLine("Data displayed! Now press enter to move to the next section!");
@@ -54,9 +55,12 @@ namespace FamilyActivity.WebMvc.Controllers
                 }
             }
 
+            var sorted = allActivties.OrderByDescending(t=>t.StartTime);
+
             var pageNumber = page ?? 1;
             var perPage = 2;
-            var onePageOfEvents = await allActivties.ToPagedListAsync(pageNumber, perPage);
+            var onePageOfEvents = await sorted.ToPagedListAsync(pageNumber, perPage);
+
             return View(onePageOfEvents);
         }
 
