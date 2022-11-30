@@ -38,16 +38,16 @@
                         <div class="card-body">
                             <p class="card-text">@item.Description</p>
                             <p class="card-text"><b>Description: </b>@item.Description</p>
-                            <p class="card-text"><b>Start Time: </b>@item.StartTime.ToString("hh : mm")</p>
-                            <p class="card-text"><b>End Time: </b>@item.EndTime.ToString("hh : mm")</p>
-                            <p class="card-text"><b>Day of week: </b>@item.DaysOfWeek.ToString()</p>
+                            <p class="card-text"><b>Start Time: </b>@item.StartTime.ToString()</p>
+                            <p class="card-text"><b>End Time: </b>@item.EndTime.ToString()</p>
+                            <p class="card-text"><b>Day of week: </b>@item.DayOfWeek.ToString()</p>
                             <p class="card-text ">
                                 <b>Status: </b>
-                                @if (DateTime.Now >= item.StartTime && DateTime.Now <= item.EndTime)
+                                @if (DateTime.Now.TimeOfDay >= item.StartTime && DateTime.Now.TimeOfDay <= item.EndTime)
                                 {
                                     <span class="badge bg-success text-white">AVAILABLE</span>
                                 }
-                                else if (DateTime.Now > item.EndTime)
+                                else if (DateTime.Now.TimeOfDay > item.EndTime)
                                 {
                                     <span class="badge bg-danger text-white">EXPIRED</span>
                                 }
@@ -65,7 +65,7 @@
                                 <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
                                     <i class="bi bi-eye-fill"></i> Show Details
                                 </a>
-                                <a class="btn btn-success text-white @((DateTime.Now > item.EndTime) ? "enabled" : "")"
+                                <a class="btn btn-success text-white @((DateTime.Now.TimeOfDay > item.EndTime) ? "enabled" : "")"
                                asp-controller="ActivityDay"
                                asp-action="Edit"
                                asp-route-id="@item.Id">

@@ -43,9 +43,9 @@ namespace FamilyActivity.WebMvc.Contexts
                                 Name = reader["Name"].ToString(),
                                 Picture = reader["Picture"].ToString(),
                                 Description = reader["Description"].ToString(),
-                                StartTime  = GetTime(reader["starttime"].ToString()),
-                                EndTime  = DateTime.Parse(reader["endtime"].ToString()),
-                                DaysOfWeek  = GetDay(reader["dayofweek"].ToString())
+                                StartTime  = TimeSpan.Parse(reader["starttime"].ToString()),
+                                EndTime  = TimeSpan.Parse(reader["endtime"].ToString()),
+                                DayOfWeek  = GetDay(reader["dayofweek"].ToString())
                             });
                         }
                         Console.WriteLine("Data displayed! Now press enter to move to the next section!");
@@ -62,23 +62,23 @@ namespace FamilyActivity.WebMvc.Contexts
                 }
             }           
         }
-        private static DaysOfWeek GetDay(string day)
+        private static Enums.DayOfWeek GetDay(string day)
         {
             if (day.Contains('1'))
-                return DaysOfWeek.Monday;
+                return Enums.DayOfWeek.Monday;
             if (day.Contains('2'))
-                return DaysOfWeek.Tuesday;
+                return Enums.DayOfWeek.Tuesday;
             if (day.Contains('3'))
-                return DaysOfWeek.Wednesday;
+                return Enums.DayOfWeek.Wednesday;
             if (day.Contains('4'))
-                return DaysOfWeek.Thursday;
+                return Enums.DayOfWeek.Thursday;
             if (day.Contains('5'))
-                return DaysOfWeek.Friday;
+                return Enums.DayOfWeek.Friday;
             if (day.Contains('6'))
-                return DaysOfWeek.Saturday;
+                return Enums.DayOfWeek.Saturday;
             if (day.Contains('7'))
-                return DaysOfWeek.Sunday;
-            return DaysOfWeek.All;
+                return Enums.DayOfWeek.Sunday;
+            return Enums.DayOfWeek.All;
         }
 
         private static DateTime GetTime(string time)

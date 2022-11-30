@@ -11,10 +11,10 @@ namespace FamilyActivity.WebMvc.Models
         public int Id { get; set; }
         public DateTime CreatedAt  { get; set; }
         public string Name { get; set; } = string.Empty;
-        public DateTime StartTime  { get; set; }
-        public DateTime EndTime  { get; set; }
+        public TimeSpan StartTime  { get; set; }
+        public TimeSpan EndTime  { get; set; }
         public string? Description  { get; set; }
         public string? Picture  { get; set; }
-        public DaysOfWeek DaysOfWeek  { get; set; }
+        public Enums.DayOfWeek DayOfWeek  { get; set; }
     }
 }

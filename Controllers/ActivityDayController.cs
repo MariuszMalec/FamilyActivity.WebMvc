@@ -68,7 +68,7 @@ namespace FamilyActivity.WebMvc.Controllers
 
             var sorted = allActivties
             //.Where(t=>t.DaysOfWeek == DateTime.Today.DayOfWeek)
-            .OrderBy(t=>t.StartTime <= DateTime.Now)
+            .OrderBy(t=>t.StartTime <= DateTime.Now.TimeOfDay)
             ;
 
             var pageNumber = page ?? 1;
@@ -78,24 +78,24 @@ namespace FamilyActivity.WebMvc.Controllers
             return View(onePageOfEvents);
         }
 
-        private DaysOfWeek GetDay(string day)
-        {
-            if (day.Contains('1'))
-                return DaysOfWeek.Monday;
-            if (day.Contains('2'))
-                return DaysOfWeek.Tuesday;
-            if (day.Contains('3'))
-                return DaysOfWeek.Wednesday;
-            if (day.Contains('4'))
-                return DaysOfWeek.Thursday;
-            if (day.Contains('5'))
-                return DaysOfWeek.Friday;
-            if (day.Contains('6'))
-                return DaysOfWeek.Saturday;
-            if (day.Contains('7'))
-                return DaysOfWeek.Sunday;
-            return DaysOfWeek.All;
-        }
+        // private DaysOfWeek GetDay(string day)
+        // {
+        //     if (day.Contains('1'))
+        //         return DaysOfWeek.Monday;
+        //     if (day.Contains('2'))
+        //         return DaysOfWeek.Tuesday;
+        //     if (day.Contains('3'))
+        //         return DaysOfWeek.Wednesday;
+        //     if (day.Contains('4'))
+        //         return DaysOfWeek.Thursday;
+        //     if (day.Contains('5'))
+        //         return DaysOfWeek.Friday;
+        //     if (day.Contains('6'))
+        //         return DaysOfWeek.Saturday;
+        //     if (day.Contains('7'))
+        //         return DaysOfWeek.Sunday;
+        //     return DaysOfWeek.All;
+        // }
 
         private DateTime GetTime(string time)
         {
@@ -118,9 +118,8 @@ namespace FamilyActivity.WebMvc.Controllers
                 allActivties = await _context.ActiviesDays.ToListAsync();
             }
 
-
             var activity = allActivties.Where(a=>a.Id == id).FirstOrDefault();
-                
+            if (activity == null) 
             {
                 return NotFound();
             }
