@@ -12,10 +12,10 @@
 
     @foreach (var item in Model)
     {
-        <div class="col-md-4 col-xs-6 border-primary mb-3">
+        <div class="row-md-4 col-xs-6 border-primary mb-3">
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
-                    <div class="col-md-12">
+                    <div class="rows-md-12">
                         <div class="card-header text-white bg-info">
                             <p class="card-text">
                                 <h5 class="card-title">
@@ -40,7 +40,7 @@
                             <p class="card-text"><b>Description: </b>@item.Description</p>
                             <p class="card-text"><b>Start Time: </b>@item.StartTime.ToString("hh : mm")</p>
                             <p class="card-text"><b>End Time: </b>@item.EndTime.ToString("hh : mm")</p>
-                            <p class="card-text"><b>Day of week: </b>@item.DayOfWeek.ToString()</p>
+                            <p class="card-text"><b>Day of week: </b>@item.DaysOfWeek.ToString()</p>
                             <p class="card-text ">
                                 <b>Status: </b>
                                 @if (DateTime.Now >= item.StartTime && DateTime.Now <= item.EndTime)
@@ -65,11 +65,11 @@
                                 <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
                                     <i class="bi bi-eye-fill"></i> Show Details
                                 </a>
-                                <a class="btn btn-success text-white @((DateTime.Now > item.EndTime) ? "disabled" : "")"
-                               asp-controller="Orders"
-                               asp-action="AddItemToShoppingCart"
+                                <a class="btn btn-success text-white @((DateTime.Now > item.EndTime) ? "enabled" : "")"
+                               asp-controller="ActivityDay"
+                               asp-action="Edit"
                                asp-route-id="@item.Id">
-                                    <i class="bi bi-cart-plus"></i> Add to Cart (Price)
+                                    <i class="bi bi-cart-plus"></i> Edit
                                 </a>
                             </p>
                         </div>

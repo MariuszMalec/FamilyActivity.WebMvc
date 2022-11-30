@@ -9,7 +9,7 @@ namespace FamilyActivity.WebMvc.Contexts
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<ViewActivityDays> AcivitiesDay { get; set; }
+        public DbSet<ViewActivityDays> ActiviesDays { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
@@ -22,7 +22,7 @@ namespace FamilyActivity.WebMvc.Contexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Movie>().ToTable("Movies");
+            modelBuilder.Entity<ViewActivityDays>().ToTable("activiesDays");
             base.OnModelCreating(modelBuilder);
         }
 

@@ -9,13 +9,27 @@ builder.Services.AddControllersWithViews();
 
 
 //To trzeba dodac!! aby zadzialalo Configuration!!
-//IConfiguration Configuration;
-//Configuration = builder.Configuration;
+IConfiguration Configuration;
+Configuration = builder.Configuration;
 //DbContext configuration
-//builder.Services.AddDbContext<ApplicationContext>(options => options.UseMySql(Configuration.GetConnectionString("Default")));
 
+        var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
+
+        // Replace 'YourDbContext' with the name of your own DbContext derived class.
+        builder.Services.AddDbContext<ApplicationContext>(
+            dbContextOptions => dbContextOptions
+                .UseMySql(Configuration.GetConnectionString("Default"), serverVersion)
+                // The following three options help with debugging, but should
+                // be changed or removed for production.
+                .LogTo(Console.WriteLine, LogLevel.Information)
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors()
+        );
 
 var app = builder.Build();
+
+//Seed database
+AppDbInitializer.Seed(app);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

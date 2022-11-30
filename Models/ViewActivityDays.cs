@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FamilyActivity.WebMvc.Enums;
 
 namespace FamilyActivity.WebMvc.Models
 {
@@ -14,6 +15,6 @@ namespace FamilyActivity.WebMvc.Models
         public DateTime EndTime  { get; set; }
         public string? Description  { get; set; }
         public string? Picture  { get; set; }
-        public DayOfWeek DayOfWeek  { get; set; }
+        public DaysOfWeek DaysOfWeek  { get; set; }
     }
 }

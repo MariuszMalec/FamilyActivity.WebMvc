@@ -1,8 +1,9 @@
 namespace FamilyActivity.WebMvc.Enums
 {
-    public enum DayOfWeek
+    public enum DaysOfWeek
     {
-        Sunday = 0,
+        All = 0,
+        Sunday,
         Monday,
         Tuesday,
         Wednesday,
