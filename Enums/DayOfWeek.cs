@@ -1,8 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace FamilyActivity.WebMvc.Enums
 {
     public enum DayOfWeek
     {
-        All = 0,
+        All,
         Sunday,
         Monday,
         Tuesday,

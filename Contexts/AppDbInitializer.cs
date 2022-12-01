@@ -80,11 +80,5 @@ namespace FamilyActivity.WebMvc.Contexts
                 return Enums.DayOfWeek.Sunday;
             return Enums.DayOfWeek.All;
         }
-
-        private static DateTime GetTime(string time)
-        {
-            DateTime dateTimeObject = DateTime.Parse(time);
-            return dateTimeObject;
-        }
     }
 }

@@ -1,8 +1,15 @@
 @using FamilyActivity.WebMvc.Models
+@using FamilyActivity.WebMvc.Enums
 @model FamilyActivity.WebMvc.Models.ViewActivityDays
 
 @{
     ViewData["Title"] = "Edit";
+}
+
+@{
+    var outcomeList = Html.GetEnumSelectList<FamilyActivity.WebMvc.Enums.DayOfWeek>().Where(l => int.Parse(l.Value) >= 0).ToList();
+    var dayOfWeekList = new List<SelectListItem>();
+    dayOfWeekList = outcomeList;
 }
 
 <h1>Edit</h1>
@@ -37,9 +44,17 @@
                 <span asp-validation-for="EndTime" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="DayOfWeek" class="control-label"></label>
                 <input asp-for="DayOfWeek" class="form-control" />
+                <span asp-validation-for="DayOfWeek" class="text-danger"></span>
+            </div> *@
+
+            <div class="form-group">
+                <label asp-for="DayOfWeek" class="control-label"></label>
+                <select asp-for="DayOfWeek" id="dayOfWeekSelect" asp-items="dayOfWeekList" class="form-control">
+                    <option selected="DayOfWeek">Please select</option>
+                </select>
                 <span asp-validation-for="DayOfWeek" class="text-danger"></span>
             </div>
 

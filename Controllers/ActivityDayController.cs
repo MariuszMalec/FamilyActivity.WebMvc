@@ -95,10 +95,10 @@ namespace FamilyActivity.WebMvc.Controllers
                         Description = activity.Description,
                         StartTime = activity.StartTime,
                         EndTime = activity.EndTime,
-                        DayOfWeek = activity.DayOfWeek,
-                        Picture = activity.Picture,
-                        //DayOfWeek = (int)activity.DayOfWeek
+                        DayOfWeek = activity.DayOfWeek, 
+                        Picture = activity.Picture
                     };           
+                    //TODO problem z DayOfWeek all
                     _context.Update(activity);
                     await _context.SaveChangesAsync();
                     //_logger.LogInformation($"Uzytkownik {user.LastName} zostal zmodyfikowany");
