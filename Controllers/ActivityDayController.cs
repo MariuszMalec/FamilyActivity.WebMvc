@@ -34,7 +34,8 @@ namespace FamilyActivity.WebMvc.Controllers
             .Where(t=>(int)t.DayOfWeek == (int)DateTime.Today.DayOfWeek ||
             (int)t.DayOfWeek == (int)Enums.DayOfWeek.All)
             //.Where(t=>(int)t.DayOfWeek == (int)Enums.DayOfWeek.All)
-            .OrderBy(t=>t.StartTime <= DateTime.Now.TimeOfDay)
+            //.OrderBy(t=>t.StartTime <= DateTime.Now.TimeOfDay)
+            .OrderByDescending(t=>DateTime.Now.TimeOfDay >= t.StartTime && DateTime.Now.TimeOfDay <= t.EndTime)
             ;
 
             var pageNumber = page ?? 1;
