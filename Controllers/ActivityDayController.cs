@@ -31,7 +31,9 @@ namespace FamilyActivity.WebMvc.Controllers
               var allActivties = _context.ActiviesDays.ToList();
 
             var sorted = allActivties
-            //.Where(t=>(int)t.DayOfWeek == (int)DateTime.Today.DayOfWeek+1)
+            .Where(t=>(int)t.DayOfWeek == (int)DateTime.Today.DayOfWeek ||
+            (int)t.DayOfWeek == (int)Enums.DayOfWeek.All)
+            //.Where(t=>(int)t.DayOfWeek == (int)Enums.DayOfWeek.All)
             .OrderBy(t=>t.StartTime <= DateTime.Now.TimeOfDay)
             ;
 
@@ -111,36 +113,5 @@ namespace FamilyActivity.WebMvc.Controllers
             }
             return View();
         }
-
-        // [HttpPost("{id}")]
-        // public IActionResult Edit(ViewActivityDays activityDays, int id)
-        // {
-        //     if (activityDays == null)
-        //         return BadRequest($"Brak aktywnosci!");
-
-        //     string table = "activiesDays";
-        //     string connString = "Server = 127.0.0.1; uid=root; pwd=Alicja@13; Database=activityDb;";
-
-        //     Console.WriteLine("Connection to mysql database");
-
-        //     var editActivity = new ViewActivityDays(){
-        //         Id = id,
-        //         Name = "",
-        //         CreatedAt = DateTime.Now,
-        //         StartTime = DateTime.Now,
-        //         EndTime = DateTime.Now.AddHours(1),
-        //         Description = "Spanie",
-        //         DaysOfWeek = DaysOfWeek.All
-        //     };
-
-        //     using (MySqlConnection conn = new MySqlConnection())
-        //     {
-        //         conn.ConnectionString = connString;
-        //         conn.Open();
-        //         MySqlCommand command = new MySqlCommand($"UPDATE {table} SET DayOfWeek = 0 WHERE Id = {id}", conn);
-        //     }
-        //     return Ok($"Activity with id {activityDays.Id} edited");
-        // }
-
     }
 }
