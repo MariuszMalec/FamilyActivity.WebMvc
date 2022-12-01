@@ -17,7 +17,7 @@ namespace FamilyActivity.WebMvc.Contexts
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlite("Data Source=C:\\Temp\\Databases\\Movies.db");//TODO to samo w appsettings.json jest
+            //optionsBuilder.UseMySql("Server = 127.0.0.1; uid=root; pwd=Alicja@13; Database=activityDb;");//TODO to samo w appsettings.json jest
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

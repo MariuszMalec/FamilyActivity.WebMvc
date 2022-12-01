@@ -21,53 +21,17 @@ namespace FamilyActivity.WebMvc.Controllers
     {
         private readonly ApplicationContext _context;
 
-        public ActivityDayController(ApplicationContext context = null)
+        public ActivityDayController(ApplicationContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index(int? page)
         {
-  
-            // string table = "activiesDays";
-            // string connString = "Server = 127.0.0.1; uid=root; pwd=Alicja@13; Database=activityDb;";
-   
-            // Console.WriteLine("Connection to mysql database");
-            // using (MySqlConnection conn = new MySqlConnection())
-            // {
-            //     conn.ConnectionString = connString;
-            //     conn.Open();
-            //     MySqlCommand command = new MySqlCommand($"SELECT * FROM {table}", conn);
-
-            //     using (MySqlDataReader reader = command.ExecuteReader())
-            //     {
-            //         Console.WriteLine("Id\tname\t\tstartTime\t\tendTime\t\tdescription\t\tpicture\t\tdayOfWeek\t\tcreatedAt\t");
-            //         while (reader.Read())
-            //         {
-            //             Console.WriteLine(string.Format("{0} \t | {1} \t | {2} \t | {3} \t | {4} \t | {5} \t | {6}",
-            //                 reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6]));
-            //             allActivties.Add(new ViewActivityDays()  
-            //             {  
-            //                 Id = Convert.ToInt32(reader["Id"]),  
-            //                 Name = reader["Name"].ToString(),
-            //                 Picture = reader["Picture"].ToString(),
-            //                 Description = reader["Description"].ToString(),
-            //                 StartTime  = GetTime(reader["starttime"].ToString()),
-            //                 EndTime  = DateTime.Parse(reader["endtime"].ToString()),
-            //                 DaysOfWeek  = GetDay(reader["dayofweek"].ToString())
-            //             });
-            //         }
-            //         Console.WriteLine("Data displayed! Now press enter to move to the next section!");
-            //         //Console.ReadLine();
-            //         Console.Clear();
-            //         conn.Close();
-            //     }
-            // }
-
-            var allActivties = _context.ActiviesDays.ToList();
+              var allActivties = _context.ActiviesDays.ToList();
 
             var sorted = allActivties
-            //.Where(t=>t.DaysOfWeek == DateTime.Today.DayOfWeek)
+            //.Where(t=>(int)t.DayOfWeek == (int)DateTime.Today.DayOfWeek+1)
             .OrderBy(t=>t.StartTime <= DateTime.Now.TimeOfDay)
             ;
 
@@ -78,31 +42,19 @@ namespace FamilyActivity.WebMvc.Controllers
             return View(onePageOfEvents);
         }
 
-        // private DaysOfWeek GetDay(string day)
-        // {
-        //     if (day.Contains('1'))
-        //         return DaysOfWeek.Monday;
-        //     if (day.Contains('2'))
-        //         return DaysOfWeek.Tuesday;
-        //     if (day.Contains('3'))
-        //         return DaysOfWeek.Wednesday;
-        //     if (day.Contains('4'))
-        //         return DaysOfWeek.Thursday;
-        //     if (day.Contains('5'))
-        //         return DaysOfWeek.Friday;
-        //     if (day.Contains('6'))
-        //         return DaysOfWeek.Saturday;
-        //     if (day.Contains('7'))
-        //         return DaysOfWeek.Sunday;
-        //     return DaysOfWeek.All;
-        // }
-
-        private DateTime GetTime(string time)
+        [HttpGet("Details/{id}")]
+        public async Task<IActionResult> Details(int id)
         {
-            DateTime dateTimeObject = DateTime.Parse(time);
-            return dateTimeObject;
+            var model = await _context.ActiviesDays.FindAsync(id);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+            //_logger.LogInformation($"Wybrales gracza {user.FirstName} z bazy danych z mapowanego do widoku");
+            return View(model);
         }
-                
+
         // GET: UserController/Edit/5
         [HttpGet("Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
@@ -127,14 +79,29 @@ namespace FamilyActivity.WebMvc.Controllers
         }
 
         //POST: UserController/Edit/5
-        [HttpPost]
+        [HttpPost("Edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, ViewActivityDays activity)
+        public async Task<ActionResult<ViewActivityDays>> Edit(int id, ViewActivityDays activity)
         {
             try
             {
                 if (ModelState.IsValid)
-                {                    
+                {         
+                    activity = new ViewActivityDays()
+                    {
+                        Id = activity.Id,
+                        CreatedAt = DateTime.Now,
+                        Name = activity.Name,
+                        Description = activity.Description,
+                        StartTime = activity.StartTime,
+                        EndTime = activity.EndTime,
+                        DayOfWeek = activity.DayOfWeek,
+                        Picture = activity.Picture,
+                        //DayOfWeek = (int)activity.DayOfWeek
+                    };           
+                    _context.Update(activity);
+                    await _context.SaveChangesAsync();
+                    //_logger.LogInformation($"Uzytkownik {user.LastName} zostal zmodyfikowany");
                     return RedirectToAction(nameof(Index));
                 }   
             }
