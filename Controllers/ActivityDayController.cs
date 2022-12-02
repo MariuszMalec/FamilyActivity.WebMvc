@@ -20,7 +20,6 @@ namespace FamilyActivity.WebMvc.Controllers
     public class ActivityDayController : Controller
     {
         private readonly ApplicationContext _context;
-
         public ActivityDayController(ApplicationContext context)
         {
             _context = context;
@@ -98,8 +97,7 @@ namespace FamilyActivity.WebMvc.Controllers
                         Description = activity.Description,
                         StartTime = activity.StartTime,
                         EndTime = activity.EndTime,
-                        DayOfWeek = activity.DayOfWeek, 
-                        Picture = activity.Picture
+                        DayOfWeek = activity.DayOfWeek
                     };           
                     //TODO problem z DayOfWeek all
                     _context.Update(activity);
@@ -114,5 +112,38 @@ namespace FamilyActivity.WebMvc.Controllers
             }
             return View();
         }
+
+        // GET: UserController/Create
+        [HttpGet("Create")]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: UserController/Create
+        [HttpPost("Create")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ViewActivityDays activity)
+        {
+            if (ModelState.IsValid)
+            {
+                    activity = new ViewActivityDays()
+                    {
+                        Id = activity.Id,
+                        CreatedAt = DateTime.Now,
+                        Name = activity.Name,
+                        Description = activity.Description,
+                        StartTime = activity.StartTime,
+                        EndTime = activity.EndTime,
+                        DayOfWeek = activity.DayOfWeek, 
+                        Picture = activity.Picture
+                    };
+                _context.Add(activity);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(activity);
+        }
+
     }
 }

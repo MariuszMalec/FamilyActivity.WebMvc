@@ -10,6 +10,11 @@
 
 <h2>Activity days</h2>
 
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
     @foreach (var item in Model)
     {
         <div class="row-md-4 col-xs-3 border-primary mb-3">
@@ -32,7 +37,12 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <img src="@item.Picture" width="100%" alt="@item.Picture">
+                        <img src="@item.Picture" alt="@item.Picture"
+                        style="object-fit:scale-down;
+                            width:100%;
+                            height:auto;
+                            border: solid 1px #CCC"
+                        >
                     </div>
                     <div class="col-md-6">
                         <div class="card-body">
