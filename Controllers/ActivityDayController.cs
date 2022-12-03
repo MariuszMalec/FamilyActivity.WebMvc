@@ -31,7 +31,7 @@ namespace FamilyActivity.WebMvc.Controllers
 
             var sorted = allActivties
             .Where(t=>(int)t.DayOfWeek == (int)Enums.DayOfWeek.All || t.DayOfWeek.ToString().Contains(DateTime.Now.DayOfWeek.ToString()))
-            .Where(t=>DateTime.Now.TimeOfDay <= t.StartTime)
+            .Where(t=>DateTime.Now.TimeOfDay >= t.StartTime && DateTime.Now.TimeOfDay <= t.EndTime)
             .OrderBy(t=>t.StartTime)
             ;
 
