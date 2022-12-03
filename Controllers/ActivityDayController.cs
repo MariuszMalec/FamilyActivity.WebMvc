@@ -103,6 +103,7 @@ namespace FamilyActivity.WebMvc.Controllers
                         Description = activity.Description,
                         StartTime = activity.StartTime,
                         EndTime = activity.EndTime,
+                        Picture = activity.Picture,
                         DayOfWeek = activity.DayOfWeek
                     };           
                     //TODO problem z DayOfWeek all
