@@ -18,7 +18,7 @@
     @foreach (var item in Model)
     {
         <div class="row-md-4 col-xs-3 border-primary mb-3">
-            <div class="card mb-3" style="max-width: 540px;">
+            <div class="card mb-3" style="max-width: 340px;">
                 <div class="row g-0">
                     <div class="rows-md-12">
                         <div class="card-header text-white bg-info">
@@ -103,7 +103,7 @@
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index",new { page }))
+@Html.PagedListPager(Model, page => Url.Action("GetAll",new { page }))
 
 
 

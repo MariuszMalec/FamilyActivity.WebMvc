@@ -29,14 +29,6 @@ namespace FamilyActivity.WebMvc.Controllers
         {
             var allActivties = _context.ActiviesDays.ToList();
 
-            foreach (var item in allActivties)
-            {
-                if (item.DayOfWeek.ToString().Contains(DateTime.Now.DayOfWeek.ToString()))
-                {
-                    var day = item.DayOfWeek;
-                }
-            }
-
             var sorted = allActivties
             .Where(t=>(int)t.DayOfWeek == (int)Enums.DayOfWeek.All || t.DayOfWeek.ToString().Contains(DateTime.Now.DayOfWeek.ToString()))
             .Where(t=>DateTime.Now.TimeOfDay <= t.StartTime)
@@ -45,6 +37,26 @@ namespace FamilyActivity.WebMvc.Controllers
 
             var pageNumber = page ?? 1;
             var perPage = 1;
+            var onePageOfEvents = await sorted.ToPagedListAsync(pageNumber, perPage);
+
+            return View(onePageOfEvents);
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll(int? page)
+        {
+            var allActivties = await _context.ActiviesDays.ToListAsync();
+            if (allActivties == null)
+            {
+                return NotFound();
+            }
+
+            var sorted = allActivties
+            .OrderBy(t=>t.StartTime)
+            ;
+
+            var pageNumber = page ?? 1;
+            var perPage = 3;
             var onePageOfEvents = await sorted.ToPagedListAsync(pageNumber, perPage);
 
             return View(onePageOfEvents);
@@ -150,6 +162,54 @@ namespace FamilyActivity.WebMvc.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(activity);
+        }
+
+        [HttpGet("Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var allActivties = new List<ViewActivityDays>();
+            if (_context.ActiviesDays.Any())
+            {
+                allActivties = await _context.ActiviesDays.ToListAsync();
+            }
+
+            var activity = allActivties.Where(a=>a.Id == id).FirstOrDefault();
+            if (activity == null) 
+            {
+                return NotFound();
+            }
+            return View(activity);
+        }
+
+        [HttpPost("Delete/{id}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id, ViewActivityDays activity)
+        {
+            try
+            {
+                var currentActivity = await _context.ActiviesDays.FindAsync(id);
+
+                if (currentActivity == null)
+                {
+                    return NotFound();
+                }
+
+                _context.ActiviesDays.Remove(currentActivity);
+                _context.SaveChanges();
+
+                //_logger.LogWarning("Get({Id}) you deleted uzytkownika from data base! ", user.LastName);
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch
+            {
+                return View();
+            }
         }
 
     }
