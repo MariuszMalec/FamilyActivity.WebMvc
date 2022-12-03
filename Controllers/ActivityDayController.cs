@@ -27,18 +27,24 @@ namespace FamilyActivity.WebMvc.Controllers
 
         public async Task<IActionResult> Index(int? page)
         {
-              var allActivties = _context.ActiviesDays.ToList();
+            var allActivties = _context.ActiviesDays.ToList();
+
+            foreach (var item in allActivties)
+            {
+                if (item.DayOfWeek.ToString().Contains(DateTime.Now.DayOfWeek.ToString()))
+                {
+                    var day = item.DayOfWeek;
+                }
+            }
 
             var sorted = allActivties
-            .Where(t=>(int)t.DayOfWeek == (int)DateTime.Today.DayOfWeek ||
-            (int)t.DayOfWeek == (int)Enums.DayOfWeek.All)
-            //.Where(t=>(int)t.DayOfWeek == (int)Enums.DayOfWeek.All)
-            //.OrderBy(t=>t.StartTime <= DateTime.Now.TimeOfDay)
-            .OrderByDescending(t=>DateTime.Now.TimeOfDay >= t.StartTime && DateTime.Now.TimeOfDay <= t.EndTime)
+            .Where(t=>(int)t.DayOfWeek == (int)Enums.DayOfWeek.All || t.DayOfWeek.ToString().Contains(DateTime.Now.DayOfWeek.ToString()))
+            .Where(t=>DateTime.Now.TimeOfDay <= t.StartTime)
+            .OrderBy(t=>t.StartTime)
             ;
 
             var pageNumber = page ?? 1;
-            var perPage = 2;
+            var perPage = 1;
             var onePageOfEvents = await sorted.ToPagedListAsync(pageNumber, perPage);
 
             return View(onePageOfEvents);
