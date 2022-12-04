@@ -37,20 +37,20 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <img src="@item.Picture" alt="@item.Picture"
+                            <img class="card-img-top" src="@item.Picture" alt="@item.Picture"
                             style="object-fit:scale-down;
-                                width:100%;
+                                width:80%;
                                 height:auto;
                                 border: solid 1px #CCC"
                             >
                         </div>
-                        <div class="col-md-6">
+                        <div>
                             <div class="card-body">
-                                <p class="card-text">@item.Description</p>
-                                <p class="card-text"><b>Description: </b>@item.Description</p>
-                                <p class="card-text"><b>Start Time: </b>@item.StartTime.ToString()</p>
-                                <p class="card-text"><b>End Time: </b>@item.EndTime.ToString()</p>
-                                <p class="card-text"><b>Day of week: </b>@item.DayOfWeek.ToString()</p>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Description: @item.Description</li>
+                                    <li class="list-group-item">@item.StartTime.ToString() - @item.EndTime.ToString()</li>
+                                    <li class="list-group-item">Day of week: @item.DayOfWeek.ToString()</li>
+                                </ul>
                                 <p class="card-text ">
                                     <b>Status: </b>
                                     @if (DateTime.Now.TimeOfDay >= item.StartTime && DateTime.Now.TimeOfDay <= item.EndTime)
