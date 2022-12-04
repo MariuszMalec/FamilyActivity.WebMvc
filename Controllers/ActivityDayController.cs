@@ -52,6 +52,7 @@ namespace FamilyActivity.WebMvc.Controllers
             }
 
             var sorted = allActivties
+            //.OrderBy(t=>DateTime.Now.TimeOfDay >= t.StartTime && DateTime.Now.TimeOfDay <= t.EndTime)
             .OrderBy(t=>t.StartTime)
             ;
 
