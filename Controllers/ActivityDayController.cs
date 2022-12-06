@@ -30,9 +30,10 @@ namespace FamilyActivity.WebMvc.Controllers
             var allActivties = _context.ActiviesDays.ToList();
 
             var sorted = allActivties
-            .Where(t=>(int)t.DayOfWeek == (int)Enums.DayOfWeek.All || t.DayOfWeek.ToString().Contains(DateTime.Now.DayOfWeek.ToString()))
-            .Where(t=>DateTime.Now.TimeOfDay >= t.StartTime && DateTime.Now.TimeOfDay <= t.EndTime)
-            .OrderBy(t=>t.StartTime)
+            .Where(t=>(int)t.DayOfWeek == (int)Enums.DayOfWeek.All || t.DayOfWeek.ToString().Contains(DateTime.Now.DayOfWeek.ToString()))          
+            .OrderByDescending(t=>DateTime.Now.TimeOfDay >= t.StartTime && DateTime.Now.TimeOfDay <= t.EndTime)
+            .ThenBy(t=>DateTime.Now.TimeOfDay > t.EndTime)
+            .Take(2)
             ;
 
             var pageNumber = page ?? 1;
@@ -52,8 +53,8 @@ namespace FamilyActivity.WebMvc.Controllers
             }
 
             var sorted = allActivties
-            //.OrderBy(t=>DateTime.Now.TimeOfDay >= t.StartTime && DateTime.Now.TimeOfDay <= t.EndTime)
-            .OrderBy(t=>t.StartTime)
+            .OrderBy(t=>t.DayOfWeek)    
+            .ThenBy(t=>t.StartTime)  
             ;
 
             var pageNumber = page ?? 1;
