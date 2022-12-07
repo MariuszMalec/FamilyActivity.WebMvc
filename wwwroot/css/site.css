@@ -16,3 +16,18 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+a:link, a:visited {
+  background-color: #7ea048;
+  color: rgb(29, 26, 26);
+  padding: 7px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  margin: 1px;
+}
+
+a:hover, a:active {
+  background-color: rgb(164, 118, 202);
+}

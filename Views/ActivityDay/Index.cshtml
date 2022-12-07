@@ -29,9 +29,6 @@
                                     {
                                         
                                     }*@
-
-                                    <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
-
                                 </h5>
                             </p>
                         </div>
@@ -102,7 +99,6 @@
 
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
 @Html.PagedListPager(Model, page => Url.Action("Index",new { page }))
 
 
