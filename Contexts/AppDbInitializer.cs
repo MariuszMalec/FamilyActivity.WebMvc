@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FamilyActivity.WebMvc.Enums;
 using FamilyActivity.WebMvc.Models;
 using MySqlConnector;
+using Npgsql;
 
 namespace FamilyActivity.WebMvc.Contexts
 {
@@ -21,16 +22,17 @@ namespace FamilyActivity.WebMvc.Contexts
                 context.Database.EnsureCreated();
 
                 string table = "activiesDays";
-                string connString = "Server = 127.0.0.1; uid=root; pwd=Alicja@13; Database=activityDb;";
+                string connString = "Server = localhost; Port=5432; User Id=postgres; Password=Alicja13a; Database=activityDb;";
     
-                Console.WriteLine("Connection to mysql database");
-                using (MySqlConnection conn = new MySqlConnection())
+                Console.WriteLine("Connection to postgressql database");
+
+                using (NpgsqlConnection conn = new NpgsqlConnection())
                 {
                     conn.ConnectionString = connString;
                     conn.Open();
-                    MySqlCommand command = new MySqlCommand($"SELECT * FROM {table}", conn);
+                    NpgsqlCommand command = new NpgsqlCommand($"SELECT * FROM \"{table}\";", conn);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
                         Console.WriteLine("Id\tname\t\tstartTime\t\tendTime\t\tdescription\t\tpicture\t\tdayOfWeek\t\tcreatedAt\t");
                         while (reader.Read())
