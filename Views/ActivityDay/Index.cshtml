@@ -10,7 +10,6 @@
 
 <h2>Activity days</h2>
 
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -25,10 +24,6 @@
                             <p class="card-text">
                                 <h5 class="card-title">
                                     @item.Description.ToUpper()
-@*                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                                    {
-                                        
-                                    }*@
                                 </h5>
                             </p>
                         </div>
@@ -96,7 +91,6 @@
             </div>
         </div>
     }
-
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 @Html.PagedListPager(Model, page => Url.Action("Index",new { page }))
