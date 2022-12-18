@@ -1,5 +1,6 @@
 using FamilyActivity.WebMvc.Contexts;
 using FamilyActivity.WebMvc.Middleware;
+using FamilyActivity.WebMvc.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
+builder.Services.AddTransient<IActivityService, ActivityService>();
 
 //to musi byc dla core6
 ConfigurationManager configuration = builder.Configuration;
