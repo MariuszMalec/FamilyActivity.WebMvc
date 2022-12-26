@@ -1,0 +1,70 @@
+@using FamilyActivity.WebMvc.Models;
+@using X.PagedList.Mvc.Core;
+@model List<FamilyActivity.WebMvc.Models.ViewActivityDays>
+
+<link rel="stylesheet" href="~/css/horizontalscroling.css" asp-append-version="true" />
+
+@{
+    ViewData["Title"] = "List of activity";
+    ViewBag.Title = "Activity";
+}
+
+<h2>Activity</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+
+<div class="media-scroller snaps-inline">
+    @foreach (var item in Model)
+    {
+            <div class="media-element" >
+
+
+                        <div class="row-md-12">
+                            <div class="card-header text-white bg-info">
+                                <p class="card-text">
+                            <h5 class="card-title">
+                            @item.Name
+                                </h5>
+                                </p>
+                            </div>
+                        </div>
+
+
+                    <div class="col-md-6">
+                        <img src="@item.Picture" alt="@item.Picture"
+                     style="object-fit:scale-down;
+                            width:100%;
+                            height:auto;
+                            border: solid 1px #CCC">
+
+                    </div>
+
+                <div class="card-body">
+                    <p class="card-text">@item.Description</p>
+                    <p class="card-text"><b>Category: </b>@item.Description</p>
+                    <p class="card-text"><b>Day of week: </b>@item.DayOfWeek</p>
+                    <p class="card-text"><b>Start Date: </b>@item.StartTime.ToString("")</p>
+                    <p class="card-text"><b>End Date: </b>@item.EndTime.ToString()</p>
+                    <p class="card-text ">
+                        <b>Status: </b>
+                    @if (DateTime.Now.TimeOfDay >= item.StartTime && DateTime.Now.TimeOfDay <= item.EndTime)
+                    {
+                        <span class="badge bg-success text-white">AVAILABLE</span>
+                    }
+                    else if (DateTime.Now.TimeOfDay > item.EndTime)
+                    {
+                        <span class="badge bg-danger text-white">EXPIRED</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-primary text-white">UPCOMING</span>
+                    }
+                    </p>
+                </div>
+
+            </div>
+    }
+    <br />
+</div>
