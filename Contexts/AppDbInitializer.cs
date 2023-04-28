@@ -21,7 +21,7 @@ namespace FamilyActivity.WebMvc.Contexts
                 context.Database.EnsureCreated();
 
                 string table = "activiesDays";
-                string connString = "Server = 127.0.0.1; uid=root; pwd=Alicja@13; Database=activityDb;";
+                string connString = "Server = 127.0.0.1; uid=root; pwd=''; Database=activityDb;";
     
                 Console.WriteLine("Connection to mysql database");
                 using (MySqlConnection conn = new MySqlConnection())
@@ -61,6 +61,43 @@ namespace FamilyActivity.WebMvc.Contexts
                     }
                 }
             }           
+        }
+
+        public static void SeedData(IApplicationBuilder applicationBuilder)
+        {
+            List<ViewActivityDays> allActivties = new List<ViewActivityDays>();
+
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<ApplicationContext>();
+
+                context.Database.EnsureCreated();
+
+                string table = "activiesDays";
+                string connString = "Server = 127.0.0.1; uid=root; pwd=''; Database=activityDb;";
+
+                Console.WriteLine("Connection to mysql database");
+                using (MySqlConnection cn = new MySqlConnection(connString))
+                {
+                    try
+                    {
+                        string query = $"INSERT INTO {table}(name,startTime,endTime,description,picture,dayOfWeek,createdAt) " +
+                            $"VALUES ('rysowanie','16:00:00','17:00:00','rysowanie olowkiem','https://images.unsplash.com/photo-1525278070609-779c7adb7b71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1147&q=80',1, CURRENT_TIMESTAMP);";
+                        cn.Open();
+                        using (MySqlCommand cmd = new MySqlCommand(query, cn))
+                        {
+                            if (!context.ActiviesDays.Any())
+                                cmd.ExecuteNonQuery();
+                        }
+                        Console.Clear();
+                        cn.Close();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        Console.WriteLine("Error in adding mysql row. Error: " + ex.Message);
+                    }
+                }
+            }
         }
         private static Enums.DayOfWeek GetDay(string day)
         {
