@@ -33,8 +33,8 @@ Configuration = builder.Configuration;
 var app = builder.Build();
 
 //Seed database
-AppDbInitializer.Seed(app);
-AppDbInitializer.SeedData(app);
+AppDbInitializer.Seed(app, Configuration);
+AppDbInitializer.SeedData(app, Configuration);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

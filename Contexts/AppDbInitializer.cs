@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FamilyActivity.WebMvc.Enums;
 using FamilyActivity.WebMvc.Models;
 using MySqlConnector;
 
@@ -10,9 +5,11 @@ namespace FamilyActivity.WebMvc.Contexts
 {
     public class AppDbInitializer
     {
-        public static void Seed(IApplicationBuilder applicationBuilder)
+        public static void Seed(IApplicationBuilder applicationBuilder, IConfiguration configuration)
         {
             List<ViewActivityDays> allActivties = new List<ViewActivityDays>();
+
+            var provider = configuration.GetConnectionString("Default");
 
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
@@ -21,7 +18,7 @@ namespace FamilyActivity.WebMvc.Contexts
                 context.Database.EnsureCreated();
 
                 string table = "activiesDays";
-                string connString = "Server = 127.0.0.1; uid=root; pwd=''; Database=activityDb;";
+                string connString = provider;
     
                 Console.WriteLine("Connection to mysql database");
                 using (MySqlConnection conn = new MySqlConnection())
@@ -63,9 +60,11 @@ namespace FamilyActivity.WebMvc.Contexts
             }           
         }
 
-        public static void SeedData(IApplicationBuilder applicationBuilder)
+        public static void SeedData(IApplicationBuilder applicationBuilder, IConfiguration configuration)
         {
             List<ViewActivityDays> allActivties = new List<ViewActivityDays>();
+
+            var provider = configuration.GetConnectionString("Default");
 
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
@@ -74,7 +73,7 @@ namespace FamilyActivity.WebMvc.Contexts
                 context.Database.EnsureCreated();
 
                 string table = "activiesDays";
-                string connString = "Server = 127.0.0.1; uid=root; pwd=''; Database=activityDb;";
+                string connString = provider;
 
                 Console.WriteLine("Connection to mysql database");
                 using (MySqlConnection cn = new MySqlConnection(connString))
