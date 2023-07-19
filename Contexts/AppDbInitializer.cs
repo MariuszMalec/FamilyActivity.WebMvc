@@ -21,7 +21,7 @@ namespace FamilyActivity.WebMvc.Contexts
                 context.Database.EnsureCreated();
 
                 string table = "activiesDays";
-                string connString = "Server = 127.0.0.1; uid=root; pwd=''; Database=activityDb;";
+                string connString = "Server = 127.0.0.1; uid=mario; pwd='mario13'; Database=activityDb;";
     
                 Console.WriteLine("Connection to mysql database");
                 using (MySqlConnection conn = new MySqlConnection())
@@ -74,7 +74,7 @@ namespace FamilyActivity.WebMvc.Contexts
                 context.Database.EnsureCreated();
 
                 string table = "activiesDays";
-                string connString = "Server = 127.0.0.1; uid=root; pwd=''; Database=activityDb;";
+                string connString = "Server = 127.0.0.1; uid=mario; pwd='mario13'; Database=activityDb;";
 
                 Console.WriteLine("Connection to mysql database");
                 using (MySqlConnection cn = new MySqlConnection(connString))
