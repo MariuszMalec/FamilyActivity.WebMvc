@@ -7,6 +7,10 @@
 }
 
 @{
+    ViewBag.Title = "Products";
+}
+
+@{
     var outcomeList = Html.GetEnumSelectList<FamilyActivity.WebMvc.Enums.DayOfWeek>().Where(l => int.Parse(l.Value) >= 0).ToList();
     var dayOfWeekList = new List<SelectListItem>();
     dayOfWeekList = outcomeList;
@@ -66,9 +70,31 @@
 </div>
 
 <div>
-    <a asp-action="GetAll">Back to List</a>
+    <a id="btnAjax" asp-action="GetAll">Back to List</a>
 </div>
 
 @section Scripts {
+    <script>
+        $('#btnAjax').click(function () {
+            //alert("heja!!!");
+            $.ajax({
+                url: '/ActivityDay/GetAll',
+                contentType: 'application/html; charset=utf-8',
+                type: 'GET',
+                dataType: 'html'
+            })
+                .success(function (result) {
+                    alert("success");
+                })
+                .error(function (xhr, status) {
+                    alert("fail");
+                })
+        });
+
+
+    </script>
+    }
+
+@*@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+}*@
