@@ -7,8 +7,6 @@ using FamilyActivity.WebMvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using X.PagedList;
-
-
 using MySqlConnector;
 using FamilyActivity.WebMvc.Enums;
 using System.Net.Sockets;
