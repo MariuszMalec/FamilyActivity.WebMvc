@@ -3,6 +3,8 @@ using FamilyActivity.WebMvc.Middleware;
 using FamilyActivity.WebMvc.Services;
 using Microsoft.EntityFrameworkCore;
 
+bool sqlite = true;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,24 +19,39 @@ IConfiguration Configuration;
 Configuration = builder.Configuration;
 //DbContext configuration
 
-        var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
-
-        // Replace 'YourDbContext' with the name of your own DbContext derived class.
-        builder.Services.AddDbContext<ApplicationContext>(
-            dbContextOptions => dbContextOptions
-                .UseMySql(Configuration.GetConnectionString("Default"), serverVersion)
-                // The following three options help with debugging, but should
-                // be changed or removed for production.
-                .LogTo(Console.WriteLine, LogLevel.Information)
-                .EnableSensitiveDataLogging()
-                .EnableDetailedErrors()
-        );
+if (sqlite)
+{
+    var connectionString = Configuration.GetConnectionString("Sqlite");
+    builder.Services.AddDbContext<ApplicationContext>(o => o.UseSqlite(connectionString));
+}
+else
+{
+    var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
+    // Replace 'YourDbContext' with the name of your own DbContext derived class.
+    builder.Services.AddDbContext<ApplicationContext>(
+        dbContextOptions => dbContextOptions
+            .UseMySql(Configuration.GetConnectionString("Default"), serverVersion)
+            // The following three options help with debugging, but should
+            // be changed or removed for production.
+            .LogTo(Console.WriteLine, LogLevel.Information)
+            .EnableSensitiveDataLogging()
+            .EnableDetailedErrors()
+    );
+}
 
 var app = builder.Build();
 
 //Seed database
-AppDbInitializer.Seed(app, Configuration);
-AppDbInitializer.SeedData(app, Configuration);
+if (sqlite)
+{
+    AppDbInitializer.SeedToSqlLite(app, Configuration);
+    AppDbInitializer.SeedSqlitelData(app, Configuration);
+}
+else
+{
+    AppDbInitializer.SeedMySql(app, Configuration);
+    AppDbInitializer.SeedMySqlData(app, Configuration);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
