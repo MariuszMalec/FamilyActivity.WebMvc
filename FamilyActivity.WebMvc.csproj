@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <None Update="DataBase\MainAppUsersDb.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

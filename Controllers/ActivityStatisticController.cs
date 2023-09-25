@@ -28,7 +28,7 @@ namespace FamilyActivity.WebMvc.Controllers
             }
 
             var sums = events.GroupBy(x => x.Name)
-                .ToDictionary(x => x.Key, x => x.Select(y => y.Id).Sum());
+                .ToDictionary(x => x.Key, x => x.Select(y => y.Name.Count()).Sum());
 
             return View(new ActivityStatisticsView() { ActivitySums = sums });
         }
