@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using FamilyActivity.WebMvc.Models;
 using FamilyActivity.WebMvc.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace FamilyActivity.WebMvc.Controllers
 {
@@ -27,8 +21,8 @@ namespace FamilyActivity.WebMvc.Controllers
                 return RedirectToAction("EmptyList");
             }
 
-            var sums = events.GroupBy(x => x.Name)
-                .ToDictionary(x => x.Key, x => x.Select(y => y.Name.Count()).Sum());
+            var sums = events.GroupBy(x => x.Name.ToString())
+                .ToDictionary(x => x.Key, x => x.Select(y => Convert.ToInt32(y.Name)).Sum());
 
             return View(new ActivityStatisticsView() { ActivitySums = sums });
         }

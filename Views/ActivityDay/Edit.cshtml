@@ -16,6 +16,12 @@
     dayOfWeekList = outcomeList;
 }
 
+@{
+    var activities = Html.GetEnumSelectList<ActivityName>().Where(l => int.Parse(l.Value) >= 0).ToList();
+    var activitiesList = new List<SelectListItem>();
+    activitiesList = activities;
+}
+
 <h1>Edit</h1>
 
 <h4>Activity view</h4>
@@ -25,9 +31,16 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+@*                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span> *@
+
+                <label asp-for="Name" class="control-label"></label>
+                <select asp-for="Name" id="activitiesSelect" asp-items="activitiesList" class="form-control">
+                    <option selected="Name">Please select</option>
+                </select>
                 <span asp-validation-for="Name" class="text-danger"></span>
+
             </div>
 
             <div class="form-group">

@@ -10,7 +10,7 @@ namespace FamilyActivity.WebMvc.Models
     {
         public int Id { get; set; }
         public DateTime CreatedAt  { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public ActivityName Name { get; set; }
         public TimeSpan StartTime  { get; set; }
         public TimeSpan EndTime  { get; set; }
         public string? Description  { get; set; }
