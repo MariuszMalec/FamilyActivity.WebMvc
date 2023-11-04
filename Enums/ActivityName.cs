@@ -10,5 +10,6 @@
         Odrabianie_lekcji,
         Basen,
         Wstazka,
+        Bajki
     }
 }

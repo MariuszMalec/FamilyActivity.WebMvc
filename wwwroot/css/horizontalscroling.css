@@ -2,11 +2,11 @@
 @import "https://unpkg.com/open-props/normalize.min.css";
 
 .media-scroller {
-    --_spacer: var(--size-3);
+    --_spacer: var(--size-1);
     display: grid;
     gap: var(--_spacer);
     grid-auto-flow: column;
-    grid-auto-columns: 31%;
+    grid-auto-columns: 21%;
     padding: 0 var(--_spacer) var(--_spacer);
     overflow-x: auto;
     overscroll-behavior-inline: contain;
@@ -27,7 +27,7 @@
     grid-template-rows: min-content;
     gap: var(--_spacer);
     padding: var(--_spacer);
-    background: var(--surface-2);
+    background: var(--surface-4);
     border-radius: var(--radius-2);
     box-shadow: var(--shadow-2);
 }
