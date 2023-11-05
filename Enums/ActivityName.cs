@@ -10,6 +10,8 @@
         Odrabianie_lekcji,
         Basen,
         Wstazka,
-        Bajki
+        Bajki,
+        Czas_spac,
+        Czas_do_pracy
     }
 }
