@@ -4,6 +4,6 @@ namespace FamilyActivity.WebMvc.Services
 {
     public interface IActivityService
     {
-        Task<List<ViewActivityDays>> GetAll();
+        Task<List<ModelActivityDays>> GetAll();
     }
 }

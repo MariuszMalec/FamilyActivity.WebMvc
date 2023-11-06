@@ -16,7 +16,7 @@ namespace FamilyActivity.WebMvc.Contexts
         //czas do pracy =>https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
         public static void SeedToSqlLite(IApplicationBuilder applicationBuilder, IConfiguration configuration)
         {
-            List<ViewActivityDays> allActivties = new List<ViewActivityDays>();
+            List<ModelActivityDays> allActivties = new List<ModelActivityDays>();
 
             var provider = configuration.GetConnectionString("Sqlite");
 
@@ -43,7 +43,7 @@ namespace FamilyActivity.WebMvc.Contexts
                         {
                             Console.WriteLine(string.Format("{0} \t | {1} \t | {2} \t | {3} \t | {4} \t | {5} \t | {6} \t | {7}",
                                 reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7]));
-                            allActivties.Add(new ViewActivityDays()
+                            allActivties.Add(new ModelActivityDays()
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
                                 Name = GetName(reader["Name"].ToString()),
@@ -72,7 +72,7 @@ namespace FamilyActivity.WebMvc.Contexts
 
         public static void SeedSqlitelData(IApplicationBuilder applicationBuilder, IConfiguration configuration)
         {
-            List<ViewActivityDays> allActivties = new List<ViewActivityDays>();
+            List<ModelActivityDays> allActivties = new List<ModelActivityDays>();
 
             var provider = configuration.GetConnectionString("Sqlite");
 
@@ -130,7 +130,7 @@ namespace FamilyActivity.WebMvc.Contexts
 
         public static void SeedMySql(IApplicationBuilder applicationBuilder, IConfiguration configuration)
         {
-            List<ViewActivityDays> allActivties = new List<ViewActivityDays>();
+            List<ModelActivityDays> allActivties = new List<ModelActivityDays>();
 
             var provider = configuration.GetConnectionString("Default");
 
@@ -157,7 +157,7 @@ namespace FamilyActivity.WebMvc.Contexts
                         {
                             Console.WriteLine(string.Format("{0} \t | {1} \t | {2} \t | {3} \t | {4} \t | {5} \t | {6}",
                                 reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6]));
-                            allActivties.Add(new ViewActivityDays()  
+                            allActivties.Add(new ModelActivityDays()  
                             {  
                                 Id = Convert.ToInt32(reader["Id"]),  
                                 Name = GetName(reader["Name"].ToString()),
@@ -185,7 +185,7 @@ namespace FamilyActivity.WebMvc.Contexts
 
         public static void SeedMySqlData(IApplicationBuilder applicationBuilder, IConfiguration configuration)
         {
-            List<ViewActivityDays> allActivties = new List<ViewActivityDays>();
+            List<ModelActivityDays> allActivties = new List<ModelActivityDays>();
 
             var provider = configuration.GetConnectionString("Default");
 

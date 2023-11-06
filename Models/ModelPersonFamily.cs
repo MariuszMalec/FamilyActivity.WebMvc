@@ -2,7 +2,7 @@
 
 namespace FamilyActivity.WebMvc.Models
 {
-    public class ViewPersonFamily
+    public class ModelPersonFamily
     {
         public int Id { get; set; }
         public PersonFamily PersonName { get; set; }

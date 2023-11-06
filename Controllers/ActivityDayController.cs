@@ -87,7 +87,7 @@ namespace FamilyActivity.WebMvc.Controllers
                 return NotFound();
             }
 
-            var allActivties = new List<ViewActivityDays>();
+            var allActivties = new List<ModelActivityDays>();
             if (_context.ActiviesDays.Any())
             {
                 allActivties = await _context.ActiviesDays.ToListAsync();
@@ -104,13 +104,13 @@ namespace FamilyActivity.WebMvc.Controllers
         //POST: UserController/Edit/5
         [HttpPost("Edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult<ViewActivityDays>> Edit(int id, ViewActivityDays activity)
+        public async Task<ActionResult<ModelActivityDays>> Edit(int id, ModelActivityDays activity)
         {
             try
             {
                 if (ModelState.IsValid)
                 {         
-                    activity = new ViewActivityDays()
+                    activity = new ModelActivityDays()
                     {
                         Id = activity.Id,
                         CreatedAt = DateTime.Now,
@@ -145,11 +145,11 @@ namespace FamilyActivity.WebMvc.Controllers
         // POST: UserController/Create
         [HttpPost("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ViewActivityDays activity)
+        public async Task<IActionResult> Create(ModelActivityDays activity)
         {
             if (ModelState.IsValid)
             {
-                    activity = new ViewActivityDays()
+                    activity = new ModelActivityDays()
                     {
                         Id = activity.Id,
                         CreatedAt = DateTime.Now,
@@ -175,7 +175,7 @@ namespace FamilyActivity.WebMvc.Controllers
                 return NotFound();
             }
 
-            var allActivties = new List<ViewActivityDays>();
+            var allActivties = new List<ModelActivityDays>();
             if (_context.ActiviesDays.Any())
             {
                 allActivties = await _context.ActiviesDays.ToListAsync();
@@ -191,7 +191,7 @@ namespace FamilyActivity.WebMvc.Controllers
 
         [HttpPost("Delete/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id, ViewActivityDays activity)
+        public async Task<IActionResult> Delete(int id, ModelActivityDays activity)
         {
             try
             {

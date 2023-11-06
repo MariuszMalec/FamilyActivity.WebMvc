@@ -2,7 +2,7 @@ using FamilyActivity.WebMvc.Enums;
 
 namespace FamilyActivity.WebMvc.Models
 {
-    public class ViewActivityDays
+    public class ModelActivityDays
     {
         public int Id { get; set; }
         public DateTime CreatedAt  { get; set; }
@@ -13,6 +13,6 @@ namespace FamilyActivity.WebMvc.Models
         public string? Picture  { get; set; }
         public Enums.DayOfWeek DayOfWeek  { get; set; }
         public PersonFamily PersonFamily { get; set; }
-        public virtual ViewPersonFamily? ViewPersonFamily { get; set; }
+        public virtual ModelPersonFamily? ViewPersonFamily { get; set; }
     }
 }

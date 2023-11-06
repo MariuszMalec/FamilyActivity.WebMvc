@@ -14,7 +14,7 @@ namespace FamilyActivity.WebMvc.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<ViewActivityDays> events = await _activityService.GetAll();
+            List<ModelActivityDays> events = await _activityService.GetAll();
 
             if (events.Count() == 0)
             {

@@ -17,12 +17,12 @@ namespace FamilyActivity.WebMvc.Services
             _context = context;
         }
 
-        public async Task<List<ViewActivityDays>> GetAll()
+        public async Task<List<ModelActivityDays>> GetAll()
         {
             var allActivties = await _context.ActiviesDays.ToListAsync();
             if (!allActivties.Any())
             {
-                return new List<ViewActivityDays>() { };
+                return new List<ModelActivityDays>() { };
             }
             return allActivties;
         }
