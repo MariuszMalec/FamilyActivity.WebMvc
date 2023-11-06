@@ -42,16 +42,27 @@ else
 var app = builder.Build();
 
 //Seed database
-if (sqlite)
+using (var scope = app.Services.CreateScope())
 {
-    AppDbInitializer.SeedToSqlLite(app, Configuration);
-    AppDbInitializer.SeedSqlitelData(app, Configuration);
+    var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+
+    dataContext?.Database.Migrate();
+
+    SeedData.SeedPersonFamilies(dataContext);
+    SeedData.SeedActiviesDays(dataContext);
 }
-else
-{
-    AppDbInitializer.SeedMySql(app, Configuration);
-    AppDbInitializer.SeedMySqlData(app, Configuration);
-}
+
+//Seed database be sql commands
+//if (sqlite)
+//{
+//    AppDbInitializerWithinSqliteCommand.SeedToSqlLite(app, Configuration);
+//    AppDbInitializerWithinSqliteCommand.SeedSqlitelData(app, Configuration);
+//}
+//else
+//{
+//    AppDbInitializerWithinSqliteCommand.SeedMySql(app, Configuration);
+//    AppDbInitializerWithinSqliteCommand.SeedMySqlData(app, Configuration);
+//}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

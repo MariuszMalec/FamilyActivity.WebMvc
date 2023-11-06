@@ -5,7 +5,7 @@ using FamilyActivity.WebMvc.Enums;
 
 namespace FamilyActivity.WebMvc.Contexts
 {
-    public class AppDbInitializer
+    public class AppDbInitializerWithinSqliteCommand
     {
 
         //sprzatanie kuchni => https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80
@@ -52,7 +52,7 @@ namespace FamilyActivity.WebMvc.Contexts
                                 StartTime = TimeSpan.Parse(reader["starttime"].ToString()),
                                 EndTime = TimeSpan.Parse(reader["endtime"].ToString()),
                                 DayOfWeek = GetDay(reader["dayofweek"].ToString()),
-                                PersonFamily = GetPerson(reader["personFamily"].ToString()),
+                                //PersonFamily = GetPerson(reader["personFamily"].ToString()),
                             });
                         }
                         Console.WriteLine("Data displayed! Now press enter to move to the next section!");

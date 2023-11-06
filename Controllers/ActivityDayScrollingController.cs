@@ -22,7 +22,9 @@ namespace FamilyActivity.WebMvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allActivties = _context.ActiviesDays.ToList();
+            var allActivties = _context.ActiviesDays
+                .Include(x => x.ModelPersonFamily)
+                .ToList();
             return View(allActivties);
         }
 
