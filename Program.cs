@@ -3,7 +3,7 @@ using FamilyActivity.WebMvc.Middleware;
 using FamilyActivity.WebMvc.Services;
 using Microsoft.EntityFrameworkCore;
 
-bool sqlite = true;
+bool sqlite = false;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,11 +45,10 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
-
     dataContext?.Database.Migrate();
-
-    SeedData.SeedPersonFamilies(dataContext);
-    SeedData.SeedActiviesDays(dataContext);
+    dataContext.Database.EnsureCreated();
+    await SeedData.SeedPersonFamilies(dataContext);
+    await SeedData.SeedActiviesDays(dataContext);
 }
 
 //Seed database be sql commands

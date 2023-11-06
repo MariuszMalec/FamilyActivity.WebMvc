@@ -47,7 +47,11 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
                             <div class="card-body">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">Who: @item.ModelPersonFamily.PersonName.ToString()
-                     
+                                                <img class="card-img-top" src="@item.ModelPersonFamily.PersonPicture" alt="@item.ModelPersonFamily.PersonPicture"
+                                                     style="object-fit:scale-down;
+                                                        width:80%;
+                                                        height:auto;
+                                                        border: solid 1px #CCC">
                                     </li>
                                     <li class="list-group-item">@item.StartTime.ToString() - @item.EndTime.ToString()</li>
                                     <li class="list-group-item">Day of week: @item.DayOfWeek.ToString()</li>
