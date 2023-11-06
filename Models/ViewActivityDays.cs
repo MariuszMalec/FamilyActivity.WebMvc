@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FamilyActivity.WebMvc.Enums;
 
 namespace FamilyActivity.WebMvc.Models
@@ -16,5 +12,7 @@ namespace FamilyActivity.WebMvc.Models
         public string? Description  { get; set; }
         public string? Picture  { get; set; }
         public Enums.DayOfWeek DayOfWeek  { get; set; }
+        public PersonFamily PersonFamily { get; set; }
+        public virtual ViewPersonFamily? ViewPersonFamily { get; set; }
     }
 }

@@ -43,11 +43,11 @@
 
                 <div class="card-body">
 
-                    @if (@item.Description == "TATA")
+                    @if (@item.PersonFamily == FamilyActivity.WebMvc.Enums.PersonFamily.TATA)
                     {
-                        <p class="descTata">@item.Description</p>
+                        <p class="descTata">@item.PersonFamily</p>
                     }
-                    else if (@item.Description == "MAMA")
+                else if (@item.PersonFamily == FamilyActivity.WebMvc.Enums.PersonFamily.MAMA)
                     {
                         <p class="descMama">@item.Description</p>
                     }

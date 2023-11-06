@@ -46,7 +46,9 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
                         <div>
                             <div class="card-body">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Description: @item.Description</li>
+                                    <li class="list-group-item">Description: @item.PersonFamily
+                     
+                                    </li>
                                     <li class="list-group-item">@item.StartTime.ToString() - @item.EndTime.ToString()</li>
                                     <li class="list-group-item">Day of week: @item.DayOfWeek.ToString()</li>
                                 </ul>

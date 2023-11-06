@@ -11,6 +11,7 @@ using MySqlConnector;
 using FamilyActivity.WebMvc.Enums;
 using System.Net.Sockets;
 using FamilyActivity.WebMvc.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace FamilyActivity.WebMvc.Controllers
 {
@@ -44,7 +45,9 @@ namespace FamilyActivity.WebMvc.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll(int? page)
         {
-            var allActivties = await _context.ActiviesDays.ToListAsync();
+            var allActivties = await _context.ActiviesDays
+                .ToListAsync();
+            
             if (allActivties == null)
             {
                 return NotFound();

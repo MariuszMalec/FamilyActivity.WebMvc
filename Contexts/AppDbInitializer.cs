@@ -38,11 +38,11 @@ namespace FamilyActivity.WebMvc.Contexts
 
                     using (SqliteDataReader reader = command.ExecuteReader())
                     {
-                        Console.WriteLine("Id\tname\t\tstartTime\t\tendTime\t\tdescription\t\tpicture\t\tdayOfWeek\t\tcreatedAt\t");
+                        Console.WriteLine("Id\tname\t\tstartTime\t\tendTime\t\tdescription\t\tpicture\t\tdayOfWeek\t\tcreatedAt\t\tpersonFamily\t");
                         while (reader.Read())
                         {
-                            Console.WriteLine(string.Format("{0} \t | {1} \t | {2} \t | {3} \t | {4} \t | {5} \t | {6}",
-                                reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6]));
+                            Console.WriteLine(string.Format("{0} \t | {1} \t | {2} \t | {3} \t | {4} \t | {5} \t | {6} \t | {7}",
+                                reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7]));
                             allActivties.Add(new ViewActivityDays()
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
@@ -51,7 +51,8 @@ namespace FamilyActivity.WebMvc.Contexts
                                 Description = reader["Description"].ToString(),
                                 StartTime = TimeSpan.Parse(reader["starttime"].ToString()),
                                 EndTime = TimeSpan.Parse(reader["endtime"].ToString()),
-                                DayOfWeek = GetDay(reader["dayofweek"].ToString())
+                                DayOfWeek = GetDay(reader["dayofweek"].ToString()),
+                                PersonFamily = GetPerson(reader["personFamily"].ToString()),
                             });
                         }
                         Console.WriteLine("Data displayed! Now press enter to move to the next section!");
@@ -89,27 +90,27 @@ namespace FamilyActivity.WebMvc.Contexts
                 {
                     try
                     {
-                        string query = $"INSERT INTO {table}(name,startTime,endTime,description,picture,dayOfWeek,createdAt) " +
-                        $"VALUES (1,'19:30:00','20:15:00','TATA','https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',3, CURRENT_TIMESTAMP)," +
-                        $"(1, '19:30:00', '20:15:00', 'TATA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 6, CURRENT_TIMESTAMP)," +
-                        $"(1, '19:30:00', '20:15:00', 'MAMA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 2, CURRENT_TIMESTAMP)," +
-                        $"(1, '19:30:00', '20:15:00', 'MAMA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 4, CURRENT_TIMESTAMP)," +
-                        $"(5, '19:00:00', '19:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 3, CURRENT_TIMESTAMP)," +
-                        $"(5, '19:00:00', '19:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 5, CURRENT_TIMESTAMP)," +
-                        $"(6, '19:30:00', '20:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 4, CURRENT_TIMESTAMP)," +
-                        $"(5, '19:00:00', '19:30:00', 'MAMA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 2, CURRENT_TIMESTAMP)," +
-                        $"(5, '19:00:00', '19:30:00', 'MAMA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 4, CURRENT_TIMESTAMP)," +
-                        $"(4, '18:30:00', '19:15:00', 'MAMA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 3, CURRENT_TIMESTAMP)," +
-                        $"(4, '18:30:00', '19:15:00', 'MAMA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 5, CURRENT_TIMESTAMP)," +
-                        $"(4, '18:30:00', '19:15:00', 'TATA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 2, CURRENT_TIMESTAMP)," +
-                        $"(4, '18:30:00', '19:15:00', 'TATA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 4, CURRENT_TIMESTAMP)," +
-                        $"(8, '19:00:00', '20:00:00', 'ALL', 'https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', 1, CURRENT_TIMESTAMP)," +
-                        $"(8, '19:00:00', '20:00:00', 'ALL', 'https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', 7, CURRENT_TIMESTAMP)," +
-                        $"(9, '19:30:00', '20:00:00', 'MAMA', 'https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 2, CURRENT_TIMESTAMP)," +
-                        $"(9, '19:30:00', '20:00:00', 'TATA', 'https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 3, CURRENT_TIMESTAMP)," +
-                        $"(10, '9:30:00', '17:30:00', 'TATA', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 2, CURRENT_TIMESTAMP)," +
-                        $"(10, '8:00:00', '16:00:00', 'TATA', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 3, CURRENT_TIMESTAMP)," +
-                        $"(7,'16:15:00','17:15:00','MAMA','https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',5, CURRENT_TIMESTAMP);";
+                        string query = $"INSERT INTO {table}(name,startTime,endTime,description,picture,dayOfWeek,createdAt,personFamily) " +
+                                      $"VALUES (1,'19:30:00','20:15:00','TATA','https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',3, CURRENT_TIMESTAMP,1)," +
+                                      $"(1, '19:30:00', '20:15:00', 'TATA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 6, CURRENT_TIMESTAMP,1)," +
+                                      $"(1, '19:30:00', '20:15:00', 'MAMA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 2, CURRENT_TIMESTAMP,2)," +
+                                      $"(1, '19:30:00', '20:15:00', 'MAMA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 4, CURRENT_TIMESTAMP,2)," +
+                                      $"(5, '19:00:00', '19:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 3, CURRENT_TIMESTAMP,1)," +
+                                      $"(5, '19:00:00', '19:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 5, CURRENT_TIMESTAMP,1)," +
+                                      $"(6, '19:30:00', '20:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 4, CURRENT_TIMESTAMP,1)," +
+                                      $"(5, '19:00:00', '19:30:00', 'MAMA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 2, CURRENT_TIMESTAMP,2)," +
+                                      $"(5, '19:00:00', '19:30:00', 'MAMA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 4, CURRENT_TIMESTAMP,2)," +
+                                      $"(4, '18:30:00', '19:15:00', 'MAMA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 3, CURRENT_TIMESTAMP,2)," +
+                                      $"(4, '18:30:00', '19:15:00', 'MAMA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 5, CURRENT_TIMESTAMP,2)," +
+                                      $"(4, '18:30:00', '19:15:00', 'TATA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 2, CURRENT_TIMESTAMP,1)," +
+                                      $"(4, '18:30:00', '19:15:00', 'TATA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 4, CURRENT_TIMESTAMP,1)," +
+                                      $"(8, '19:00:00', '20:00:00', 'ALL', 'https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', 1, CURRENT_TIMESTAMP,0)," +
+                                      $"(8, '19:00:00', '20:00:00', 'ALL', 'https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', 7, CURRENT_TIMESTAMP,0)," +
+                                      $"(9, '19:30:00', '20:00:00', 'MAMA', 'https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 2, CURRENT_TIMESTAMP,2)," +
+                                      $"(9, '19:30:00', '20:00:00', 'TATA', 'https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 3, CURRENT_TIMESTAMP,1)," +
+                                      $"(10, '9:30:00', '17:30:00', 'TATA', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 2, CURRENT_TIMESTAMP,1)," +
+                                      $"(10, '8:00:00', '16:00:00', 'TATA', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 3, CURRENT_TIMESTAMP,1)," +
+                                      $"(7,'16:15:00','17:15:00','MAMA','https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',5, CURRENT_TIMESTAMP,2);";
                         cn.Open();
                         using (SqliteCommand cmd = new SqliteCommand(query, cn))
                         {
@@ -221,6 +222,19 @@ namespace FamilyActivity.WebMvc.Contexts
             }
         }
 
+        private static Enums.PersonFamily GetPerson(string person)
+        {
+            if (person.Contains('1'))
+                return Enums.PersonFamily.TATA;
+            if (person.Contains('2'))
+                return Enums.PersonFamily.MAMA;
+            if (person.Contains('3'))
+                return Enums.PersonFamily.GOSIA;
+            if (person.Contains('4'))
+                return Enums.PersonFamily.EMILKA;
+            return Enums.PersonFamily.ALL;
+        }
+
         private static Enums.DayOfWeek GetDay(string day)
         {
             if (day.Contains('1'))
@@ -247,17 +261,22 @@ namespace FamilyActivity.WebMvc.Contexts
             if (name.Contains('2'))
                 return Enums.ActivityName.Sprzatanie_lazienki;
             if (name.Contains('3'))
-                return Enums.ActivityName.Pranie;
-            if (name.Contains('4'))
-                return Enums.ActivityName.Wstazka;
-            if (name.Contains('5'))
-                return Enums.ActivityName.Basen;
-            if (name.Contains('6'))
-                return Enums.ActivityName.Odrabianie_lekcji;
-            if (name.Contains('7'))
                 return Enums.ActivityName.Zamiatanie_pokoji;
+            if (name.Contains('4'))
+                return Enums.ActivityName.Pranie;
+            if (name.Contains('5'))
+                return Enums.ActivityName.Odrabianie_lekcji;
+            if (name.Contains('6'))
+                return Enums.ActivityName.Basen;
+            if (name.Contains('7'))
+                return Enums.ActivityName.Wstazka;
+            if (name.Contains('8'))
+                return Enums.ActivityName.Bajki;
+            if (name.Contains('9'))
+                return Enums.ActivityName.Czas_spac;
+            if (name.Contains("10"))
+                return Enums.ActivityName.Czas_do_pracy;
             return Enums.ActivityName.All;
         }
-
     }
 }
