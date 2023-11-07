@@ -47,8 +47,11 @@ using (var scope = app.Services.CreateScope())
     var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
     dataContext?.Database.Migrate();
     dataContext.Database.EnsureCreated();
-    await SeedData.SeedPersonFamilies(dataContext);
-    await SeedData.SeedActiviesDays(dataContext);
+
+    await SeedDataFromJson.SeedActiviesDays(dataContext);
+
+    //await SeedData.SeedPersonFamilies(dataContext);
+    //await SeedData.SeedActiviesDays(dataContext);
 }
 
 //Seed database be sql commands

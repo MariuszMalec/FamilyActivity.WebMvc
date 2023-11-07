@@ -1,5 +1,4 @@
 ﻿using FamilyActivity.WebMvc.Models;
-using System;
 
 namespace FamilyActivity.WebMvc.Contexts
 {
