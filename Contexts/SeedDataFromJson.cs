@@ -14,12 +14,6 @@ namespace FamilyActivity.WebMvc.Contexts
                 return;
             }
 
-            string json = @"{
-                      'id': '1',
-                      'PersonName': '1',
-                      'PersonPicture': ''
-                    }";
-
             string data = GetData();
 
             List<ModelActivityDays> modelActivityDays = JsonConvert.DeserializeObject<List<ModelActivityDays>>(data);
@@ -28,11 +22,11 @@ namespace FamilyActivity.WebMvc.Contexts
             {
                 var activity = new ModelActivityDays()
                 {
-                    //Id = item.Id,
+                    Id = item.Id,
                     CreatedAt = Convert.ToDateTime(item.CreatedAt),
                     Name = GetName(item.Name.ToString()),
-                    StartTime = TimeSpan.Parse(item.StartTime.ToString()),
-                    EndTime = TimeSpan.Parse(item.EndTime.ToString()),
+                    StartTime = item.StartTime,//TimeSpan.Parse(item.StartTime.ToString()),
+                    EndTime = item.EndTime,
                     Description = item.Description,
                     Picture = item.Picture,
                     DayOfWeek = GetDay(item.DayOfWeek.ToString()),
@@ -40,28 +34,6 @@ namespace FamilyActivity.WebMvc.Contexts
                 };
                 context.Add(activity);
             }
-
-
-
-
-            //string data = GetData();
-            //var items = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(data);
-            //foreach (var item in items)
-            //{
-            //    var modelActivityDays = new ModelActivityDays()
-            //    {
-            //        Id = Convert.ToInt32(item["id"]),
-            //        CreatedAt = Convert.ToDateTime(item["createdAt"]),
-            //        Name = GetName(item["name"].ToString()),
-            //        StartTime = TimeSpan.Parse(item["start"].ToString()),
-            //        EndTime = TimeSpan.Parse(item["end"].ToString()),
-            //        Description = item["description"],
-            //        Picture = item["picture"],
-            //        DayOfWeek = GetDay(item["dayOfWeek"].ToString()),
-            //        //ModelPersonFamily = item["modelPersonFamily"]
-            //    };
-            //    context.Add(modelActivityDays);
-            //}
             await context.SaveChangesAsync();
         }
 

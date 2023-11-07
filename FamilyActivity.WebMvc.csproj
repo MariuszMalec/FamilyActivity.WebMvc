@@ -24,4 +24,10 @@
     <Folder Include="DataBase\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="DataBase\InitialData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
