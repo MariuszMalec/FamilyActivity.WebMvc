@@ -3,7 +3,11 @@ using FamilyActivity.WebMvc.Middleware;
 using FamilyActivity.WebMvc.Services;
 using Microsoft.EntityFrameworkCore;
 
-bool sqlite = false;
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+bool sqlite = true;
+if (environment.Contains("Mysql"))
+    sqlite = false;//true sqlite, false mysql, add selection to environment
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,12 +31,9 @@ if (sqlite)
 else
 {
     var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
-    // Replace 'YourDbContext' with the name of your own DbContext derived class.
     builder.Services.AddDbContext<ApplicationContext>(
         dbContextOptions => dbContextOptions
             .UseMySql(Configuration.GetConnectionString("Default"), serverVersion)
-            // The following three options help with debugging, but should
-            // be changed or removed for production.
             .LogTo(Console.WriteLine, LogLevel.Information)
             .EnableSensitiveDataLogging()
             .EnableDetailedErrors()
@@ -41,31 +42,37 @@ else
 
 var app = builder.Build();
 
-//Seed database
+//Seed database by json
 using (var scope = app.Services.CreateScope())
 {
     var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
-    dataContext?.Database.Migrate();
-    dataContext.Database.EnsureCreated();
 
-    //await SeedDataFromJson.SeedPersonFamilies(dataContext);
-    await SeedDataFromJson.SeedActiviesDays(dataContext);
-
-    //await SeedData.SeedPersonFamilies(dataContext);
-    //await SeedData.SeedActiviesDays(dataContext);
+    if (environment == "MysqlJsonSeed")
+    {
+        dataContext.Database.EnsureDeleted();
+        dataContext?.Database.Migrate();
+        dataContext.Database.EnsureCreated();
+        await SeedDataFromJson.SeedActiviesDays(dataContext);
+    }
+    if (environment == "MysqlClassSeed")
+    {
+        dataContext.Database.EnsureDeleted();
+        dataContext?.Database.Migrate();
+        dataContext.Database.EnsureCreated();
+        await SeedData.SeedPersonFamilies(dataContext);
+        await SeedData.SeedActiviesDays(dataContext);
+    }
+    if (environment == "sqliteCommand")
+    {
+        AppDbInitializerWithinSqliteCommand.SeedToSqlLite(app, Configuration);
+        AppDbInitializerWithinSqliteCommand.SeedSqlitelData(app, Configuration);
+    }
+    if (environment == "mysqlCommand")
+    {
+        AppDbInitializerWithinSqliteCommand.SeedMySql(app, Configuration);
+        AppDbInitializerWithinSqliteCommand.SeedMySqlData(app, Configuration);
+    }
 }
-
-//Seed database be sql commands
-//if (sqlite)
-//{
-//    AppDbInitializerWithinSqliteCommand.SeedToSqlLite(app, Configuration);
-//    AppDbInitializerWithinSqliteCommand.SeedSqlitelData(app, Configuration);
-//}
-//else
-//{
-//    AppDbInitializerWithinSqliteCommand.SeedMySql(app, Configuration);
-//    AppDbInitializerWithinSqliteCommand.SeedMySqlData(app, Configuration);
-//}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

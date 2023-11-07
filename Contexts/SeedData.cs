@@ -46,36 +46,6 @@ namespace FamilyActivity.WebMvc.Contexts
                 return;
             }
 
-            //context.AddRange(new ModelPersonFamily
-            //{
-            //    Id = 1,
-            //    PersonName = Enums.PersonFamily.TATA,
-            //    PersonPicture = "https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            //});
-            //context.AddRange(new ModelPersonFamily
-            //{
-            //    Id = 2,
-            //    PersonName = Enums.PersonFamily.MAMA,
-            //    PersonPicture = "https://plus.unsplash.com/premium_photo-1661274027494-1d556441e1c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            //});
-
-            var personFamilies = new List<ModelPersonFamily>() 
-            {
-                new ModelPersonFamily(1, Enums.PersonFamily.TATA, "https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-                new ModelPersonFamily(2, Enums.PersonFamily.MAMA, "https://plus.unsplash.com/premium_photo-1661274027494-1d556441e1c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-                new ModelPersonFamily(3, Enums.PersonFamily.GOSIA, "https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=2040&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-            };
-
-            //context.AddRange(new List<ModelPersonFamily> () { new ModelPersonFamily(1, Enums.PersonFamily.TATA, "https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-            //                       , new ModelPersonFamily(2, Enums.PersonFamily.MAMA, "https://plus.unsplash.com/premium_photo-1661274027494-1d556441e1c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")});
-
-            //foreach (var item in personFamilies)
-            //{
-            //    context.AddRange(item);
-            //}
-
-            //context.AddRange(personFamilies);
-
             context.Add(new ModelPersonFamily(1, Enums.PersonFamily.TATA, "https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
             context.Add(new ModelPersonFamily(2, Enums.PersonFamily.MAMA, "https://plus.unsplash.com/premium_photo-1661274027494-1d556441e1c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
             context.Add(new ModelPersonFamily(3, Enums.PersonFamily.GOSIA, "https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=2040&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));

@@ -1,21 +1,13 @@
-﻿{
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:20954",
-      "sslPort": 44309
-    }
-  },
+{
   "profiles": {
     "FamilyActivity.WebMvc": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7230;http://localhost:5292",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7230;http://localhost:5292"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -23,6 +15,41 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "MysqlJsonSeed": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "MysqlJsonSeed"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7230;http://localhost:5292"
+    },
+    "MysqlClassSeed": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "MysqlClassSeed"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7230;http://localhost:5292"
+    },
+    "mysqlCommand": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "mysqlCommand"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7230;http://localhost:5292"
+    }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:20954",
+      "sslPort": 44309
     }
   }
 }

@@ -152,20 +152,22 @@ namespace FamilyActivity.WebMvc.Contexts
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        Console.WriteLine("Id\tname\t\tstartTime\t\tendTime\t\tdescription\t\tpicture\t\tdayOfWeek\t\tcreatedAt\t");
+                        Console.WriteLine("id\tname\t\tstartTime\t\tendTime\t\tdescription\t\tpicture\t\tdayOfWeek\t\tcreatedAt\t\tmodelPersonFamily\t");
                         while (reader.Read())
                         {
-                            Console.WriteLine(string.Format("{0} \t | {1} \t | {2} \t | {3} \t | {4} \t | {5} \t | {6}",
-                                reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6]));
+                            Console.WriteLine(string.Format("{0} \t | {1} \t | {2} \t | {3} \t | {4} \t | {5} \t | {6} \t | {7} \t | {8} \t | {9}",
+                                reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7], reader[8], reader[9]));
                             allActivties.Add(new ModelActivityDays()  
                             {  
-                                Id = Convert.ToInt32(reader["Id"]),  
+                                Id = Convert.ToInt32(reader["id"]),  
                                 Name = GetName(reader["Name"].ToString()),
-                                Picture = reader["Picture"].ToString(),
+                                StartTime = TimeSpan.Parse(reader["starttime"].ToString()),
+                                EndTime = TimeSpan.Parse(reader["endtime"].ToString()),
                                 Description = reader["Description"].ToString(),
-                                StartTime  = TimeSpan.Parse(reader["starttime"].ToString()),
-                                EndTime  = TimeSpan.Parse(reader["endtime"].ToString()),
-                                DayOfWeek  = GetDay(reader["dayofweek"].ToString())
+                                Picture = reader["Picture"].ToString(),
+                                DayOfWeek = GetDay(reader["dayofweek"].ToString()),
+                                CreatedAt = DateTime.Parse(reader["createdAt"].ToString()),               
+                                //ModelPersonFamily = GetPerson(reader["modelPersonFamily"].ToString())
                             });
                         }
                         Console.WriteLine("Data displayed! Now press enter to move to the next section!");
@@ -203,8 +205,8 @@ namespace FamilyActivity.WebMvc.Contexts
                 {
                     try
                     {
-                        string query = $"INSERT INTO {table}(name,startTime,endTime,description,picture,dayOfWeek,createdAt) " +
-                            $"VALUES ('rysowanie','16:00:00','17:00:00','rysowanie olowkiem','https://images.unsplash.com/photo-1525278070609-779c7adb7b71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1147&q=80',1, CURRENT_TIMESTAMP);";
+                        string query = $"INSERT INTO {table}(id, name,startTime,endTime,description,picture,dayOfWeek,createdAt,modelPersonFamily) " +
+                            $"VALUES (1, 1,'16:00:00','17:00:00','rysowanie olowkiem','https://images.unsplash.com/photo-1525278070609-779c7adb7b71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1147&q=80',1, CURRENT_TIMESTAMP, 1);";
                         cn.Open();
                         using (MySqlCommand cmd = new MySqlCommand(query, cn))
                         {
