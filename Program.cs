@@ -48,6 +48,7 @@ using (var scope = app.Services.CreateScope())
     dataContext?.Database.Migrate();
     dataContext.Database.EnsureCreated();
 
+    //await SeedDataFromJson.SeedPersonFamilies(dataContext);
     await SeedDataFromJson.SeedActiviesDays(dataContext);
 
     //await SeedData.SeedPersonFamilies(dataContext);

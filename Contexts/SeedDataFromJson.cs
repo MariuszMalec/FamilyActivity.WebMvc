@@ -1,7 +1,6 @@
 ﻿using FamilyActivity.WebMvc.Enums;
 using FamilyActivity.WebMvc.Models;
 using Newtonsoft.Json;
-using System.Text.Json;
 
 namespace FamilyActivity.WebMvc.Contexts
 {
@@ -14,7 +13,7 @@ namespace FamilyActivity.WebMvc.Contexts
                 return;
             }
 
-            string data = GetData();
+            string data = GetDataActivity();
 
             List<ModelActivityDays> modelActivityDays = JsonConvert.DeserializeObject<List<ModelActivityDays>>(data);
 
@@ -24,12 +23,12 @@ namespace FamilyActivity.WebMvc.Contexts
                 {
                     Id = item.Id,
                     CreatedAt = Convert.ToDateTime(item.CreatedAt),
-                    Name = GetName(item.Name.ToString()),
+                    Name = item.Name,
                     StartTime = item.StartTime,//TimeSpan.Parse(item.StartTime.ToString()),
                     EndTime = item.EndTime,
                     Description = item.Description,
                     Picture = item.Picture,
-                    DayOfWeek = GetDay(item.DayOfWeek.ToString()),
+                    DayOfWeek = item.DayOfWeek,
                     ModelPersonFamily = item.ModelPersonFamily
                 };
                 context.Add(activity);
@@ -37,9 +36,9 @@ namespace FamilyActivity.WebMvc.Contexts
             await context.SaveChangesAsync();
         }
 
-        private static string GetData()
+        private static string GetDataActivity()
         {
-            string filePath = @"./DataBase/InitialData.json";
+            string filePath = @"./DataBase/InitialDataActivity.json";
             using (var r = new StreamReader(filePath))
             {
                 string json = r.ReadToEnd();
@@ -109,6 +108,32 @@ namespace FamilyActivity.WebMvc.Contexts
             if (context.PersonFamilies.Any())
             {
                 return;
+            }
+
+            string data = GetDataFamily();
+
+            List<ModelPersonFamily> modelPersonFamily = JsonConvert.DeserializeObject<List<ModelPersonFamily>>(data);
+
+            foreach (var item in modelPersonFamily)
+            {
+                var family = new ModelPersonFamily
+                (               
+                    item.Id,
+                    item.PersonName,
+                    item.PersonPicture
+                );
+                context.Add(family);
+            }
+            await context.SaveChangesAsync();
+        }
+
+        private static string GetDataFamily()
+        {
+            string filePath = @"./DataBase/InitialDataFamily.json";
+            using (var r = new StreamReader(filePath))
+            {
+                string json = r.ReadToEnd();
+                return json;
             }
         }
     }

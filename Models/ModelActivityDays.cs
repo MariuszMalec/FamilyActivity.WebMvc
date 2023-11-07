@@ -1,4 +1,5 @@
 using FamilyActivity.WebMvc.Enums;
+using Newtonsoft.Json;
 
 namespace FamilyActivity.WebMvc.Models
 {

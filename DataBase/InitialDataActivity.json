@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "createdAt": "20:20:20",
+    "name": 10,
+    "startTime": "9:30",
+    "endTime": "17:30",
+    "description": "test1",
+    "picture": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "dayOfWeek": 2,
+    "modelPersonFamily": {
+      "id": 1,
+      "personName": 1,
+      "personPicture": "https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
+  },
+  {
+    "id": 2,
+    "createdAt": "20:20:20",
+    "name": 1,
+    "startTime": "16:30",
+    "endTime": "17:30",
+    "description": "test2",
+    "picture": "https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    "dayOfWeek": 2,
+    "modelPersonFamily": {
+      "id": 2,
+      "personName": 2,
+      "personPicture": "https://plus.unsplash.com/premium_photo-1661274027494-1d556441e1c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
+  }
+]
