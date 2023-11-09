@@ -72,10 +72,10 @@ using (var scope = app.Services.CreateScope())
     }
     if (environment == "MysqlCommand")
     {
-        AppDbInitializerWithinSqliteCommand.CreateTableWithMySqlPersonFamilies(app, Configuration);
-        AppDbInitializerWithinSqliteCommand.SeedWithMySqlPersonFamilies(app, Configuration);
-        AppDbInitializerWithinSqliteCommand.CreateTableWithMySqlActivityDays(app, Configuration);
-        AppDbInitializerWithinSqliteCommand.SeedWithMySqlActivityDays(app, Configuration);
+        AppDbInitializerWithinMySqlCommand.CreateTableWithMySqlPersonFamilies(app, Configuration);
+        AppDbInitializerWithinMySqlCommand.SeedWithMySqlPersonFamilies(app, Configuration);
+        AppDbInitializerWithinMySqlCommand.CreateTableWithMySqlActivityDays(app, Configuration);
+        AppDbInitializerWithinMySqlCommand.SeedWithMySqlActivityDays(app, Configuration);
     }
 }
 
