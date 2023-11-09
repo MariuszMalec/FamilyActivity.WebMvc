@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 bool sqlite = true;
+
 if (environment.Contains("Mysql"))
     sqlite = false;//true sqlite, false mysql, add selection to environment
 
@@ -69,10 +70,12 @@ using (var scope = app.Services.CreateScope())
         AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLiteActivityDays(app, Configuration);
         AppDbInitializerWithinSqliteCommand.SeedWithSqliteActivityDays(app, Configuration);
     }
-    if (environment == "mysqlCommand")
+    if (environment == "MysqlCommand")
     {
-        AppDbInitializerWithinSqliteCommand.SeedMySql(app, Configuration);
-        AppDbInitializerWithinSqliteCommand.SeedMySqlData(app, Configuration);
+        AppDbInitializerWithinSqliteCommand.CreateTableWithMySqlPersonFamilies(app, Configuration);
+        AppDbInitializerWithinSqliteCommand.SeedWithMySqlPersonFamilies(app, Configuration);
+        AppDbInitializerWithinSqliteCommand.CreateTableWithMySqlActivityDays(app, Configuration);
+        AppDbInitializerWithinSqliteCommand.SeedWithMySqlActivityDays(app, Configuration);
     }
 }
 

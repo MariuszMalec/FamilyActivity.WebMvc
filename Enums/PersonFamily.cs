@@ -6,6 +6,7 @@
         TATA,
         MAMA,
         GOSIA,
-        EMILKA
+        EMILKA,
+        RODZINA
     }
 }
