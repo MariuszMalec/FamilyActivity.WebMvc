@@ -1,4 +1,5 @@
 using FamilyActivity.WebMvc.Contexts;
+using FamilyActivity.WebMvc.Enums;
 using FamilyActivity.WebMvc.Middleware;
 using FamilyActivity.WebMvc.Services;
 using Microsoft.EntityFrameworkCore;
@@ -48,14 +49,14 @@ using (var scope = app.Services.CreateScope())
 {
     var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
 
-    if (environment == "MysqlJsonSeed")
+    if (environment == EnumProvider.MysqlJsonSeed.ToString())
     {
         dataContext.Database.EnsureDeleted();
         dataContext?.Database.Migrate();
         dataContext.Database.EnsureCreated();
         await SeedDataFromJson.SeedActiviesDays(dataContext);
     }
-    if (environment == "MysqlClassSeed")
+    if (environment == EnumProvider.MysqlClassSeed.ToString())
     {
         dataContext.Database.EnsureDeleted();
         dataContext?.Database.Migrate();
@@ -63,14 +64,14 @@ using (var scope = app.Services.CreateScope())
         await SeedData.SeedPersonFamilies(dataContext);
         await SeedData.SeedActiviesDays(dataContext);
     }
-    if (environment == "sqliteCommand")
+    if (environment == EnumProvider.sqliteCommand.ToString())
     {
         AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLitePersonFamilies(app, Configuration);
         AppDbInitializerWithinSqliteCommand.SeedWithSqlLitePersonFamilies(app, Configuration);
         AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLiteActivityDays(app, Configuration);
         AppDbInitializerWithinSqliteCommand.SeedWithSqliteActivityDays(app, Configuration);
     }
-    if (environment == "MysqlCommand")
+    if (environment == EnumProvider.MysqlCommand.ToString())
     {
         AppDbInitializerWithinMySqlCommand.CreateTableWithMySqlPersonFamilies(app, Configuration);
         AppDbInitializerWithinMySqlCommand.SeedWithMySqlPersonFamilies(app, Configuration);
