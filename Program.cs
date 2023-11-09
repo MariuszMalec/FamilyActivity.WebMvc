@@ -64,8 +64,10 @@ using (var scope = app.Services.CreateScope())
     }
     if (environment == "sqliteCommand")
     {
-        AppDbInitializerWithinSqliteCommand.SeedToSqlLite(app, Configuration);
-        AppDbInitializerWithinSqliteCommand.SeedSqlitelData(app, Configuration);
+        AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLitePersonFamilies(app, Configuration);
+        AppDbInitializerWithinSqliteCommand.SeedWithSqlLitePersonFamilies(app, Configuration);
+        AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLiteActivityDays(app, Configuration);
+        AppDbInitializerWithinSqliteCommand.SeedWithSqliteActivityDays(app, Configuration);
     }
     if (environment == "mysqlCommand")
     {
