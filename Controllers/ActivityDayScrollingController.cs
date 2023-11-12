@@ -1,37 +1,32 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using FamilyActivity.WebMvc.Contexts;
 using FamilyActivity.WebMvc.Models;
+using FamilyActivity.WebMvc.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace FamilyActivity.WebMvc.Controllers
 {
-     [Route("[controller]")]
+    [Route("[controller]")]
     public class ActivityDayScrollingController : Controller
     {
         private readonly ApplicationContext _context;
-        public ActivityDayScrollingController(ApplicationContext context)
+        private IActivityService _activityService;
+        public ActivityDayScrollingController(ApplicationContext context, IActivityService activityService)
         {
             _context = context;
+            _activityService = activityService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var allActivties = _context.ActiviesDays
-                .Include(x => x.ModelPersonFamily)
-                .ToList();
+            var allActivties = await _activityService.GetAll();
             return View(allActivties);
         }
 
         [HttpGet("Details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
-            var model = await _context.ActiviesDays.FindAsync(id);
+            var model = await _activityService.GetById(id);
 
             if (model == null)
             {

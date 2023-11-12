@@ -20,9 +20,7 @@ namespace FamilyActivity.WebMvc.Controllers
 
         public async Task<IActionResult> Index(int? page)
         {
-            var allActivties = _context.ActiviesDays
-                .Include(x => x.ModelPersonFamily)
-                .ToList();
+            var allActivties = await _activityService.GetAll();
 
             var sorted = allActivties
             .Where(t=>(int)t.DayOfWeek == (int)Enums.DayOfWeek.All || t.DayOfWeek.ToString().Contains(DateTime.Now.DayOfWeek.ToString()))          
