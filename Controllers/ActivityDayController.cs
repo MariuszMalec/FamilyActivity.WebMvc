@@ -191,21 +191,14 @@ namespace FamilyActivity.WebMvc.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return NotFound("model not found!");
             }
-
-            var allActivties = new List<ModelActivityDays>();
-            if (_context.ActiviesDays.Any())
+            var model = await _activityService.GetById(id);
+            if (model == null)
             {
-                allActivties = await _context.ActiviesDays.ToListAsync();
+                return NotFound("model not found!");
             }
-
-            var activity = allActivties.Where(a=>a.Id == id).FirstOrDefault();
-            if (activity == null) 
-            {
-                return NotFound();
-            }
-            return View(activity);
+            return View(model);
         }
 
         [HttpPost("Delete/{id}")]
@@ -214,25 +207,16 @@ namespace FamilyActivity.WebMvc.Controllers
         {
             try
             {
-                var currentActivity = await _context.ActiviesDays.FindAsync(id);
-
-                if (currentActivity == null)
-                {
-                    return NotFound();
-                }
-
-                _context.ActiviesDays.Remove(currentActivity);
+                _context.ActiviesDays.Remove(activity);
                 _context.SaveChanges();
 
                 //_logger.LogWarning("Get({Id}) you deleted uzytkownika from data base! ", user.LastName);
-                return RedirectToAction(nameof(Index));
-
+                return RedirectToAction(nameof(GetAll));
             }
             catch
             {
                 return View();
             }
         }
-
     }
 }
