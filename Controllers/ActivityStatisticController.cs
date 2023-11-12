@@ -21,8 +21,8 @@ namespace FamilyActivity.WebMvc.Controllers
                 return RedirectToAction("EmptyList");
             }
 
-            var sums = events.GroupBy(x => x.Name.ToString())
-                .ToDictionary(x => x.Key, x => x.Select(y => Convert.ToInt32(y.Name)).Sum());
+            var sums = events.GroupBy(x => x.ModelPictureActivity.ActivityName.ToString())
+                .ToDictionary(x => x.Key, x => x.Select(y => Convert.ToInt32(y.ModelPictureActivity.ActivityName)).Sum());
 
             return View(new ActivityStatisticsView() { ActivitySums = sums });
         }

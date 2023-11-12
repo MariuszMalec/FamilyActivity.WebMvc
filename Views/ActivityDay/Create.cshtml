@@ -32,15 +32,12 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-@*                 <label asp-for="Name" class="control-label"></label>
-                <input id="name" asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span> *@
 
-                <label asp-for="Name" class="control-label"></label>
-                <select asp-for="Name" id="activitiesSelect" asp-items="activitiesList" class="form-control">
-                    <option selected="Name">Please select</option>
+                <label asp-for="@Model.ModelPictureActivity.ActivityName" class="control-label"></label>
+                <select asp-for="ModelPictureActivity.ActivityName" id="activitiesSelect" asp-items="activitiesList" class="form-control">
+                    <option selected="ModelPictureActivity.ActivityName">Please select</option>
                 </select>
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="@Model.ModelPictureActivity.ActivityName" class="text-danger"></span>
 
             </div>
             <div class="form-group">
@@ -66,12 +63,6 @@
                 <option selected="ModelPersonFamily.PersonName">Please select person</option>
             </select>
             <span asp-validation-for="@Model.ModelPersonFamily.PersonName" class="text-danger"></span>
-
-@*             <div class="form-group">
-                <label asp-for="Picture" class="control-label"></label>
-                <input asp-for="Picture" class="form-control" />
-                <span asp-validation-for="Picture" class="text-danger"></span>
-            </div> *@
 
             <div class="form-group">
                 <label asp-for="DayOfWeek" class="control-label"></label>

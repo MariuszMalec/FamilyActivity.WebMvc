@@ -111,11 +111,9 @@ namespace FamilyActivity.WebMvc.Controllers
                     {
                         Id = activity.Id,
                         CreatedAt = DateTime.Now,
-                        Name = activity.Name,
                         Description = activity.Description,
                         StartTime = activity.StartTime,
                         EndTime = activity.EndTime,
-                        Picture = activity.Picture,
                         DayOfWeek = activity.DayOfWeek,
                         ModelPersonFamily = modelPersonFamily,
                         ModelPictureActivity = modelPictureActivity
@@ -156,11 +154,8 @@ namespace FamilyActivity.WebMvc.Controllers
                 
                 var allPersonalFamily = _context.PersonFamilies.ToList();
 
-                var picture = allActivitiesPictures.Where(x => x.ActivityName == activity.Name)
-                 .Select(x => x.Picture).FirstOrDefault();
-
                 var modelPictureActivity =
-                    allActivitiesPictures.Where(x => x.ActivityName == activity.Name)
+                    allActivitiesPictures.Where(x => x.ActivityName == activity.ModelPictureActivity.ActivityName)
                  .Select(x => x).FirstOrDefault();
 
                 var personalFamily = allPersonalFamily.Where(x => x.PersonName == activity.ModelPersonFamily.PersonName)
@@ -170,12 +165,10 @@ namespace FamilyActivity.WebMvc.Controllers
                 {
                     Id = id,
                     CreatedAt = DateTime.Now,
-                    Name = activity.Name,
                     Description = activity.Description,
                     StartTime = activity.StartTime,
                     EndTime = activity.EndTime,
                     DayOfWeek = activity.DayOfWeek, 
-                    Picture = picture,
                     ModelPersonFamily = personalFamily,
                     ModelPictureActivity = modelPictureActivity
                 };

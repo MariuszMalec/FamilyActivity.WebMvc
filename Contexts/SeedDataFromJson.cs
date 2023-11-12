@@ -23,11 +23,9 @@ namespace FamilyActivity.WebMvc.Contexts
                 {
                     Id = item.Id,
                     CreatedAt = Convert.ToDateTime(item.CreatedAt),
-                    Name = item.Name,
                     StartTime = item.StartTime,//TimeSpan.Parse(item.StartTime.ToString()),
                     EndTime = item.EndTime,
                     Description = item.Description,
-                    Picture = item.Picture,
                     DayOfWeek = item.DayOfWeek,
                     ModelPersonFamily = item.ModelPersonFamily,
                     ModelPictureActivity = item.ModelPictureActivity,

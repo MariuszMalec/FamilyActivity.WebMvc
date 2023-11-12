@@ -2,11 +2,9 @@
   {
     "id": 1,
     "createdAt": "20:20:20",
-    "name": 10,
     "startTime": "9:30",
     "endTime": "17:30",
     "description": "test1",
-    "picture": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "dayOfWeek": 2,
     "modelPersonFamily": {
 
@@ -22,11 +20,9 @@
   {
     "id": 2,
     "createdAt": "20:20:20",
-    "name": 1,
     "startTime": "16:30",
     "endTime": "17:30",
     "description": "test2",
-    "picture": "https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     "dayOfWeek": 2,
     "modelPersonFamily": {
 

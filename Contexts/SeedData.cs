@@ -15,12 +15,10 @@ namespace FamilyActivity.WebMvc.Contexts
             {
                 Id = 1,
                 CreatedAt = DateTime.Now,
-                Name = Enums.ActivityName.Czas_do_pracy,
                 DayOfWeek = Enums.DayOfWeek.Monday,
                 StartTime = TimeSpan.Parse("9:30:00".ToString()),
                 EndTime = TimeSpan.Parse("17:30:00".ToString()),
                 Description = "Kurcze",
-                Picture = "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 ModelPersonFamily = context.PersonFamilies.Find(1),
                 ModelPictureActivity = context.PictureActivities.Find(6)
             });
@@ -29,12 +27,10 @@ namespace FamilyActivity.WebMvc.Contexts
             {
                 Id = 2,
                 CreatedAt = DateTime.Now,
-                Name = Enums.ActivityName.Sprzatanie_kuchni,
                 DayOfWeek = Enums.DayOfWeek.Monday,
                 StartTime = TimeSpan.Parse("19:30:00".ToString()),
                 EndTime = TimeSpan.Parse("20:00:00".ToString()),
                 Description = "Porzadeczki",
-                Picture = "https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
                 ModelPersonFamily = context.PersonFamilies.Find(2),
                 ModelPictureActivity = context.PictureActivities.Find(1)
             });
@@ -43,7 +39,6 @@ namespace FamilyActivity.WebMvc.Contexts
             {
                 Id = 3,
                 CreatedAt = DateTime.Now,
-                Name = Enums.ActivityName.Bajki,
                 DayOfWeek = Enums.DayOfWeek.Monday,
                 StartTime = TimeSpan.Parse("19:30:00".ToString()),
                 EndTime = TimeSpan.Parse("20:00:00".ToString()),

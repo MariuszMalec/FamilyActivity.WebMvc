@@ -48,8 +48,6 @@ namespace FamilyActivity.WebMvc.Contexts
                                 allActivties.Add(new ModelActivityDays()
                                 {
                                     Id = Convert.ToInt32(reader["Id"]),
-                                    Name = GetName(reader["Name"].ToString()),
-                                    Picture = reader["Picture"].ToString(),
                                     Description = reader["Description"].ToString(),
                                     StartTime = TimeSpan.Parse(reader["starttime"].ToString()),
                                     EndTime = TimeSpan.Parse(reader["endtime"].ToString()),
@@ -96,27 +94,27 @@ namespace FamilyActivity.WebMvc.Contexts
                 {
                     try
                     {
-                        string query = $"INSERT INTO {table}(name,startTime,endTime,description,picture,dayOfWeek,createdAt,modelPersonFamilyId,modelPictureActivityId) " +
-                            $"VALUES (1,'19:30:00','20:15:00','TATA','https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',3, CURRENT_TIMESTAMP,1,1)," +
-                            $"(1, '19:30:00', '20:15:00', 'TATA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 6, CURRENT_TIMESTAMP,1,1)," +
-                            $"(1, '19:30:00', '20:15:00', 'MAMA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 2, CURRENT_TIMESTAMP,2,1)," +
-                            $"(1, '19:30:00', '20:15:00', 'MAMA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 4, CURRENT_TIMESTAMP,2,1)," +
-                            $"(5, '19:00:00', '19:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 3, CURRENT_TIMESTAMP,1,5)," +
-                            $"(5, '19:00:00', '19:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 5, CURRENT_TIMESTAMP,1,5)," +
-                            $"(6, '19:30:00', '20:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 4, CURRENT_TIMESTAMP,1,5)," +
-                            $"(5, '19:00:00', '19:30:00', 'MAMA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 2, CURRENT_TIMESTAMP,2,5)," +
-                            $"(5, '19:00:00', '19:30:00', 'MAMA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 4, CURRENT_TIMESTAMP,2,5)," +
-                            $"(4, '18:30:00', '19:15:00', 'MAMA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 3, CURRENT_TIMESTAMP,2,4)," +
-                            $"(4, '18:30:00', '19:15:00', 'MAMA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 5, CURRENT_TIMESTAMP,2,4)," +
-                            $"(4, '18:30:00', '19:15:00', 'TATA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 2, CURRENT_TIMESTAMP,1,4)," +
-                            $"(4, '18:30:00', '19:15:00', 'TATA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 4, CURRENT_TIMESTAMP,1,4)," +
-                            $"(8, '19:00:00', '20:00:00', 'ALL', 'https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', 1, CURRENT_TIMESTAMP,5,8)," +
-                            $"(8, '19:00:00', '20:00:00', 'ALL', 'https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', 7, CURRENT_TIMESTAMP,5,8)," +
-                            $"(9, '19:30:00', '20:00:00', 'MAMA', 'https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 2, CURRENT_TIMESTAMP,2,9)," +
-                            $"(9, '19:30:00', '20:00:00', 'TATA', 'https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 3, CURRENT_TIMESTAMP,1,9)," +
-                            $"(10, '9:30:00', '17:30:00', 'TATA', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 2, CURRENT_TIMESTAMP,1,10)," +
-                            $"(10, '8:00:00', '16:00:00', 'TATA', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 3, CURRENT_TIMESTAMP,1,10)," +
-                            $"(7,'16:15:00','17:15:00','MAMA','https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',5, CURRENT_TIMESTAMP,2,7);";
+                        string query = $"INSERT INTO {table}(startTime,endTime,description,dayOfWeek,createdAt,modelPersonFamilyId,modelPictureActivityId) " +
+                            $"VALUES ('19:30:00','20:15:00','TATA', 3, CURRENT_TIMESTAMP,1,1)," +
+                            $"('19:30:00', '20:15:00', 'TATA', 6, CURRENT_TIMESTAMP,1,1)," +
+                            $"('19:30:00', '20:15:00', 'MAMA', 2, CURRENT_TIMESTAMP,2,1)," +
+                            $"('19:30:00', '20:15:00', 'MAMA', 4, CURRENT_TIMESTAMP,2,1)," +
+                            $"('19:00:00', '19:30:00', 'TATA', 3, CURRENT_TIMESTAMP,1,5)," +
+                            $"('19:00:00', '19:30:00', 'TATA', 5, CURRENT_TIMESTAMP,1,5)," +
+                            $"('19:30:00', '20:30:00', 'TATA', 4, CURRENT_TIMESTAMP,1,5)," +
+                            $"('19:00:00', '19:30:00', 'MAMA', 2, CURRENT_TIMESTAMP,2,5)," +
+                            $"('19:00:00', '19:30:00', 'MAMA', 4, CURRENT_TIMESTAMP,2,5)," +
+                            $"('18:30:00', '19:15:00', 'MAMA', 3, CURRENT_TIMESTAMP,2,4)," +
+                            $"('18:30:00', '19:15:00', 'MAMA', 5, CURRENT_TIMESTAMP,2,4)," +
+                            $"('18:30:00', '19:15:00', 'TATA', 2, CURRENT_TIMESTAMP,1,4)," +
+                            $"('18:30:00', '19:15:00', 'TATA', 4, CURRENT_TIMESTAMP,1,4)," +
+                            $"('19:00:00', '20:00:00', 'ALL', 1, CURRENT_TIMESTAMP,5,8)," +
+                            $"('19:00:00', '20:00:00', 'ALL', 7, CURRENT_TIMESTAMP,5,8)," +
+                            $"('19:30:00', '20:00:00', 'MAMA', 2, CURRENT_TIMESTAMP,2,9)," +
+                            $"('19:30:00', '20:00:00', 'TATA', 3, CURRENT_TIMESTAMP,1,9)," +
+                            $"('9:30:00', '17:30:00', 'TATA', 2, CURRENT_TIMESTAMP,1,10)," +
+                            $"('8:00:00', '16:00:00', 'TATA', 3, CURRENT_TIMESTAMP,1,10)," +
+                            $"('16:15:00','17:15:00','MAMA', 5, CURRENT_TIMESTAMP,2,7);";
                         cn.Open();
                         using (SqliteCommand cmd = new SqliteCommand(query, cn))
                         {

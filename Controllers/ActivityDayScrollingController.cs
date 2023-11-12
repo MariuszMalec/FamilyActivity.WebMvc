@@ -72,11 +72,9 @@ namespace FamilyActivity.WebMvc.Controllers
                     {
                         Id = activity.Id,
                         CreatedAt = DateTime.Now,
-                        Name = activity.Name,
                         Description = activity.Description,
                         StartTime = activity.StartTime,
                         EndTime = activity.EndTime,
-                        Picture = activity.Picture,
                         DayOfWeek = activity.DayOfWeek
                     };
                     //TODO problem z DayOfWeek all
@@ -111,12 +109,10 @@ namespace FamilyActivity.WebMvc.Controllers
                 {
                     Id = activity.Id,
                     CreatedAt = DateTime.Now,
-                    Name = activity.Name,
                     Description = activity.Description,
                     StartTime = activity.StartTime,
                     EndTime = activity.EndTime,
                     DayOfWeek = activity.DayOfWeek,
-                    Picture = activity.Picture
                 };
                 _context.Add(activity);
                 await _context.SaveChangesAsync();
