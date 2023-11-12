@@ -39,6 +39,19 @@ namespace FamilyActivity.WebMvc.Contexts
                 ModelPictureActivity = context.PictureActivities.Find(1)
             });
 
+            context.Add(new ModelActivityDays()
+            {
+                Id = 3,
+                CreatedAt = DateTime.Now,
+                Name = Enums.ActivityName.Bajki,
+                DayOfWeek = Enums.DayOfWeek.Monday,
+                StartTime = TimeSpan.Parse("19:30:00".ToString()),
+                EndTime = TimeSpan.Parse("20:00:00".ToString()),
+                Description = "Wieczorynka",
+                ModelPersonFamily = context.PersonFamilies.Where(p=>p.PersonName == Enums.PersonFamily.GOSIA).Select(p=>p).FirstOrDefault(),
+                ModelPictureActivity = context.PictureActivities.Where(p=>p.ActivityName == Enums.ActivityName.Bajki).Select(p=>p).FirstOrDefault()
+            });
+
             await context.SaveChangesAsync();
         }
 
