@@ -1,7 +1,6 @@
-using FamilyActivity.WebMvc.Models;
-using MySqlConnector;
-using Microsoft.Data.Sqlite;
 using FamilyActivity.WebMvc.Enums;
+using FamilyActivity.WebMvc.Models;
+using Microsoft.Data.Sqlite;
 
 namespace FamilyActivity.WebMvc.Contexts
 {
@@ -97,27 +96,27 @@ namespace FamilyActivity.WebMvc.Contexts
                 {
                     try
                     {
-                        string query = $"INSERT INTO {table}(name,startTime,endTime,description,picture,dayOfWeek,createdAt,modelPersonFamilyId) " +
-                            $"VALUES (1,'19:30:00','20:15:00','TATA','https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',3, CURRENT_TIMESTAMP,1)," +
-                            $"(1, '19:30:00', '20:15:00', 'TATA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 6, CURRENT_TIMESTAMP,1)," +
-                            $"(1, '19:30:00', '20:15:00', 'MAMA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 2, CURRENT_TIMESTAMP,2)," +
-                            $"(1, '19:30:00', '20:15:00', 'MAMA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 4, CURRENT_TIMESTAMP,2)," +
-                            $"(5, '19:00:00', '19:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 3, CURRENT_TIMESTAMP,1)," +
-                            $"(5, '19:00:00', '19:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 5, CURRENT_TIMESTAMP,1)," +
-                            $"(6, '19:30:00', '20:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 4, CURRENT_TIMESTAMP,1)," +
-                            $"(5, '19:00:00', '19:30:00', 'MAMA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 2, CURRENT_TIMESTAMP,2)," +
-                            $"(5, '19:00:00', '19:30:00', 'MAMA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 4, CURRENT_TIMESTAMP,2)," +
-                            $"(4, '18:30:00', '19:15:00', 'MAMA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 3, CURRENT_TIMESTAMP,2)," +
-                            $"(4, '18:30:00', '19:15:00', 'MAMA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 5, CURRENT_TIMESTAMP,2)," +
-                            $"(4, '18:30:00', '19:15:00', 'TATA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 2, CURRENT_TIMESTAMP,1)," +
-                            $"(4, '18:30:00', '19:15:00', 'TATA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 4, CURRENT_TIMESTAMP,1)," +
-                            $"(8, '19:00:00', '20:00:00', 'ALL', 'https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', 1, CURRENT_TIMESTAMP,5)," +
-                            $"(8, '19:00:00', '20:00:00', 'ALL', 'https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', 7, CURRENT_TIMESTAMP,5)," +
-                            $"(9, '19:30:00', '20:00:00', 'MAMA', 'https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 2, CURRENT_TIMESTAMP,2)," +
-                            $"(9, '19:30:00', '20:00:00', 'TATA', 'https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 3, CURRENT_TIMESTAMP,1)," +
-                            $"(10, '9:30:00', '17:30:00', 'TATA', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 2, CURRENT_TIMESTAMP,1)," +
-                            $"(10, '8:00:00', '16:00:00', 'TATA', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 3, CURRENT_TIMESTAMP,1)," +
-                            $"(7,'16:15:00','17:15:00','MAMA','https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',5, CURRENT_TIMESTAMP,2);";
+                        string query = $"INSERT INTO {table}(name,startTime,endTime,description,picture,dayOfWeek,createdAt,modelPersonFamilyId,modelPictureActivityId) " +
+                            $"VALUES (1,'19:30:00','20:15:00','TATA','https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',3, CURRENT_TIMESTAMP,1,1)," +
+                            $"(1, '19:30:00', '20:15:00', 'TATA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 6, CURRENT_TIMESTAMP,1,1)," +
+                            $"(1, '19:30:00', '20:15:00', 'MAMA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 2, CURRENT_TIMESTAMP,2,1)," +
+                            $"(1, '19:30:00', '20:15:00', 'MAMA', 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', 4, CURRENT_TIMESTAMP,2,1)," +
+                            $"(5, '19:00:00', '19:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 3, CURRENT_TIMESTAMP,1,5)," +
+                            $"(5, '19:00:00', '19:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 5, CURRENT_TIMESTAMP,1,5)," +
+                            $"(6, '19:30:00', '20:30:00', 'TATA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 4, CURRENT_TIMESTAMP,1,5)," +
+                            $"(5, '19:00:00', '19:30:00', 'MAMA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 2, CURRENT_TIMESTAMP,2,5)," +
+                            $"(5, '19:00:00', '19:30:00', 'MAMA', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80', 4, CURRENT_TIMESTAMP,2,5)," +
+                            $"(4, '18:30:00', '19:15:00', 'MAMA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 3, CURRENT_TIMESTAMP,2,4)," +
+                            $"(4, '18:30:00', '19:15:00', 'MAMA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 5, CURRENT_TIMESTAMP,2,4)," +
+                            $"(4, '18:30:00', '19:15:00', 'TATA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 2, CURRENT_TIMESTAMP,1,4)," +
+                            $"(4, '18:30:00', '19:15:00', 'TATA', 'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80', 4, CURRENT_TIMESTAMP,1,4)," +
+                            $"(8, '19:00:00', '20:00:00', 'ALL', 'https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', 1, CURRENT_TIMESTAMP,5,8)," +
+                            $"(8, '19:00:00', '20:00:00', 'ALL', 'https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', 7, CURRENT_TIMESTAMP,5,8)," +
+                            $"(9, '19:30:00', '20:00:00', 'MAMA', 'https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 2, CURRENT_TIMESTAMP,2,9)," +
+                            $"(9, '19:30:00', '20:00:00', 'TATA', 'https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 3, CURRENT_TIMESTAMP,1,9)," +
+                            $"(10, '9:30:00', '17:30:00', 'TATA', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 2, CURRENT_TIMESTAMP,1,10)," +
+                            $"(10, '8:00:00', '16:00:00', 'TATA', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 3, CURRENT_TIMESTAMP,1,10)," +
+                            $"(7,'16:15:00','17:15:00','MAMA','https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',5, CURRENT_TIMESTAMP,2,7);";
                         cn.Open();
                         using (SqliteCommand cmd = new SqliteCommand(query, cn))
                         {
@@ -290,5 +289,53 @@ namespace FamilyActivity.WebMvc.Contexts
             }
         }
 
+        internal static void SeedWithSqlLiteAvtivityPictures(IApplicationBuilder applicationBuilder, IConfiguration configuration)
+        {
+            List<ModelPictureActivity> allActivties = new List<ModelPictureActivity>();
+
+            var provider = configuration.GetConnectionString("Sqlite");
+
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<ApplicationContext>();
+
+                context.Database.EnsureCreated();
+
+                string table = "pictureActivities";
+                string connString = provider;
+
+                Console.WriteLine("Connection to sqlite database");
+                using (SqliteConnection cn = new SqliteConnection(connString))
+                {
+                    try
+                    {
+                        string query = $"INSERT INTO {table}(activityName,picture) " +
+                            $"VALUES (1,'https://images.unsplash.com/photo-1600585152220-90363fe7e115?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
+                                   $"(2,'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
+                                   $"(3,'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
+                                   $"(4,'https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80')," +
+                                   $"(5,'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80')," +
+                                   $"(6,'https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')," +
+                                   $"(7,'https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80')," +
+                                   $"(8,'https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80')," +
+                                   $"(9,'https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
+                                   $"(10,'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
+                                   $"(11,'https://images.unsplash.com/photo-1696446702183-cbd13d78e1e7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');";
+                        cn.Open();
+                        using (SqliteCommand cmd = new SqliteCommand(query, cn))
+                        {
+                            if (!context.PictureActivities.Any())
+                                cmd.ExecuteNonQuery();
+                        }
+                        Console.Clear();
+                        cn.Close();
+                    }
+                    catch (SqliteException ex)
+                    {
+                        Console.WriteLine("Error in adding sqlite row. Error: " + ex.Message);
+                    }
+                }
+            }
+        }
     }
 }

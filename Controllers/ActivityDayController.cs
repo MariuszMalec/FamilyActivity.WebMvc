@@ -43,7 +43,7 @@ namespace FamilyActivity.WebMvc.Controllers
             
             if (allActivties == null)
             {
-                return NotFound();
+                return NotFound("Activity not found!");
             }
 
             var sorted = allActivties

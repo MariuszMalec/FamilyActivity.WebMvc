@@ -15,9 +15,9 @@ namespace FamilyActivity.WebMvc.Contexts
 
             string data = GetDataActivity();
 
-            List<ModelActivityDays> modelActivityDays = JsonConvert.DeserializeObject<List<ModelActivityDays>>(data);
+            List<ModelActivityDays> model = JsonConvert.DeserializeObject<List<ModelActivityDays>>(data);
 
-            foreach (var item in modelActivityDays)
+            foreach (var item in model)
             {
                 var activity = new ModelActivityDays()
                 {
@@ -29,7 +29,8 @@ namespace FamilyActivity.WebMvc.Contexts
                     Description = item.Description,
                     Picture = item.Picture,
                     DayOfWeek = item.DayOfWeek,
-                    ModelPersonFamily = item.ModelPersonFamily
+                    ModelPersonFamily = item.ModelPersonFamily,
+                    ModelPictureActivity = item.ModelPictureActivity,
                 };
                 context.Add(activity);
             }
@@ -112,9 +113,9 @@ namespace FamilyActivity.WebMvc.Contexts
 
             string data = GetDataFamily();
 
-            List<ModelPersonFamily> modelPersonFamily = JsonConvert.DeserializeObject<List<ModelPersonFamily>>(data);
+            List<ModelPersonFamily> model = JsonConvert.DeserializeObject<List<ModelPersonFamily>>(data);
 
-            foreach (var item in modelPersonFamily)
+            foreach (var item in model)
             {
                 var family = new ModelPersonFamily
                 (               
@@ -136,5 +137,40 @@ namespace FamilyActivity.WebMvc.Contexts
                 return json;
             }
         }
+
+        public static async Task SeedActivityPictures(ApplicationContext context)
+        {
+            if (context.PictureActivities.Any())
+            {
+                return;
+            }
+
+            string data = GetDataPictures();
+
+            List<ModelPictureActivity> model = JsonConvert.DeserializeObject<List<ModelPictureActivity>>(data);
+
+            foreach (var item in model)
+            {
+                var picture = new ModelPictureActivity
+                (
+                    item.Id,
+                    item.ActivityName,
+                    item.Picture
+                );
+                context.Add(picture);
+            }
+            await context.SaveChangesAsync();
+        }
+
+        private static string GetDataPictures()
+        {
+            string filePath = @"./DataBase/InitialDataPicture.json";
+            using (var r = new StreamReader(filePath))
+            {
+                string json = r.ReadToEnd();
+                return json;
+            }
+        }
+
     }
 }

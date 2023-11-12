@@ -53,9 +53,11 @@ using (var scope = app.Services.CreateScope())
 
     if (environment == EnumProvider.MysqlJsonSeed.ToString())
     {
-        //dataContext.Database.EnsureDeleted();
+        dataContext.Database.EnsureDeleted();
         dataContext?.Database.Migrate();
         dataContext.Database.EnsureCreated();
+        await SeedDataFromJson.SeedPersonFamilies(dataContext);
+        await SeedDataFromJson.SeedActivityPictures(dataContext);
         await SeedDataFromJson.SeedActiviesDays(dataContext);
     }
     if (environment == EnumProvider.MysqlClassSeed.ToString())
@@ -69,16 +71,21 @@ using (var scope = app.Services.CreateScope())
     }
     if (environment == EnumProvider.sqliteCommand.ToString())
     {
-        AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLitePersonFamilies(app, Configuration);
+        //AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLitePersonFamilies(app, Configuration);
         AppDbInitializerWithinSqliteCommand.SeedWithSqlLitePersonFamilies(app, Configuration);
-        AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLiteActivityDays(app, Configuration);
+        AppDbInitializerWithinSqliteCommand.SeedWithSqlLiteAvtivityPictures(app, Configuration);
+        //AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLiteActivityDays(app, Configuration);
         AppDbInitializerWithinSqliteCommand.SeedWithSqliteActivityDays(app, Configuration);
     }
     if (environment == EnumProvider.MysqlCommand.ToString())
     {
-        AppDbInitializerWithinMySqlCommand.CreateTableWithMySqlPersonFamilies(app, Configuration);
+        //AppDbInitializerWithinMySqlCommand.CreateTableWithMySqlPersonFamilies(app, Configuration);
         AppDbInitializerWithinMySqlCommand.SeedWithMySqlPersonFamilies(app, Configuration);
-        AppDbInitializerWithinMySqlCommand.CreateTableWithMySqlActivityDays(app, Configuration);
+
+        //AppDbInitializerWithinMySqlCommand.CreateTableWithMySqlAvtivityPictures(app, Configuration);
+        AppDbInitializerWithinMySqlCommand.SeedWithMySqlAvtivityPictures(app, Configuration);
+
+        //AppDbInitializerWithinMySqlCommand.CreateTableWithMySqlActivityDays(app, Configuration);
         AppDbInitializerWithinMySqlCommand.SeedWithMySqlActivityDays(app, Configuration);
     }
 }
