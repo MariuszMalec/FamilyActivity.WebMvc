@@ -14,5 +14,6 @@ namespace FamilyActivity.WebMvc.Models
         public string? Picture  { get; set; }
         public Enums.DayOfWeek DayOfWeek  { get; set; }
         public virtual ModelPersonFamily? ModelPersonFamily { get; set; }
+        public virtual ModelPictureActivity? ModelPictureActivity { get; set; }
     }
 }

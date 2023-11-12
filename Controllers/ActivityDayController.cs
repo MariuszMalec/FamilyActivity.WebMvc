@@ -1,17 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using FamilyActivity.WebMvc.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using X.PagedList;
-using MySqlConnector;
-using FamilyActivity.WebMvc.Enums;
-using System.Net.Sockets;
 using FamilyActivity.WebMvc.Contexts;
+using FamilyActivity.WebMvc.Models;
+using FamilyActivity.WebMvc.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace FamilyActivity.WebMvc.Controllers
 {
@@ -19,14 +11,18 @@ namespace FamilyActivity.WebMvc.Controllers
     public class ActivityDayController : Controller
     {
         private readonly ApplicationContext _context;
-        public ActivityDayController(ApplicationContext context)
+        private IActivityService _activityService;
+        public ActivityDayController(ApplicationContext context, IActivityService activityService)
         {
             _context = context;
+            _activityService = activityService;
         }
 
         public async Task<IActionResult> Index(int? page)
         {
-            var allActivties = _context.ActiviesDays.Include(x => x.ModelPersonFamily).ToList();
+            var allActivties = _context.ActiviesDays
+                .Include(x => x.ModelPersonFamily)
+                .ToList();
 
             var sorted = allActivties
             .Where(t=>(int)t.DayOfWeek == (int)Enums.DayOfWeek.All || t.DayOfWeek.ToString().Contains(DateTime.Now.DayOfWeek.ToString()))          
@@ -45,9 +41,7 @@ namespace FamilyActivity.WebMvc.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll(int? page)
         {
-            var allActivties = await _context.ActiviesDays
-                .Include(x=>x.ModelPersonFamily)
-                .ToListAsync();
+            var allActivties = await _activityService.GetAll();
             
             if (allActivties == null)
             {
@@ -69,11 +63,11 @@ namespace FamilyActivity.WebMvc.Controllers
         [HttpGet("Details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
-            var model = await _context.ActiviesDays.FindAsync(id);
+            var model = await _activityService.GetById(id);//await _context.ActiviesDays.FindAsync(id);
 
             if (model == null)
             {
-                return NotFound();
+                return NotFound("model not found!");
             }
             //_logger.LogInformation($"Wybrales gracza {user.FirstName} z bazy danych z mapowanego do widoku");
             return View(model);
@@ -85,21 +79,16 @@ namespace FamilyActivity.WebMvc.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return NotFound("model not found!");
             }
 
-            var allActivties = new List<ModelActivityDays>();
-            if (_context.ActiviesDays.Any())
-            {
-                allActivties = await _context.ActiviesDays.ToListAsync();
-            }
+            var model = await _activityService.GetById(id);//await _context.ActiviesDays.FindAsync(id);
 
-            var activity = allActivties.Where(a=>a.Id == id).FirstOrDefault();
-            if (activity == null) 
+            if (model == null)
             {
-                return NotFound();
+                return NotFound("model not found!");
             }
-            return View(activity);
+            return View(model);
         }
 
         //POST: UserController/Edit/5
@@ -110,7 +99,16 @@ namespace FamilyActivity.WebMvc.Controllers
             try
             {
                 if (ModelState.IsValid)
-                {         
+                {
+                    var allPersonalFamily = _context.PersonFamilies.ToList();
+                    var modelPersonFamily = allPersonalFamily.Where(x => x.PersonName == activity.ModelPersonFamily.PersonName)
+                     .Select(p => p).FirstOrDefault();
+
+                    var allActivitiesPictures = _context.PictureActivities.ToList();
+                    var modelPictureActivity =
+                        allActivitiesPictures.Where(x => x.ActivityName == activity.ModelPictureActivity.ActivityName)
+                     .Select(x => x).FirstOrDefault();
+
                     activity = new ModelActivityDays()
                     {
                         Id = activity.Id,
@@ -120,7 +118,9 @@ namespace FamilyActivity.WebMvc.Controllers
                         StartTime = activity.StartTime,
                         EndTime = activity.EndTime,
                         Picture = activity.Picture,
-                        DayOfWeek = activity.DayOfWeek
+                        DayOfWeek = activity.DayOfWeek,
+                        ModelPersonFamily = modelPersonFamily,
+                        ModelPictureActivity = modelPictureActivity
                     };           
                     //TODO problem z DayOfWeek all
                     _context.Update(activity);
@@ -150,17 +150,37 @@ namespace FamilyActivity.WebMvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                    activity = new ModelActivityDays()
-                    {
-                        Id = activity.Id,
-                        CreatedAt = DateTime.Now,
-                        Name = activity.Name,
-                        Description = activity.Description,
-                        StartTime = activity.StartTime,
-                        EndTime = activity.EndTime,
-                        DayOfWeek = activity.DayOfWeek, 
-                        Picture = activity.Picture
-                    };
+                var allActivties = await _activityService.GetAll();
+
+                var id = (allActivties?.Max(m => m.Id) ?? 0) + 1;
+
+                var allActivitiesPictures = _context.PictureActivities.ToList();
+                
+                var allPersonalFamily = _context.PersonFamilies.ToList();
+
+                var picture = allActivitiesPictures.Where(x => x.ActivityName == activity.Name)
+                 .Select(x => x.Picture).FirstOrDefault();
+
+                var modelPictureActivity =
+                    allActivitiesPictures.Where(x => x.ActivityName == activity.Name)
+                 .Select(x => x).FirstOrDefault();
+
+                var personalFamily = allPersonalFamily.Where(x => x.PersonName == activity.ModelPersonFamily.PersonName)
+                   .Select(p=>p).FirstOrDefault();                             
+
+                activity = new ModelActivityDays()
+                {
+                    Id = id,
+                    CreatedAt = DateTime.Now,
+                    Name = activity.Name,
+                    Description = activity.Description,
+                    StartTime = activity.StartTime,
+                    EndTime = activity.EndTime,
+                    DayOfWeek = activity.DayOfWeek, 
+                    Picture = picture,
+                    ModelPersonFamily = personalFamily,
+                    ModelPictureActivity = modelPictureActivity
+                };
                 _context.Add(activity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

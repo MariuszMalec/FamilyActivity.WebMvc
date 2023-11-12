@@ -4,6 +4,8 @@ using FamilyActivity.WebMvc.Middleware;
 using FamilyActivity.WebMvc.Services;
 using Microsoft.EntityFrameworkCore;
 
+//podczas tworzenia migracji nie jest czytana zmiennna environment, trzeba w package console przed
+//migracja wpisac $env:ASPNETCORE_ENVIRONMENT='MysqlClassSeed'
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 bool sqlite = true;
@@ -51,17 +53,18 @@ using (var scope = app.Services.CreateScope())
 
     if (environment == EnumProvider.MysqlJsonSeed.ToString())
     {
-        dataContext.Database.EnsureDeleted();
+        //dataContext.Database.EnsureDeleted();
         dataContext?.Database.Migrate();
         dataContext.Database.EnsureCreated();
         await SeedDataFromJson.SeedActiviesDays(dataContext);
     }
     if (environment == EnumProvider.MysqlClassSeed.ToString())
     {
-        dataContext.Database.EnsureDeleted();
+        //dataContext.Database.EnsureDeleted();
         dataContext?.Database.Migrate();
         dataContext.Database.EnsureCreated();
         await SeedData.SeedPersonFamilies(dataContext);
+        await SeedData.SeedPictureActivities(dataContext);
         await SeedData.SeedActiviesDays(dataContext);
     }
     if (environment == EnumProvider.sqliteCommand.ToString())

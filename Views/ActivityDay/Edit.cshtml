@@ -22,6 +22,12 @@
     activitiesList = activities;
 }
 
+@{
+    var activitiePersons = Html.GetEnumSelectList<FamilyActivity.WebMvc.Enums.PersonFamily>().Where(l => int.Parse(l.Value) >= 0).ToList();
+    var activitiePersonList = new List<SelectListItem>();
+    activitiePersonList = activitiePersons;
+}
+
 <h1>Edit</h1>
 
 <h4>Activity view</h4>
@@ -35,13 +41,19 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span> *@
 
-                <label asp-for="Name" class="control-label"></label>
-                <select asp-for="Name" id="activitiesSelect" asp-items="activitiesList" class="form-control">
-                    <option selected="Name">Please select</option>
+                <label asp-for="@Model.ModelPictureActivity.ActivityName" class="control-label"></label>
+                <select asp-for="ModelPictureActivity.ActivityName" id="activitiesSelect" asp-items="activitiesList" class="form-control">
+                    <option selected="Model.ModelPictureActivity.ActivityName">Please select</option>
                 </select>
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="@Model.ModelPictureActivity.ActivityName" class="text-danger"></span>
 
             </div>
+
+            <label asp-for="@Model.ModelPersonFamily.PersonName" class="control-label"></label>
+            <select asp-for="ModelPersonFamily.PersonName" id="activitiesSelect" asp-items="activitiePersonList" class="form-control">
+                <option selected="ModelPersonFamily.PersonName">Please select person</option>
+            </select>
+            <span asp-validation-for="@Model.ModelPersonFamily.PersonName" class="text-danger"></span>
 
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FamilyActivity.WebMvc.Contexts;
 using FamilyActivity.WebMvc.Models;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +15,30 @@ namespace FamilyActivity.WebMvc.Services
 
         public async Task<List<ModelActivityDays>> GetAll()
         {
-            var allActivties = await _context.ActiviesDays.ToListAsync();
+            var allActivties = await _context.ActiviesDays
+                .Include(x => x.ModelPersonFamily)
+                .Include(x => x.ModelPictureActivity)
+                .ToListAsync();
+
             if (!allActivties.Any())
             {
                 return new List<ModelActivityDays>() { };
             }
             return allActivties;
+        }
+
+        public async Task<ModelActivityDays> GetById(int id)
+        {
+            var activity = _context.ActiviesDays
+                .Include(x => x.ModelPersonFamily)
+                .Include(x => x.ModelPictureActivity)
+                .ToListAsync().Result.Where(x=>x.Id == id).Select(x=>x).FirstOrDefault();
+
+            if (activity == null)
+            {
+                return null;
+            }
+            return activity;
         }
 
     }

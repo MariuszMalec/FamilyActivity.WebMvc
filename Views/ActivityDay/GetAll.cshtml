@@ -30,13 +30,13 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
                             <div class="card-header text-white bg-info">
                                 <p class="card-text">
                                     <h5 class="card-title">
-                                        @item.Name.ToString().ToUpper()
+                                        @item.ModelPictureActivity.ActivityName.ToString().ToUpper()
                                     </h5>
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <img class="card-img-top" src="@item.Picture" alt="@item.Picture"
+                                    <img class="card-img-top" src="@item.ModelPictureActivity.Picture" alt="@item.ModelPictureActivity.Picture"
                             style="object-fit:scale-down;
                                 width:80%;
                                 height:auto;

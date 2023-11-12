@@ -30,6 +30,22 @@ namespace FamilyActivity.WebMvc.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "pictureActivities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ActivityName = table.Column<int>(type: "int", nullable: false),
+                    Picture = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_pictureActivities", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "activiesDays",
                 columns: table => new
                 {
@@ -44,7 +60,8 @@ namespace FamilyActivity.WebMvc.Migrations
                     Picture = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
-                    ModelPersonFamilyId = table.Column<int>(type: "int", nullable: true)
+                    ModelPersonFamilyId = table.Column<int>(type: "int", nullable: true),
+                    ModelPictureActivityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -54,6 +71,11 @@ namespace FamilyActivity.WebMvc.Migrations
                         column: x => x.ModelPersonFamilyId,
                         principalTable: "personFamilies",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_activiesDays_pictureActivities_ModelPictureActivityId",
+                        column: x => x.ModelPictureActivityId,
+                        principalTable: "pictureActivities",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -61,6 +83,11 @@ namespace FamilyActivity.WebMvc.Migrations
                 name: "IX_activiesDays_ModelPersonFamilyId",
                 table: "activiesDays",
                 column: "ModelPersonFamilyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_activiesDays_ModelPictureActivityId",
+                table: "activiesDays",
+                column: "ModelPictureActivityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -70,6 +97,9 @@ namespace FamilyActivity.WebMvc.Migrations
 
             migrationBuilder.DropTable(
                 name: "personFamilies");
+
+            migrationBuilder.DropTable(
+                name: "pictureActivities");
         }
     }
 }

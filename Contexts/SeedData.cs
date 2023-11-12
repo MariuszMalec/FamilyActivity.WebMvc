@@ -22,7 +22,9 @@ namespace FamilyActivity.WebMvc.Contexts
                 Description = "Kurcze",
                 Picture = "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 ModelPersonFamily = context.PersonFamilies.Find(1),
+                ModelPictureActivity = context.PictureActivities.Find(6)
             });
+
             context.Add(new ModelActivityDays()
             {
                 Id = 2,
@@ -34,6 +36,7 @@ namespace FamilyActivity.WebMvc.Contexts
                 Description = "Porzadeczki",
                 Picture = "https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
                 ModelPersonFamily = context.PersonFamilies.Find(2),
+                ModelPictureActivity = context.PictureActivities.Find(1)
             });
 
             await context.SaveChangesAsync();
@@ -51,6 +54,36 @@ namespace FamilyActivity.WebMvc.Contexts
             context.Add(new ModelPersonFamily(3, Enums.PersonFamily.GOSIA, "https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=2040&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
             context.Add(new ModelPersonFamily(4, Enums.PersonFamily.EMILKA, "https://images.unsplash.com/photo-1566004100631-35d015d6a491?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
             context.Add(new ModelPersonFamily(5, Enums.PersonFamily.ALL, "https://images.unsplash.com/photo-1696446702183-cbd13d78e1e7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
+
+            await context.SaveChangesAsync();
+        }
+
+        public static async Task SeedPictureActivities(ApplicationContext context)
+        {
+            if (context.PictureActivities.Any())
+            {
+                return;
+            }
+            context.Add(new ModelPictureActivity(1, Enums.ActivityName.Sprzatanie_lazienki,
+            "https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"));
+            context.Add(new ModelPictureActivity(2, Enums.ActivityName.Basen,
+            "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"));
+            context.Add(new ModelPictureActivity(3, Enums.ActivityName.Pranie,
+            "https://plus.unsplash.com/premium_photo-1664372899448-05788a69406a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1795&q=80"));
+            context.Add(new ModelPictureActivity(4, Enums.ActivityName.Odrabianie_lekcji,
+            "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80"));
+            context.Add(new ModelPictureActivity(5, Enums.ActivityName.Czas_spac,
+            "https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
+            context.Add(new ModelPictureActivity(6, Enums.ActivityName.Czas_do_pracy,
+            "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
+            context.Add(new ModelPictureActivity(7, Enums.ActivityName.Bajki,
+            "https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"));
+            context.Add(new ModelPictureActivity(8, Enums.ActivityName.Wstazka,
+            "https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"));
+            context.Add(new ModelPictureActivity(9, Enums.ActivityName.Sprzatanie_lazienki,
+            "https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"));
+            context.Add(new ModelPictureActivity(10, Enums.ActivityName.Zamiatanie_pokoji,
+            "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
 
             await context.SaveChangesAsync();
         }

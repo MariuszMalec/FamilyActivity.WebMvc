@@ -40,6 +40,9 @@ namespace FamilyActivity.WebMvc.Migrations
                     b.Property<int?>("ModelPersonFamilyId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ModelPictureActivityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Name")
                         .HasColumnType("int");
 
@@ -52,6 +55,8 @@ namespace FamilyActivity.WebMvc.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ModelPersonFamilyId");
+
+                    b.HasIndex("ModelPictureActivityId");
 
                     b.ToTable("activiesDays", (string)null);
                 });
@@ -73,13 +78,36 @@ namespace FamilyActivity.WebMvc.Migrations
                     b.ToTable("personFamilies", (string)null);
                 });
 
+            modelBuilder.Entity("FamilyActivity.WebMvc.Models.ModelPictureActivity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ActivityName")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Picture")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("pictureActivities", (string)null);
+                });
+
             modelBuilder.Entity("FamilyActivity.WebMvc.Models.ModelActivityDays", b =>
                 {
                     b.HasOne("FamilyActivity.WebMvc.Models.ModelPersonFamily", "ModelPersonFamily")
                         .WithMany()
                         .HasForeignKey("ModelPersonFamilyId");
 
+                    b.HasOne("FamilyActivity.WebMvc.Models.ModelPictureActivity", "ModelPictureActivity")
+                        .WithMany()
+                        .HasForeignKey("ModelPictureActivityId");
+
                     b.Navigation("ModelPersonFamily");
+
+                    b.Navigation("ModelPictureActivity");
                 });
 #pragma warning restore 612, 618
         }
