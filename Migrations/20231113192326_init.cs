@@ -52,12 +52,9 @@ namespace FamilyActivity.WebMvc.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Name = table.Column<int>(type: "int", nullable: false),
                     StartTime = table.Column<TimeSpan>(type: "time(6)", nullable: false),
                     EndTime = table.Column<TimeSpan>(type: "time(6)", nullable: false),
                     Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Picture = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
                     ModelPersonFamilyId = table.Column<int>(type: "int", nullable: true),

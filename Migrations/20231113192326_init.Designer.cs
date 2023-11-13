@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FamilyActivity.WebMvc.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20231110165936_init")]
+    [Migration("20231113192326_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,12 +44,6 @@ namespace FamilyActivity.WebMvc.Migrations
 
                     b.Property<int?>("ModelPictureActivityId")
                         .HasColumnType("int");
-
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Picture")
-                        .HasColumnType("longtext");
 
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time(6)");

@@ -43,12 +43,6 @@ namespace FamilyActivity.WebMvc.Migrations
                     b.Property<int?>("ModelPictureActivityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Picture")
-                        .HasColumnType("longtext");
-
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time(6)");
 
