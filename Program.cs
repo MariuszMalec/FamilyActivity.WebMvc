@@ -62,7 +62,7 @@ using (var scope = app.Services.CreateScope())
     }
     if (environment == EnumProvider.MysqlClassSeed.ToString())
     {
-        //dataContext.Database.EnsureDeleted();
+        dataContext.Database.EnsureDeleted();
         dataContext?.Database.Migrate();
         dataContext.Database.EnsureCreated();
         await SeedData.SeedPersonFamilies(dataContext);
