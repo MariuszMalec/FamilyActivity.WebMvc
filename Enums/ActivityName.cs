@@ -13,6 +13,10 @@
         Bajki,
         Czas_spac,
         Czas_do_pracy,
-        Rysowanie
+        Rysowanie,
+        Obiad,
+        Czas_tylko_taty,
+        Czas_tylko_mamy
+
     }
 }
