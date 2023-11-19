@@ -51,6 +51,14 @@
                     {
                         <p class="descMama">@item.Description</p>
                     }
+                    else if (@item.ModelPersonFamily.PersonName == FamilyActivity.WebMvc.Enums.PersonFamily.GOSIA)
+                    {
+                        <p class="descGosia">@item.Description</p>
+                    }
+                    else if (@item.ModelPersonFamily.PersonName == FamilyActivity.WebMvc.Enums.PersonFamily.EMILKA)
+                    {
+                        <p class="descEmilka">@item.Description</p>
+                    }
                     else
                     {
                         <p class="desc">@item.Description</p>
@@ -96,6 +104,28 @@
         color: navy;
         text-transform: uppercase;
         border: 4px solid red;
+        border-radius: 45%;
+        text-align: center;
+        text-decoration: underline;
+        font-style: italic;
+        font-family: cursive;
+    }
+
+    p.descGosia {
+        color: navy;
+        text-transform: uppercase;
+        border: 4px solid orange;
+        border-radius: 45%;
+        text-align: center;
+        text-decoration: underline;
+        font-style: italic;
+        font-family: cursive;
+    }
+
+    p.descEmilka {
+        color: navy;
+        text-transform: uppercase;
+        border: 4px solid violet;
         border-radius: 45%;
         text-align: center;
         text-decoration: underline;

@@ -13,41 +13,303 @@ namespace FamilyActivity.WebMvc.Contexts
 
             context.Add(new ModelActivityDays()
             {
-                Id = 1,
-                CreatedAt = DateTime.Now,
-                DayOfWeek = Enums.DayOfWeek.Monday,
-                StartTime = TimeSpan.Parse("9:30:00".ToString()),
-                EndTime = TimeSpan.Parse("17:30:00".ToString()),
-                Description = "Kurcze",
-                ModelPersonFamily = context.PersonFamilies.Find(1),
-                ModelPictureActivity = context.PictureActivities.Find(6)
+                DayOfWeek = Enums.DayOfWeek.Sunday,
+                StartTime = TimeSpan.Parse("16:00:00".ToString()),
+                EndTime = TimeSpan.Parse("17:00:00".ToString()),
+                Description = "Rysowanie",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Rysowanie)
             });
 
             context.Add(new ModelActivityDays()
             {
-                Id = 2,
-                CreatedAt = DateTime.Now,
-                DayOfWeek = Enums.DayOfWeek.Monday,
-                StartTime = TimeSpan.Parse("19:30:00".ToString()),
-                EndTime = TimeSpan.Parse("20:00:00".ToString()),
-                Description = "Porzadeczki",
-                ModelPersonFamily = context.PersonFamilies.Find(2),
-                ModelPictureActivity = context.PictureActivities.Find(1)
+                DayOfWeek = Enums.DayOfWeek.Wednesday,
+                StartTime = TimeSpan.Parse("19:00:00".ToString()),
+                EndTime = TimeSpan.Parse("20:30:00".ToString()),
+                Description = "Na dolinke",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.GOSIA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Basen)
             });
 
             context.Add(new ModelActivityDays()
             {
-                Id = 3,
-                CreatedAt = DateTime.Now,
+                DayOfWeek = Enums.DayOfWeek.Thursday,
+                StartTime = TimeSpan.Parse("16:15:00".ToString()),
+                EndTime = TimeSpan.Parse("17:15:00".ToString()),
+                Description = "Do brodwaya",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.GOSIA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Wstazka)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
                 DayOfWeek = Enums.DayOfWeek.Monday,
                 StartTime = TimeSpan.Parse("19:30:00".ToString()),
                 EndTime = TimeSpan.Parse("20:00:00".ToString()),
                 Description = "Wieczorynka",
-                ModelPersonFamily = context.PersonFamilies.Where(p=>p.PersonName == Enums.PersonFamily.GOSIA).Select(p=>p).FirstOrDefault(),
-                ModelPictureActivity = context.PictureActivities.Where(p=>p.ActivityName == Enums.ActivityName.Bajki).Select(p=>p).FirstOrDefault()
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.GOSIA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Bajki)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Tuesday,
+                StartTime = TimeSpan.Parse("19:30:00".ToString()),
+                EndTime = TimeSpan.Parse("20:00:00".ToString()),
+                Description = "Wieczorynka",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.EMILKA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Bajki)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Sunday,
+                StartTime = TimeSpan.Parse("19:00:00".ToString()),
+                EndTime = TimeSpan.Parse("20:00:00".ToString()),
+                Description = "Bajka fabularna dla wszystkich",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.ALL),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Bajki)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Monday,
+                StartTime = TimeSpan.Parse("9:30:00".ToString()),
+                EndTime = TimeSpan.Parse("17:30:00".ToString()),
+                Description = "Kurcze, nie lubie poniedzialkow",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_do_pracy)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Tuesday,
+                StartTime = TimeSpan.Parse("8:00:00".ToString()),
+                EndTime = TimeSpan.Parse("16:00:00".ToString()),
+                Description = "Kurcze",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_do_pracy)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Wednesday,
+                StartTime = TimeSpan.Parse("19:30:00".ToString()),
+                EndTime = TimeSpan.Parse("20:00:00".ToString()),
+                Description = "Kurcze",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_do_pracy)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Thursday,
+                StartTime = TimeSpan.Parse("8:00:00".ToString()),
+                EndTime = TimeSpan.Parse("16:00:00".ToString()),
+                Description = "Kurcze",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_do_pracy)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Friday,
+                StartTime = TimeSpan.Parse("19:30:00".ToString()),
+                EndTime = TimeSpan.Parse("20:00:00".ToString()),
+                Description = "Kurcze",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_do_pracy)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Monday,
+                StartTime = TimeSpan.Parse("20:00:00".ToString()),
+                EndTime = TimeSpan.Parse("22:30:00".ToString()),
+                Description = "Czas spac",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_spac)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Tuesday,
+                StartTime = TimeSpan.Parse("20:00:00".ToString()),
+                EndTime = TimeSpan.Parse("22:30:00".ToString()),
+                Description = "Czas spac",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.MAMA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_spac)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Wednesday,
+                StartTime = TimeSpan.Parse("20:00:00".ToString()),
+                EndTime = TimeSpan.Parse("22:30:00".ToString()),
+                Description = "Czas spac",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_spac)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Thursday,
+                StartTime = TimeSpan.Parse("20:00:00".ToString()),
+                EndTime = TimeSpan.Parse("22:30:00".ToString()),
+                Description = "Czas spac",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.MAMA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_spac)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Friday,
+                StartTime = TimeSpan.Parse("20:00:00".ToString()),
+                EndTime = TimeSpan.Parse("22:30:00".ToString()),
+                Description = "Czas spac",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_spac)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Saturday,
+                StartTime = TimeSpan.Parse("20:00:00".ToString()),
+                EndTime = TimeSpan.Parse("22:30:00".ToString()),
+                Description = "Czas spac",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.MAMA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_spac)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Sunday,
+                StartTime = TimeSpan.Parse("20:00:00".ToString()),
+                EndTime = TimeSpan.Parse("22:30:00".ToString()),
+                Description = "Czas spac",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.ALL),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_spac)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Monday,
+                StartTime = TimeSpan.Parse("18:30:00".ToString()),
+                EndTime = TimeSpan.Parse("19:00:00".ToString()),
+                Description = "Porzadki",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Sprzatanie_kuchni)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Thursday,
+                StartTime = TimeSpan.Parse("18:30:00".ToString()),
+                EndTime = TimeSpan.Parse("19:00:00".ToString()),
+                Description = "Porzadki",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Sprzatanie_kuchni)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Wednesday,
+                StartTime = TimeSpan.Parse("18:30:00".ToString()),
+                EndTime = TimeSpan.Parse("19:00:00".ToString()),
+                Description = "Porzadki",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.MAMA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Sprzatanie_kuchni)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Thursday,
+                StartTime = TimeSpan.Parse("18:30:00".ToString()),
+                EndTime = TimeSpan.Parse("19:00:00".ToString()),
+                Description = "Porzadki",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.MAMA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Sprzatanie_kuchni)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Friday,
+                StartTime = TimeSpan.Parse("18:30:00".ToString()),
+                EndTime = TimeSpan.Parse("19:00:00".ToString()),
+                Description = "Porzadki",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Sprzatanie_kuchni)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Saturday,
+                StartTime = TimeSpan.Parse("18:30:00".ToString()),
+                EndTime = TimeSpan.Parse("19:00:00".ToString()),
+                Description = "Porzadki",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.MAMA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Sprzatanie_kuchni)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Sunday,
+                StartTime = TimeSpan.Parse("18:30:00".ToString()),
+                EndTime = TimeSpan.Parse("19:00:00".ToString()),
+                Description = "Porzadki",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Sprzatanie_kuchni)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Monday,
+                StartTime = TimeSpan.Parse("17:30:00".ToString()),
+                EndTime = TimeSpan.Parse("18:00:00".ToString()),
+                Description = "Lekcje",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.MAMA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Odrabianie_lekcji)
+            });
+
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Thursday,
+                StartTime = TimeSpan.Parse("17:30:00".ToString()),
+                EndTime = TimeSpan.Parse("18:00:00".ToString()),
+                Description = "Lekcje",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Odrabianie_lekcji)
+            });
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Wednesday,
+                StartTime = TimeSpan.Parse("17:30:00".ToString()),
+                EndTime = TimeSpan.Parse("18:00:00".ToString()),
+                Description = "Lekcje",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.MAMA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Odrabianie_lekcji)
+            });
+            context.Add(new ModelActivityDays()
+            {
+                DayOfWeek = Enums.DayOfWeek.Thursday,
+                StartTime = TimeSpan.Parse("17:30:00".ToString()),
+                EndTime = TimeSpan.Parse("18:00:00".ToString()),
+                Description = "Lekcje",
+                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Odrabianie_lekcji)
             });
 
             await context.SaveChangesAsync();
+        }
+
+        private static ModelPictureActivity? AddModelPictureActivity(ApplicationContext context, Enums.ActivityName activityName)
+        {
+            return context.PictureActivities.Where(p => p.ActivityName == activityName).Select(p => p).FirstOrDefault();
+        }
+
+        private static ModelPersonFamily? AddModelPersonFamily(ApplicationContext context, Enums.PersonFamily person)
+        {
+            return context.PersonFamilies.Where(p => p.PersonName == person).Select(p => p).FirstOrDefault();
         }
 
         public static async Task SeedPersonFamilies(ApplicationContext context)
@@ -92,6 +354,8 @@ namespace FamilyActivity.WebMvc.Contexts
             "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
             context.Add(new ModelPictureActivity(11, Enums.ActivityName.Sprzatanie_kuchni,
             "https://images.unsplash.com/photo-1600585152220-90363fe7e115?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
+            context.Add(new ModelPictureActivity(12, Enums.ActivityName.Rysowanie,
+            "https://plus.unsplash.com/premium_photo-1673514503010-58c013e17aae?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
 
             await context.SaveChangesAsync();
         }

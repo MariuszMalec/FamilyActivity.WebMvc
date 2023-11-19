@@ -19,10 +19,10 @@ namespace FamilyActivity.WebMvc.Controllers
             if (events.Count() == 0)
             {
                 return RedirectToAction("EmptyList");
-            }
+            }          
 
             var sums = events.GroupBy(x => x.ModelPictureActivity.ActivityName.ToString())
-                .ToDictionary(x => x.Key, x => x.Select(y => Convert.ToInt32(y.ModelPictureActivity.ActivityName)).Sum());
+                .ToDictionary(x => x.Key, x => x.Select(y => Convert.ToInt32(y.ModelPictureActivity.ActivityName)).Count());
 
             return View(new ActivityStatisticsView() { ActivitySums = sums });
         }

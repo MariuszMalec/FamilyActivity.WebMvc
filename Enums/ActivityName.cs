@@ -12,6 +12,7 @@
         Wstazka,
         Bajki,
         Czas_spac,
-        Czas_do_pracy
+        Czas_do_pracy,
+        Rysowanie
     }
 }

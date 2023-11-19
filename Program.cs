@@ -79,6 +79,8 @@ using (var scope = app.Services.CreateScope())
     }
     if (environment == EnumProvider.MysqlCommand.ToString())
     {
+        dataContext.Database.EnsureDeleted();
+        dataContext.Database.EnsureCreated();
         //AppDbInitializerWithinMySqlCommand.CreateTableWithMySqlPersonFamilies(app, Configuration);
         AppDbInitializerWithinMySqlCommand.SeedWithMySqlPersonFamilies(app, Configuration);
 
