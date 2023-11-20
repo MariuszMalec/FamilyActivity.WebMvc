@@ -95,25 +95,27 @@ namespace FamilyActivity.WebMvc.Contexts
                     try
                     {
                         string query = $"INSERT INTO {table}(startTime,endTime,description,dayOfWeek,createdAt,modelPersonFamilyId,modelPictureActivityId) " +
-                            $"VALUES ('19:30:00','20:15:00','TATA', 3, CURRENT_TIMESTAMP,1,1)," +
-                            $"('19:30:00', '20:15:00', 'TATA', 6, CURRENT_TIMESTAMP,1,1)," +
-                            $"('19:30:00', '20:15:00', 'MAMA', 2, CURRENT_TIMESTAMP,2,1)," +
-                            $"('19:30:00', '20:15:00', 'MAMA', 4, CURRENT_TIMESTAMP,2,1)," +
-                            $"('19:00:00', '19:30:00', 'TATA', 3, CURRENT_TIMESTAMP,1,5)," +
-                            $"('19:00:00', '19:30:00', 'TATA', 5, CURRENT_TIMESTAMP,1,5)," +
-                            $"('19:30:00', '20:30:00', 'TATA', 4, CURRENT_TIMESTAMP,1,5)," +
-                            $"('19:00:00', '19:30:00', 'MAMA', 2, CURRENT_TIMESTAMP,2,5)," +
-                            $"('19:00:00', '19:30:00', 'MAMA', 4, CURRENT_TIMESTAMP,2,5)," +
-                            $"('18:30:00', '19:15:00', 'MAMA', 3, CURRENT_TIMESTAMP,2,4)," +
-                            $"('18:30:00', '19:15:00', 'MAMA', 5, CURRENT_TIMESTAMP,2,4)," +
-                            $"('18:30:00', '19:15:00', 'TATA', 2, CURRENT_TIMESTAMP,1,4)," +
-                            $"('18:30:00', '19:15:00', 'TATA', 4, CURRENT_TIMESTAMP,1,4)," +
-                            $"('19:00:00', '20:00:00', 'ALL', 1, CURRENT_TIMESTAMP,5,8)," +
-                            $"('19:00:00', '20:00:00', 'ALL', 7, CURRENT_TIMESTAMP,5,8)," +
-                            $"('19:30:00', '20:00:00', 'MAMA', 2, CURRENT_TIMESTAMP,2,9)," +
-                            $"('19:30:00', '20:00:00', 'TATA', 3, CURRENT_TIMESTAMP,1,9)," +
-                            $"('9:30:00', '17:30:00', 'TATA', 2, CURRENT_TIMESTAMP,1,10)," +
-                            $"('8:00:00', '16:00:00', 'TATA', 3, CURRENT_TIMESTAMP,1,10)," +
+                            $"VALUES ('9:30:00', '17:30:00', 'Kurcze', 2, CURRENT_TIMESTAMP,1,10)," +
+                            $"('8:00:00', '16:00:00', 'Kurcze', 3, CURRENT_TIMESTAMP,1,10)," +
+                            $"('9:30:00', '17:30:00', 'Kurcze', 4, CURRENT_TIMESTAMP,1,10)," +
+                            $"('8:00:00', '16:00:00', 'Kurcze', 5, CURRENT_TIMESTAMP,1,10)," +
+                            $"('9:30:00', '17:30:00', 'Kurcze', 6, CURRENT_TIMESTAMP,1,10)," +
+                            $"('20:00:00', '21:30:00', 'Lulanko', 2, CURRENT_TIMESTAMP,1,9)," +
+                            $"('20:00:00', '21:30:00', 'Lulanko', 3, CURRENT_TIMESTAMP,2,9)," +
+                            $"('20:00:00', '21:30:00', 'Lulanko', 4, CURRENT_TIMESTAMP,1,9)," +
+                            $"('20:00:00', '21:30:00', 'Lulanko', 5, CURRENT_TIMESTAMP,2,9)," +
+                            $"('20:00:00', '21:30:00', 'Lulanko', 6, CURRENT_TIMESTAMP,1,9)," +
+                            $"('20:00:00', '21:30:00', 'Lulanko', 7, CURRENT_TIMESTAMP,2,9)," +
+                            $"('20:00:00', '21:30:00', 'Lulanko', 1, CURRENT_TIMESTAMP,1,9)," +
+                            $"('17:30:00', '18:00:00', 'Czas na lekcje', 2, CURRENT_TIMESTAMP,2,5)," +
+                            $"('17:30:00', '18:00:00', 'Czas na lekcje', 3, CURRENT_TIMESTAMP,1,5)," +
+                            $"('17:30:00', '18:00:00', 'Czas na lekcje', 4, CURRENT_TIMESTAMP,2,5)," +
+                            $"('17:30:00', '18:00:00', 'Czas na lekcje', 5, CURRENT_TIMESTAMP,1,5)," +
+                            $"('10:30:00', '12:00:00', 'Czas na bajeczki', 7, CURRENT_TIMESTAMP,3,8)," +
+                            $"('10:30:00', '11:30:00', 'Czas na bajeczki', 1, CURRENT_TIMESTAMP,4,8)," +
+                            $"('21:00:00', '23:00:00', 'Czas na taty', 4, CURRENT_TIMESTAMP,1,13)," +
+                            $"('19:30:00', '21:30:00', 'Czas na mamy', 5, CURRENT_TIMESTAMP,2,14)," +
+                            $"('19:30:00', '21:00:00', 'Na dolinke', 4, CURRENT_TIMESTAMP,1,6)," +
                             $"('16:15:00','17:15:00','MAMA', 5, CURRENT_TIMESTAMP,2,7);";
                         cn.Open();
                         using (SqliteCommand cmd = new SqliteCommand(query, cn))
@@ -318,7 +320,11 @@ namespace FamilyActivity.WebMvc.Contexts
                                    $"(8,'https://images.unsplash.com/photo-1515041219749-89347f83291a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80')," +
                                    $"(9,'https://images.unsplash.com/photo-1558427400-bc691467a8a9?auto=format&fit=crop&q=80&w=1924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
                                    $"(10,'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
-                                   $"(11,'https://images.unsplash.com/photo-1696446702183-cbd13d78e1e7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');";
+                                   $"(11,'https://plus.unsplash.com/premium_photo-1673514503010-58c013e17aae?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
+                                   $"(12,'https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
+                                   $"(13,'https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
+                                   $"(14,'https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1798&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
+                                   $"(15,'https://images.unsplash.com/photo-1696446702183-cbd13d78e1e7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');";
                         cn.Open();
                         using (SqliteCommand cmd = new SqliteCommand(query, cn))
                         {

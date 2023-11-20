@@ -71,6 +71,8 @@ using (var scope = app.Services.CreateScope())
     }
     if (environment == EnumProvider.sqliteCommand.ToString())
     {
+        dataContext.Database.EnsureDeleted();
+        dataContext.Database.EnsureCreated();
         //AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLitePersonFamilies(app, Configuration);
         AppDbInitializerWithinSqliteCommand.SeedWithSqlLitePersonFamilies(app, Configuration);
         AppDbInitializerWithinSqliteCommand.SeedWithSqlLiteAvtivityPictures(app, Configuration);
