@@ -113,9 +113,11 @@ namespace FamilyActivity.WebMvc.Contexts
                             $"('17:30:00', '18:00:00', 'Czas na lekcje', 5, CURRENT_TIMESTAMP,1,5)," +
                             $"('10:30:00', '12:00:00', 'Czas na bajeczki', 7, CURRENT_TIMESTAMP,3,8)," +
                             $"('10:30:00', '11:30:00', 'Czas na bajeczki', 1, CURRENT_TIMESTAMP,4,8)," +
-                            $"('21:00:00', '23:00:00', 'Czas na taty', 4, CURRENT_TIMESTAMP,1,13)," +
-                            $"('19:30:00', '21:30:00', 'Czas na mamy', 5, CURRENT_TIMESTAMP,2,14)," +
+                            $"('21:00:00', '23:00:00', 'Czas dla taty', 4, CURRENT_TIMESTAMP,1,13)," +
+                            $"('19:30:00', '21:30:00', 'Czas dla mamy', 5, CURRENT_TIMESTAMP,2,14)," +
                             $"('19:30:00', '21:00:00', 'Na dolinke', 4, CURRENT_TIMESTAMP,1,6)," +
+                            $"('12:30:00', '14:00:00', 'Obiad', 7, CURRENT_TIMESTAMP, 1, 12)," +
+                            $"('12:30:00', '14:00:00', 'Obiad', 1, CURRENT_TIMESTAMP, 2, 12)," +
                             $"('16:15:00','17:15:00','MAMA', 5, CURRENT_TIMESTAMP,2,7);";
                         cn.Open();
                         using (SqliteCommand cmd = new SqliteCommand(query, cn))
