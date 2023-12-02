@@ -16,7 +16,9 @@
         Rysowanie,
         Obiad,
         Czas_tylko_taty,
-        Czas_tylko_mamy
+        Czas_tylko_mamy,
+        Spacer,
+        Gry_i_zabawy
 
     }
 }
