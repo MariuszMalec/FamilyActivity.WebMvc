@@ -18,7 +18,9 @@
         Czas_tylko_taty,
         Czas_tylko_mamy,
         Spacer,
-        Gry_i_zabawy
+        Gry_i_zabawy,
+        Kolacja,
+        Sniadanie
 
     }
 }

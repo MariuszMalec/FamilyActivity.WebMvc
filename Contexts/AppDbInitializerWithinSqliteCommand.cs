@@ -121,6 +121,9 @@ namespace FamilyActivity.WebMvc.Contexts
                             $"('15:30:00', '16:30:00', 'Pora na spacer', 7, CURRENT_TIMESTAMP, 1, 15)," +
                             $"('15:30:00', '16:30:00', 'Pora na spacer', 1, CURRENT_TIMESTAMP, 2, 15)," +
                             $"('17:00:00', '18:00:00', 'Wspolne zabawy', 7, CURRENT_TIMESTAMP, 5, 16)," +
+                            $"('18:00:00', '19:30:00', 'Wspolne zabawy', 1, CURRENT_TIMESTAMP, 1, 16)," +
+                            $"('8:30:00', '9:00:00', 'Czas na sniadanko', 1, CURRENT_TIMESTAMP, 5, 18)," +
+                            $"('19:30:00', '20:00:00', 'Czas na kolacje', 1, CURRENT_TIMESTAMP, 5, 17)," +
                             $"('16:15:00','17:15:00','MAMA', 5, CURRENT_TIMESTAMP,2,7);";
                         cn.Open();
                         using (SqliteCommand cmd = new SqliteCommand(query, cn))
@@ -331,7 +334,9 @@ namespace FamilyActivity.WebMvc.Contexts
                                    $"(14,'https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1798&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
                                    $"(15,'https://images.unsplash.com/photo-1606474226448-4aa808468efc?q=80&w=1990&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
                                    $"(16,'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
-                                   $"(17,'https://images.unsplash.com/photo-1606474226448-4aa808468efc?q=80&w=1990&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');";
+                                   $"(17,'https://images.unsplash.com/photo-1608835291093-394b0c943a75?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
+                                   $"(18,'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')," +
+                                   $"(18,'https://images.unsplash.com/photo-1606474226448-4aa808468efc?q=80&w=1990&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');";
                         cn.Open();
                         using (SqliteCommand cmd = new SqliteCommand(query, cn))
                         {

@@ -22,11 +22,13 @@ namespace FamilyActivity.WebMvc.Controllers
         {
             var allActivties = await _activityService.GetAll();
 
+            var currentTime = (TimeSpan)DateTime.Now.TimeOfDay;
+
             var sorted = allActivties
             .Where(t=>(int)t.DayOfWeek == (int)Enums.DayOfWeek.All || t.DayOfWeek.ToString().Contains(DateTime.Now.DayOfWeek.ToString()))          
-            .OrderByDescending(t=>DateTime.Now.TimeOfDay >= t.StartTime && DateTime.Now.TimeOfDay <= t.EndTime)
-            .ThenBy(t=>DateTime.Now.TimeOfDay > t.EndTime)
-            .Take(2)
+            .Where(t=> currentTime < t.EndTime)
+            .OrderBy(t=>t.StartTime)
+            .Take(3)
             ;
 
             var pageNumber = page ?? 1;
