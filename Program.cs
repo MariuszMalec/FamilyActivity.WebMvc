@@ -42,18 +42,22 @@ if (sqlite)
 }
 else
 {
-    var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
-    builder.Services.AddDbContext<ApplicationContext>(
-        dbContextOptions => dbContextOptions
-            .UseMySql(Configuration.GetConnectionString("Default"), serverVersion)
-            .LogTo(Console.WriteLine, LogLevel.Information)
-            .EnableSensitiveDataLogging()
-            .EnableDetailedErrors()
-    );
+    //var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
+    //builder.Services.AddDbContext<ApplicationContext>(
+    //    dbContextOptions => dbContextOptions
+    //        .UseMySql(Configuration.GetConnectionString("Default"), serverVersion)
+    //        .LogTo(Console.WriteLine, LogLevel.Information)
+    //        .EnableSensitiveDataLogging()
+    //        .EnableDetailedErrors()
+    //);
 
-    var conectionString = Configuration.GetConnectionString("WorkOrderContextMySql");
+    var conectionString = Configuration.GetConnectionString("Default");
+    builder.Services.AddDbContext<ApplicationContext>(o => o.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
+    builder.Services.AddDbContext<ApplicationContext>();
+
+    var conectionString2 = Configuration.GetConnectionString("WorkOrderContextMySql");
     //builder.Services.AddDbContext<MaintenanceDbContext>(o => o.UseLazyLoadingProxies().UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
-    builder.Services.AddDbContext<WorkOrderDbContext>(o => o.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
+    builder.Services.AddDbContext<WorkOrderDbContext>(o => o.UseMySql(conectionString2, ServerVersion.AutoDetect(conectionString2)));
     builder.Services.AddDbContext<WorkOrderDbContext>();
 }
 

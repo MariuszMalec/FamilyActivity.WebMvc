@@ -443,9 +443,9 @@ namespace FamilyActivity.WebMvc.Contexts
              "https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
             context.Add(new ModelPictureActivity(15, Enums.ActivityName.Czas_tylko_mamy,
              "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1798&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
-            context.Add(new ModelPictureActivity(15, Enums.ActivityName.Spacer,
+            context.Add(new ModelPictureActivity(16, Enums.ActivityName.Spacer,
               "https://images.unsplash.com/photo-1606474226448-4aa808468efc?q=80&w=1990&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
-            context.Add(new ModelPictureActivity(15, Enums.ActivityName.Gry_i_zabawy,
+            context.Add(new ModelPictureActivity(17, Enums.ActivityName.Gry_i_zabawy,
               "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
 
             await context.SaveChangesAsync();

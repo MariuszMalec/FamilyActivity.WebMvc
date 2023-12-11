@@ -7,5 +7,8 @@ look folder SqlQuery
 # migration daypilot
 add-migration InitWorkOrderDb -context WorkOrderDbContext
 update-database -context WorkOrderDbContext
-
+or
 Add-Migration InitialWorkOrderDbMySql -Context WorkOrderDbContext -OutputDir .\Migrations\MySql
+
+# migration activitydb
+ Add-Migration InitialActivityDb -Context ApplicationContext -OutputDir .\Migrations\MySql
