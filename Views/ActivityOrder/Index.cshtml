@@ -1,0 +1,632 @@
+﻿@{
+    ViewData["Title"] = "Schedule";
+}
+
+<script src="~/lib/daypilot/daypilot-all.min.js"></script>
+
+<div class="main">
+    <div class="parent">
+        <div class="left">
+            <button id="addToQueue">Add task...</button>
+            <div id="queue"></div>
+        </div>
+        <div class="right">
+            <div id="scheduler"></div>
+        </div>
+    </div>
+    <div class="generated">Generated using <a href="https://builder.daypilot.org/">DayPilot UI Builder</a>.</div>
+</div>
+
+<script>
+    const scheduler = new DayPilot.Scheduler("scheduler", {
+        cellDuration: 30,
+        cellWidth: 60,
+        days: DayPilot.Date.today().addMonths(0).daysInMonth(),
+        dragOutAllowed: true,
+        durationBarVisible: false,
+        eventHeight: 45,
+        rowHeaderColumns: [
+            { name: "Name" },
+            { name: "ID", display: "id" }
+        ],
+        rowMarginTop: 5,
+        rowMarginBottom: 5,
+        scale: "CellDuration",
+        showNonBusiness: false,
+        businessBeginsHour: 9,
+        businessEndsHour: 18,
+        startDate: DayPilot.Date.today(),
+        timeHeaders: [{ groupBy: "Day" }, { groupBy: "Hour" }],
+        timeRangeSelectedHandling: "Enabled",
+        treeEnabled: true,
+        treePreventParentUsage: true,
+        onBeforeEventRender: args => {
+
+            const text = DayPilot.Util.escapeHtml(args.data.text);
+            const hours = new DayPilot.Duration(args.data.start, args.data.end).totalHours();
+
+            const color = args.data.color || "#666666";
+            const backColor = DayPilot.ColorUtil.lighter(color, 1);
+            const bottomColor = DayPilot.ColorUtil.lighter(color, 0.7);
+
+            // styling
+            args.data.barColor = args.data.color;
+            args.data.backColor = backColor;
+            args.data.fontColor = "#ffffff";
+            args.data.borderColor = bottomColor;
+
+            // content
+            args.data.text = text;
+
+            // context menu icon
+            args.data.areas = [
+                {
+                    top: 14,
+                    right: 8,
+                    height: 20,
+                    width: 20,
+                    fontColor: "#666",
+                    symbol: "icons/daypilot.svg#minichevron-down-4",
+                    visibility: "Hover",
+                    action: "ContextMenu",
+                    style: "background-color: rgba(255, 255, 255, 1); border: 1px solid #666; box-sizing: border-box; cursor:pointer; border-radius: 20px; padding: 2px;"
+                },
+            ];
+
+            args.data.areas.push({
+                bottom: 0,
+                height: 22,
+                left: 0,
+                right: 0,
+                backColor: bottomColor,
+                fontColor: "#ffffff",
+                cssClass: "event_bar_bottom",
+                text: `${hours} hours`,
+                nonFloating: true
+            });
+        },
+        onBeforeRowHeaderRender: args => {
+            const isParent = args.row.children().length > 0;
+            if (isParent) {
+                const colorFree = "#e0e0e0";
+                args.row.areas.push({
+                    top: 0,
+                    height: 10,
+                    left: 0,
+                    right: 0,
+                    backColor: colorFree
+                });
+            }
+        },
+        onBeforeCellRender: args => {
+            if (args.cell.isParent) {
+                const children = scheduler.rows.find(args.cell.resource).children();
+                const total = children.length;
+                const used = children.filter(row => { return !!row.events.forRange(args.cell.start, args.cell.end).length; }).length;
+                const available = total - used;
+                const percentage = Math.round(used / total * 100);
+
+                const colorFree = "#e0e0e0";
+                const colorFull = "#00619b";
+                const colorSome = DayPilot.ColorUtil.lighter("#00639c", 2);
+
+                const colorCellAvailable = "#f6f6f6";
+                const colorCellFull = DayPilot.ColorUtil.lighter("#00639c", 3);
+
+                const w = scheduler.cellWidth / total;
+                args.cell.areas = [];
+                args.cell.areas.push({
+                    text: `${percentage}%`,
+                    style: "text-align: center; font-size: 12px; font-weight: normal;",
+                    top: 20,
+                    left: 0,
+                    right: 0
+                });
+
+                args.cell.backColor = colorCellAvailable;
+                if (available === 0) {
+                    args.cell.backColor = colorCellFull;
+                    args.cell.areas[0].fontColor = "#ffffff";
+                }
+
+                args.cell.areas.push({
+                    top: 0,
+                    height: 10,
+                    left: 0,
+                    right: 0,
+                    backColor: "#ffffff"
+                });
+                DayPilot.list.for(total).forEach((item, i) => {
+                    let color = colorFree;
+                    if (i < used) {
+                        color = colorSome;
+                    }
+                    if (available === 0) {
+                        color = colorFull;
+
+                    }
+                    args.cell.areas.push({
+                        top: 0,
+                        height: 10,
+                        left: i * w,
+                        width: w - 1,
+                        backColor: color
+                    });
+                });
+            }
+        },
+        onTimeRangeSelected: args => {
+            app.schedulerTaskAdd(args.start, args.end, args.resource);
+        },
+        onEventClick: args => {
+            app.schedulerTaskEdit(args.e);
+        },
+        onEventMove: args => {
+            app.schedulerTaskMove(args.e.id(), args.newStart, args.newEnd, args.newResource, args.external);
+        },
+        onEventResize: args => {
+            app.schedulerTaskMove(args.e.id(), args.newStart, args.newEnd, args.e.resource(), false);
+        },
+        onEventResizing: args => {
+            let duration = new DayPilot.Duration(args.start, args.end);
+            if (duration.totalHours() > 8) {
+                args.allowed = false;
+                args.right.enabled = true;
+                args.right.html = "Maximum duration is 8 hours";
+            }
+        },
+        onTimeRangeSelecting: args => {
+            let duration = new DayPilot.Duration(args.start, args.end);
+            if (duration.totalHours() > 8) {
+                args.allowed = false;
+                args.right.enabled = true;
+                args.right.html = "Maximum duration is 8 hours";
+            }
+        },
+        contextMenu: new DayPilot.Menu({
+            items: [
+                {
+                    text: "Edit...",
+                    onClick: args => {
+                        app.schedulerTaskEdit(args.source);
+                    }
+                },
+                {
+                    text: "-",
+                },
+                {
+                    text: "Unschedule",
+                    onClick: async args => {
+                        const ev = args.source;
+                        const { data: item } = await DayPilot.Http.post(`/api/WorkOrders/${ev.data.id}/Unschedule`);
+
+                        scheduler.events.remove(ev);
+                        queue.events.add(item);
+                    }
+                },
+                {
+                    text: "-",
+                },
+                {
+                    text: "Delete",
+                    onClick: args => {
+                        app.schedulerClickDelete(args.source.id());
+                    }
+                },
+            ],
+        })
+    });
+    scheduler.init();
+
+
+    const queue = new DayPilot.Queue("queue", {
+
+        eventHeight: 45,
+        eventBarWidth: 15,
+        contextMenu: new DayPilot.Menu({
+            items: [
+                {
+                    text: "Edit...",
+                    onClick: args => {
+                        app.queueTaskEdit(args.source);
+                    }
+                },
+                {
+                    text: "-",
+                },
+                {
+                    text: "Delete",
+                    onClick: args => {
+                        app.queueTaskDelete(args.source.id());
+                    }
+                },
+            ]
+        }),
+        onEventClick: args => {
+            app.queueTaskEdit(args.e);
+        },
+        onEventMove: args => {
+            app.queueTaskMove(args.e, args.position, args.external, args.source);
+        },
+        onBeforeEventRender: args => {
+            const duration = new DayPilot.Duration(args.data.start, args.data.end);
+
+            args.data.html = "";
+
+            const color = args.data.color || "#666666";
+            const backColor = DayPilot.ColorUtil.lighter(color, 1);
+            const bottomColor = DayPilot.ColorUtil.lighter(color, 0.7);
+
+            args.data.backColor = backColor;
+            args.data.borderColor = bottomColor;
+            args.data.barHidden = true;
+
+            args.data.areas = [
+                {
+                    top: 15,
+                    right: 5,
+                    height: 16,
+                    width: 16,
+                    fontColor: "#666",
+                    symbol: "icons/daypilot.svg#minichevron-down-4",
+                    visibility: "Hover",
+                    action: "ContextMenu",
+                    style: "background-color: rgba(255, 255, 255, 1); border: 1px solid #666; box-sizing: border-box; cursor:pointer; border-radius: 20px;"
+                },
+                {
+                    top: 0,
+                    left: 25,
+                    bottom: 0,
+                    width: 12,
+                    fontColor: "#ffffff",
+                    symbol: "icons/daypilot.svg#move-vertical",
+                    style: "cursor: move",
+                    visibility: "Hover",
+                    toolTip: "Drag task to the scheduler"
+                },
+                {
+                    top: 5,
+                    left: 40,
+                    text: args.data.text,
+                    fontColor: "#ffffff",
+                },
+                {
+                    bottom: 0,
+                    height: 20,
+                    left: 0,
+                    right: 0,
+                    fontColor: "#ffffff",
+                    backColor: bottomColor,
+                    style: "padding-left: 40px;",
+                    text: app.formatDuration(duration)
+                }
+            ];
+        }
+    });
+    queue.init();
+
+
+    const app = {
+        elements: {
+            addToQueue: document.querySelector("#addToQueue")
+        },
+        colors: [
+            { name: "Green", id: "#6aa84f" },
+            { name: "Teal", id: "#30A794" },
+            { name: "Blue", id: "#3F85A4" },
+            { name: "Red", id: "#ee5530" },
+            { name: "Orange", id: "#EF8C03" },
+            { name: "Yellow", id: "#ecb823" },
+            { name: "Brown", id: "#8E3103" },
+        ],
+
+        async schedulerClickDelete(id) {
+            await DayPilot.Http.delete(`/api/WorkOrders/${id}`);
+            scheduler.events.remove(id);
+        },
+        async schedulerLoad() {
+            const start = scheduler.visibleStart();
+            const end = scheduler.visibleEnd();
+            const promiseResources = DayPilot.Http.get(`/api/Resources`);
+            const promiseEvents = DayPilot.Http.get(`/api/WorkOrders?start=${start}&end=${end}`);
+
+            const [{ data: resources }, { data: events }] = await Promise.all([promiseResources, promiseEvents]);
+
+            scheduler.update({ resources, events });
+        },
+        async queueLoad() {
+            const { data } = await DayPilot.Http.get("/api/WorkOrders/Unscheduled");
+            const events = data.map(item => ({ ...item, duration: DayPilot.Duration.ofMinutes(item.duration) }));
+            queue.update({ events });
+        },
+        async queueTaskDelete(id) {
+            await DayPilot.Http.delete(`/api/WorkOrders/${id}`);
+            queue.events.remove(id);
+        },
+        queueTaskForm() {
+            const durations = [
+                { id: 60, name: "1 hour" },
+                { id: 90, name: "1.5 hours" },
+                { id: 120, name: "2 hours" },
+                { id: 150, name: "2.5 hours" },
+                { id: 180, name: "3 hours" },
+                { id: 210, name: "3.5 hours" },
+                { id: 240, name: "4 hours" },
+                { id: 270, name: "4.5 hours" },
+                { id: 300, name: "5 hours" },
+                { id: 330, name: "5.5 hours" },
+                { id: 360, name: "6 hours" },
+                { id: 390, name: "6.5 hours" },
+                { id: 420, name: "7 hours" },
+                { id: 450, name: "7.5 hours" },
+                { id: 480, name: "8 hours" },
+            ];
+
+            const form = [
+                { name: 'Description', id: 'text', type: 'text', },
+                { type: 'select', id: 'duration', name: 'Duration', options: durations, },
+                {
+                    type: 'select',
+                    id: 'color',
+                    name: 'Color',
+                    options: app.colors
+                },
+            ];
+
+            return form;
+        },
+
+        startEndFromMinutes(minutes) {
+            const start = new DayPilot.Date("2000-01-01");
+            const end = start.addMinutes(minutes);
+            return { start, end };
+        },
+        async queueTaskAdd() {
+
+            const form = app.queueTaskForm();
+
+            const data = {
+                text: "Task",
+                duration: 60,
+                color: app.colors[0].id
+            };
+
+            const modal = await DayPilot.Modal.form(form, data, { top: 200 });
+
+            if (modal.canceled) {
+                return;
+            }
+
+            const params = {
+                ...modal.result,
+                ...app.startEndFromMinutes(modal.result.duration)
+            };
+
+            const { data: created } = await DayPilot.Http.post("/api/WorkOrders", params);
+
+            queue.events.add(created);
+
+        },
+        formatDuration(duration) {
+            let result = duration.hours() + "h ";
+
+            if (duration.minutes() > 0) {
+                result += duration.minutes() + "m";
+            }
+
+            return result;
+        },
+        async queueTaskEdit(e) {
+            const item = e.data;
+            const form = app.queueTaskForm();
+
+            const data = {
+                ...item,
+                duration: new DayPilot.Duration(item.start, item.end).totalMinutes()
+            };
+
+            const modal = await DayPilot.Modal.form(form, data);
+
+            if (modal.canceled) {
+                return;
+            }
+
+            const params = {
+                ...modal.result,
+                ...app.startEndFromMinutes(modal.result.duration)
+            }
+
+            const { data: updated } = await DayPilot.Http.put(`/api/WorkOrders/${e.data.id}`, params);
+
+            queue.events.update(updated);
+
+        },
+        async queueTaskMove(e, position, external, source) {
+            const id = e.id();
+            const { data: item } = await DayPilot.Http.put(`/api/WorkOrders/${id}`, { position });
+            if (external) {
+                source.events.remove(e);
+            }
+        },
+        async schedulerTaskAdd(start, end, resource) {
+            const modal = await DayPilot.Modal.prompt("Create a new task:", "Task 1");
+
+            scheduler.clearSelection();
+            if (!modal.result) {
+                return;
+            }
+
+            let params = {
+                text: modal.result,
+                start: start,
+                end: end,
+                resource: resource,
+                color: app.colors[0].id
+            };
+
+            const { data: result } = await DayPilot.Http.post("/api/WorkOrders", params);
+
+            scheduler.events.add(result);
+
+        },
+        async schedulerTaskEdit(e) {
+            const { data: resources } = await DayPilot.Http.get("/api/Resources/Flat");
+
+            const form = [
+                {
+                    id: 'text',
+                    name: 'Name',
+                },
+                {
+                    name: 'Start',
+                    id: 'start',
+                    dateFormat: 'd/M/yyyy h:mm tt',
+                    disabled: true
+                },
+                {
+                    id: 'end',
+                    name: 'End',
+                    dateFormat: 'd/M/yyyy h:mm tt',
+                    disabled: true
+                },
+                {
+                    type: 'select',
+                    id: 'resource',
+                    name: 'Employee',
+                    options: resources,
+                    disabled: true
+                },
+                {
+                    type: 'select',
+                    id: 'color',
+                    name: 'Color',
+                    options: app.colors
+                },
+            ];
+
+            const data = {
+                ...e.data,
+                duration: new DayPilot.Duration(e.data.start, e.data.end).totalMinutes()
+            };
+
+            const modal = await DayPilot.Modal.form(form, data);
+
+            if (modal.canceled) {
+                return;
+            }
+
+            const id = e.data.id;
+            await DayPilot.Http.put(`/api/WorkOrders/${id}`, modal.result);
+
+            const updated = {
+                ...e.data,
+                text: modal.result.text,
+                color: modal.result.color
+            };
+
+            scheduler.events.update(updated);
+
+        },
+        async schedulerTaskMove(id, start, end, resource, external) {
+            let params = {
+                start,
+                end,
+                resource
+            };
+
+            await DayPilot.Http.put(`/api/WorkOrders/${id}`, params);
+
+            if (external) {
+                queue.events.remove(id);
+            }
+        },
+        init() {
+            app.elements.addToQueue.addEventListener("click", () => {
+                app.queueTaskAdd();
+            });
+
+            app.queueLoad();
+            app.schedulerLoad();
+        }
+    };
+
+
+    app.init();
+
+
+</script>
+
+
+<style>
+
+    select {
+        padding: 4px;
+    }
+
+    .parent {
+        display: flex;
+    }
+
+    .left {
+        margin-right: 10px;
+        min-width: 200px;
+    }
+
+        .left button {
+            background-color: #f3f3f3;
+            border: 1px solid #c0c0c0;
+            color: #333;
+            padding: 8px 0px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 5px;
+            width: 100%;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+
+    .right {
+        flex-grow: 1;
+    }
+
+
+    .scheduler_default_event {
+        /*opacity:  0.7;    */
+    }
+
+    .scheduler_default_event_inner {
+        display: block;
+        /*padding-top: 4px;*/
+    }
+
+
+    .event_bar_bottom {
+        padding-left: 15px;
+    }
+
+    .queue_default_event, .scheduler_default_event {
+        border-radius: 20px;
+        box-shadow: rgb(204, 204, 204) 0px 0px 5px;
+    }
+
+    .queue_default_event_inner, .scheduler_default_event_inner {
+        border-radius: 20px;
+        padding-left: 15px;
+        padding-top: 4px;
+    }
+
+    .queue_default_event_bar {
+        width: 20px;
+    }
+
+    .queue_default_event .queue_default_event_inner {
+        background: #ffffff;
+        border: 1px solid #888888;
+    }
+
+
+    .menu_default_main {
+        border-radius: 4px;
+    }
+</style>

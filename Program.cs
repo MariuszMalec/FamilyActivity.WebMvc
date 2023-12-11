@@ -1,6 +1,7 @@
 using FamilyActivity.WebMvc.Contexts;
 using FamilyActivity.WebMvc.Enums;
 using FamilyActivity.WebMvc.Middleware;
+using FamilyActivity.WebMvc.Models;
 using FamilyActivity.WebMvc.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,8 @@ if (environment.Contains("Mysql"))
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddRazorPages();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient();
@@ -31,6 +34,10 @@ if (sqlite)
 {
     var connectionString = Configuration.GetConnectionString("Sqlite");
     builder.Services.AddDbContext<ApplicationContext>(o => o.UseSqlite(connectionString));
+
+
+    builder.Services.AddDbContext<WorkOrderDbContext>(options => options
+        .UseSqlite(builder.Configuration.GetConnectionString("WorkOrderContext")));
 }
 else
 {
@@ -114,5 +121,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//app.MapRazorPages();
+//app.MapControllers();
 
 app.Run();
