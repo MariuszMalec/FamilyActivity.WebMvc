@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace FamilyActivity.WebMvc.Migrations.WorkOrderDb
+namespace FamilyActivity.WebMvc.Migrations
 {
     public partial class InitWorkOrderDb : Migration
     {
@@ -69,57 +69,42 @@ namespace FamilyActivity.WebMvc.Migrations.WorkOrderDb
             migrationBuilder.InsertData(
                 table: "Groups",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "Group 1" });
+                values: new object[] { 1, "Rodzice" });
 
             migrationBuilder.InsertData(
                 table: "Groups",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 2, "Group 2" });
+                values: new object[] { 2, "Dzieci" });
 
             migrationBuilder.InsertData(
                 table: "Groups",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 3, "Group 3" });
+                values: new object[] { 3, "Rodzina" });
 
             migrationBuilder.InsertData(
                 table: "Resources",
                 columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 1, 1, "Person A" });
+                values: new object[] { 1, 1, "TATA" });
 
             migrationBuilder.InsertData(
                 table: "Resources",
                 columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 2, 1, "Person B" });
+                values: new object[] { 2, 1, "MAMA" });
 
             migrationBuilder.InsertData(
                 table: "Resources",
                 columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 3, 1, "Person C" });
+                values: new object[] { 3, 2, "GOSIA" });
 
             migrationBuilder.InsertData(
                 table: "Resources",
                 columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 4, 2, "Person D" });
+                values: new object[] { 4, 2, "EMILKA" });
 
             migrationBuilder.InsertData(
                 table: "Resources",
                 columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 5, 2, "Person E" });
-
-            migrationBuilder.InsertData(
-                table: "Resources",
-                columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 6, 2, "Person F" });
-
-            migrationBuilder.InsertData(
-                table: "Resources",
-                columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 7, 3, "Person G" });
-
-            migrationBuilder.InsertData(
-                table: "Resources",
-                columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 8, 3, "Person H" });
+                values: new object[] { 5, 3, "ALL" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Resources_GroupId",

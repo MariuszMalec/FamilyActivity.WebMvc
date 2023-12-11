@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FamilyActivity.WebMvc.Enums;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 namespace FamilyActivity.WebMvc.Models
@@ -59,20 +60,17 @@ namespace FamilyActivity.WebMvc.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Group>().HasData(new Group { Id = 1, Name = "Group 1" });
-            modelBuilder.Entity<Group>().HasData(new Group { Id = 2, Name = "Group 2" });
-            modelBuilder.Entity<Group>().HasData(new Group { Id = 3, Name = "Group 3" });
+            modelBuilder.Entity<Group>().HasData(new Group { Id = 1, Name = "Rodzice" });
+            modelBuilder.Entity<Group>().HasData(new Group { Id = 2, Name = "Dzieci" });
+            modelBuilder.Entity<Group>().HasData(new Group { Id = 3, Name = "Rodzina" });
 
-            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 1, Name = "Person A", GroupId = 1 });
-            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 2, Name = "Person B", GroupId = 1 });
-            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 3, Name = "Person C", GroupId = 1 });
+            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 1, Name = PersonFamily.TATA.ToString(), GroupId = 1 });
+            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 2, Name = PersonFamily.MAMA.ToString(), GroupId = 1 });
 
-            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 4, Name = "Person D", GroupId = 2 });
-            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 5, Name = "Person E", GroupId = 2 });
-            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 6, Name = "Person F", GroupId = 2 });
+            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 3, Name = PersonFamily.GOSIA.ToString(), GroupId = 2 });
+            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 4, Name = PersonFamily.EMILKA.ToString(), GroupId = 2 });
 
-            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 7, Name = "Person G", GroupId = 3 });
-            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 8, Name = "Person H", GroupId = 3 });
+            modelBuilder.Entity<Resource>().HasData(new Resource { Id = 5, Name = PersonFamily.ALL.ToString(), GroupId = 3 });
 
         }
     }

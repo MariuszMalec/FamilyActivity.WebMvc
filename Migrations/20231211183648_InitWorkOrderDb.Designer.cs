@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace FamilyActivity.WebMvc.Migrations.WorkOrderDb
+namespace FamilyActivity.WebMvc.Migrations
 {
     [DbContext(typeof(WorkOrderDbContext))]
-    [Migration("20231211181751_InitWorkOrderDb")]
+    [Migration("20231211183648_InitWorkOrderDb")]
     partial class InitWorkOrderDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,17 +37,17 @@ namespace FamilyActivity.WebMvc.Migrations.WorkOrderDb
                         new
                         {
                             Id = 1,
-                            Name = "Group 1"
+                            Name = "Rodzice"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Group 2"
+                            Name = "Dzieci"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Group 3"
+                            Name = "Rodzina"
                         });
                 });
 
@@ -75,49 +75,31 @@ namespace FamilyActivity.WebMvc.Migrations.WorkOrderDb
                         {
                             Id = 1,
                             GroupId = 1,
-                            Name = "Person A"
+                            Name = "TATA"
                         },
                         new
                         {
                             Id = 2,
                             GroupId = 1,
-                            Name = "Person B"
+                            Name = "MAMA"
                         },
                         new
                         {
                             Id = 3,
-                            GroupId = 1,
-                            Name = "Person C"
+                            GroupId = 2,
+                            Name = "GOSIA"
                         },
                         new
                         {
                             Id = 4,
                             GroupId = 2,
-                            Name = "Person D"
+                            Name = "EMILKA"
                         },
                         new
                         {
                             Id = 5,
-                            GroupId = 2,
-                            Name = "Person E"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            GroupId = 2,
-                            Name = "Person F"
-                        },
-                        new
-                        {
-                            Id = 7,
                             GroupId = 3,
-                            Name = "Person G"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            GroupId = 3,
-                            Name = "Person H"
+                            Name = "ALL"
                         });
                 });
 

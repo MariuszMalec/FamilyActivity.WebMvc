@@ -3,3 +3,7 @@
 
 # use sql scripts to create database with more activities
 look folder SqlQuery
+
+# migration daypilot
+add-migration InitWorkOrderDb -context WorkOrderDbContext
+update-database -context WorkOrderDbContext
