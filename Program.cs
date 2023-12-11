@@ -67,6 +67,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+    var dayPilotContext = scope.ServiceProvider.GetRequiredService<WorkOrderDbContext>();
 
     if (environment == EnumProvider.MysqlJsonSeed.ToString())
     {
@@ -85,6 +86,9 @@ using (var scope = app.Services.CreateScope())
         await SeedData.SeedPersonFamilies(dataContext);
         await SeedData.SeedPictureActivities(dataContext);
         await SeedData.SeedActiviesDays(dataContext);
+
+        dayPilotContext.Database.EnsureCreated();
+        await SeedActivityOrder.SeedActiviesOrders(dayPilotContext, dataContext);
     }
     if (environment == EnumProvider.sqliteCommand.ToString())
     {
