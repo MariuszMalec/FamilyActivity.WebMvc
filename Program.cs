@@ -9,7 +9,8 @@ using Microsoft.EntityFrameworkCore;
 //migracja wpisac $env:ASPNETCORE_ENVIRONMENT='MysqlClassSeed'
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-bool sqlite = true;
+//aby migracja mysql zadzialala nie dziala env!
+bool sqlite = false;
 
 if (environment.Contains("Mysql"))
     sqlite = false;//true sqlite, false mysql, add selection to environment
@@ -49,6 +50,11 @@ else
             .EnableSensitiveDataLogging()
             .EnableDetailedErrors()
     );
+
+    var conectionString = Configuration.GetConnectionString("WorkOrderContextMySql");
+    //builder.Services.AddDbContext<MaintenanceDbContext>(o => o.UseLazyLoadingProxies().UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
+    builder.Services.AddDbContext<WorkOrderDbContext>(o => o.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
+    builder.Services.AddDbContext<WorkOrderDbContext>();
 }
 
 var app = builder.Build();

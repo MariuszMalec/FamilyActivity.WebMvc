@@ -29,7 +29,7 @@ namespace FamilyActivity.WebMvc.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
 
                     b.HasData(
                         new
@@ -66,7 +66,7 @@ namespace FamilyActivity.WebMvc.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Resources");
+                    b.ToTable("Resources", (string)null);
 
                     b.HasData(
                         new
@@ -110,19 +110,22 @@ namespace FamilyActivity.WebMvc.Migrations
                     b.Property<string>("Color")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("End")
+                    b.Property<string>("End")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Ordinal")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("OrdinalPriority")
+                    b.Property<string>("OrdinalPriority")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("ResourceId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Start")
+                    b.Property<string>("Start")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Text")
@@ -133,7 +136,7 @@ namespace FamilyActivity.WebMvc.Migrations
 
                     b.HasIndex("ResourceId");
 
-                    b.ToTable("WorkOrders");
+                    b.ToTable("WorkOrders", (string)null);
                 });
 
             modelBuilder.Entity("FamilyActivity.WebMvc.Models.Resource", b =>
