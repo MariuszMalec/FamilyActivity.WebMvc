@@ -1,5 +1,4 @@
 ﻿using FamilyActivity.WebMvc.Models;
-using Microsoft.AspNetCore.DataProtection;
 
 namespace FamilyActivity.WebMvc.Contexts
 {
@@ -19,84 +18,34 @@ namespace FamilyActivity.WebMvc.Contexts
                 return;
             }
 
-            //var mondayStart = GetStartHour(contextActivity, Enums.DayOfWeek.Monday, Enums.PersonFamily.TATA, Enums.ActivityName.Czas_do_pracy);
-            //var mondayEnd = GetEndHour(contextActivity, Enums.DayOfWeek.Monday, Enums.PersonFamily.TATA, Enums.ActivityName.Czas_do_pracy);
-            //context.Add(new WorkOrder()
-            //{
-            //    Start = Convert.ToDateTime(mondayStart),//Convert.ToDateTime(DateTime.Now.AddHours(-4).ToString("hh:mm")),
-            //    End = Convert.ToDateTime(mondayEnd),//Convert.ToDateTime(DateTime.Now.AddHours(-3).ToString("hh:mm")),
-            //    Color = "#6aa84f",
-            //    Ordinal = 0,
-            //    Resource = context.Resources.Find(1),
-            //    OrdinalPriority = DateTime.Now,
-            //    Text = Enums.ActivityName.Czas_do_pracy.ToString(),
-            //});
+            SetWork(context, contextActivity, today, Enums.PersonFamily.GOSIA, Enums.ActivityName.Bajki, "#EF8C03");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.EMILKA, Enums.ActivityName.Bajki, "#ecb823");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.TATA, Enums.ActivityName.Czas_do_pracy, "#6aa84f");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.MAMA, Enums.ActivityName.Czas_do_pracy, "#3F85A4");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.TATA, Enums.ActivityName.Czas_spac, "#6aa84f");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.MAMA, Enums.ActivityName.Czas_spac, "#3F85A4");
+            await context.SaveChangesAsync();
+        }
 
-            var startbajkigosia = GetStartHour(contextActivity, today, Enums.PersonFamily.GOSIA, Enums.ActivityName.Bajki);
-            var endbajkigosia = GetEndHour(contextActivity, today, Enums.PersonFamily.GOSIA, Enums.ActivityName.Bajki);
-            context.Add(new WorkOrder()
-            {
-                Start = Convert.ToDateTime(startbajkigosia),
-                End = Convert.ToDateTime(endbajkigosia),
-                Color = "#EF8C03",
-                Ordinal = 0,
-                Resource = context.Resources.Find(3),
-                OrdinalPriority = DateTime.Now,
-                Text = Enums.ActivityName.Bajki.ToString(),
-            });
-            var startbajkiemisia = GetStartHour(contextActivity, today, Enums.PersonFamily.EMILKA, Enums.ActivityName.Bajki);
-            var endbajkiemisia = GetEndHour(contextActivity, today, Enums.PersonFamily.EMILKA, Enums.ActivityName.Bajki);
-            context.Add(new WorkOrder()
-            {
-                Start = Convert.ToDateTime(startbajkiemisia),
-                End = Convert.ToDateTime(endbajkiemisia),
-                Color = "#ecb823",
-                Ordinal = 0,
-                Resource = context.Resources.Find(4),
-                OrdinalPriority = DateTime.Now,
-                Text = Enums.ActivityName.Bajki.ToString(),
-            });
-
-            var startWork = GetStartHour(contextActivity, today, Enums.PersonFamily.TATA, Enums.ActivityName.Czas_do_pracy);
-            var endWork = GetEndHour(contextActivity, today, Enums.PersonFamily.TATA, Enums.ActivityName.Czas_do_pracy);
+        private static void SetWork(WorkOrderDbContext context,
+            ApplicationContext contextActivity,
+            Enums.DayOfWeek today,
+            Enums.PersonFamily person,
+            Enums.ActivityName activity,
+            string color)
+        {
+            var startWork = GetStartHour(contextActivity, today, person, activity);
+            var endWork = GetEndHour(contextActivity, today, person, activity);
             context.Add(new WorkOrder()
             {
                 Start = Convert.ToDateTime(startWork),//Convert.ToDateTime(DateTime.Now.AddHours(-4).ToString("hh:mm")),
                 End = Convert.ToDateTime(endWork),//Convert.ToDateTime(DateTime.Now.AddHours(-3).ToString("hh:mm")),
-                Color = "#6aa84f",
+                Color = color,
                 Ordinal = 0,
-                Resource = context.Resources.Find(1),
+                Resource = context.Resources.Find((int)person),
                 OrdinalPriority = DateTime.Now,
-                Text = Enums.ActivityName.Czas_do_pracy.ToString(),
+                Text = activity.ToString(),
             });
-
-            var startSleep = GetStartHour(contextActivity, today, Enums.PersonFamily.TATA, Enums.ActivityName.Czas_spac);
-            var endSleep = GetEndHour(contextActivity, today, Enums.PersonFamily.TATA, Enums.ActivityName.Czas_spac);
-            context.Add(new WorkOrder()
-            {
-                Start = Convert.ToDateTime(startSleep),
-                End = Convert.ToDateTime(endSleep),
-                Color = "#EF8C03",
-                Ordinal = 0,
-                Resource = context.Resources.Find(1),
-                OrdinalPriority = DateTime.Now,
-                Text = Enums.ActivityName.Czas_spac.ToString(),
-            });
-            var startSleepm = GetStartHour(contextActivity, today, Enums.PersonFamily.MAMA, Enums.ActivityName.Czas_spac);
-            var endSleepm = GetEndHour(contextActivity, today, Enums.PersonFamily.MAMA, Enums.ActivityName.Czas_spac);
-            context.Add(new WorkOrder()
-            {
-                Start = Convert.ToDateTime(startSleepm),
-                End = Convert.ToDateTime(endSleepm),
-                Color = "#3F85A4",
-                Ordinal = 0,
-                Resource = context.Resources.Find(2),
-                OrdinalPriority = DateTime.Now,
-                Text = Enums.ActivityName.Czas_spac.ToString(),
-            });
-
-
-            await context.SaveChangesAsync();
         }
 
         private static string GetStartHour(ApplicationContext contextActivity,
