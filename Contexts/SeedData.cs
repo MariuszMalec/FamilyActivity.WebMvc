@@ -228,7 +228,7 @@ namespace FamilyActivity.WebMvc.Contexts
                 EndTime = TimeSpan.Parse("19:00:00".ToString()),
                 Description = "Porzadki",
                 ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.MAMA),
-                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Sprzatanie_kuchni)
+                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Sprzatanie_lazienki)
             });
 
             context.Add(new ModelActivityDays()
