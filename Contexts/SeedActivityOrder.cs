@@ -23,7 +23,16 @@ namespace FamilyActivity.WebMvc.Contexts
             SetWork(context, contextActivity, today, Enums.PersonFamily.TATA, Enums.ActivityName.Czas_do_pracy, "#6aa84f");
             SetWork(context, contextActivity, today, Enums.PersonFamily.MAMA, Enums.ActivityName.Czas_do_pracy, "#3F85A4");
             SetWork(context, contextActivity, today, Enums.PersonFamily.TATA, Enums.ActivityName.Czas_spac, "#6aa84f");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.TATA, Enums.ActivityName.Czas_tylko_taty, "#6aa84f");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.TATA, Enums.ActivityName.Odrabianie_lekcji, "#6aa84f");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.TATA, Enums.ActivityName.Sprzatanie_kuchni, "#6aa84f");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.TATA, Enums.ActivityName.Sprzatanie_lazienki, "#6aa84f");
             SetWork(context, contextActivity, today, Enums.PersonFamily.MAMA, Enums.ActivityName.Czas_spac, "#3F85A4");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.MAMA, Enums.ActivityName.Czas_tylko_mamy, "#3F85A4");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.MAMA, Enums.ActivityName.Odrabianie_lekcji, "#3F85A4");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.MAMA, Enums.ActivityName.Sprzatanie_kuchni, "#3F85A4");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.MAMA, Enums.ActivityName.Sprzatanie_lazienki, "#3F85A4");
+            SetWork(context, contextActivity, today, Enums.PersonFamily.GOSIA, Enums.ActivityName.Basen, "#EF8C03");
             await context.SaveChangesAsync();
         }
 

@@ -18,6 +18,7 @@
 </div>
 
 <script>
+    const mytoday = new Date();
     const scheduler = new DayPilot.Scheduler("scheduler", {
         cellDuration: 30,
         cellWidth: 60,
@@ -33,7 +34,7 @@
         rowMarginBottom: 5,
         scale: "CellDuration",
         showNonBusiness: false,
-        businessBeginsHour: 7,
+        businessBeginsHour: mytoday.getHours(),
         businessEndsHour: 23,
         startDate: DayPilot.Date.today(),
         timeHeaders: [{ groupBy: "Day" }, { groupBy: "Hour" }],

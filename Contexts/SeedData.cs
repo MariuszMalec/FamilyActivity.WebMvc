@@ -94,8 +94,8 @@ namespace FamilyActivity.WebMvc.Contexts
             context.Add(new ModelActivityDays()
             {
                 DayOfWeek = Enums.DayOfWeek.Wednesday,
-                StartTime = TimeSpan.Parse("19:30:00".ToString()),
-                EndTime = TimeSpan.Parse("20:00:00".ToString()),
+                StartTime = TimeSpan.Parse("9:30:00".ToString()),
+                EndTime = TimeSpan.Parse("17:30:00".ToString()),
                 Description = "Kurcze",
                 ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
                 ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Czas_do_pracy)
