@@ -15,5 +15,5 @@
             "password": ""
         }
     ],
-    "sqltools.useNodeRuntime": true
+    "sqltools.useNodeRuntime": false
 }
