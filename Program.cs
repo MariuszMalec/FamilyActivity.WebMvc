@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 //aby migracja mysql zadzialala nie dziala env!
-bool sqlite = false;
+bool sqlite = true;
 
 if (environment.Contains("Mysql"))
     sqlite = false;//true sqlite, false mysql, add selection to environment
@@ -92,13 +92,17 @@ using (var scope = app.Services.CreateScope())
     }
     if (environment == EnumProvider.sqliteCommand.ToString())
     {
-        dataContext.Database.EnsureDeleted();
+        //dataContext.Database.EnsureDeleted();
         dataContext.Database.EnsureCreated();
         //AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLitePersonFamilies(app, Configuration);
         AppDbInitializerWithinSqliteCommand.SeedWithSqlLitePersonFamilies(app, Configuration);
         AppDbInitializerWithinSqliteCommand.SeedWithSqlLiteAvtivityPictures(app, Configuration);
         //AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLiteActivityDays(app, Configuration);
         AppDbInitializerWithinSqliteCommand.SeedWithSqliteActivityDays(app, Configuration);
+
+        //dayPilotContext.Database.EnsureDeleted();
+        dayPilotContext.Database.EnsureCreated();
+        //await SeedActivityOrder.SeedActiviesOrders(dayPilotContext, dataContext);
     }
     if (environment == EnumProvider.MysqlCommand.ToString())
     {

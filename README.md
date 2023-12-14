@@ -4,10 +4,9 @@
 # use sql scripts to create database with more activities
 look folder SqlQuery
 
-# migration daypilot
+# migration daypilot and activity
 add-migration InitWorkOrderDb -context WorkOrderDbContext
 update-database -context WorkOrderDbContext
 
-# or
- Add-Migration InitialActivityDb -Context ApplicationContext -OutputDir .\Migrations\MySql
- Add-Migration InitialWorkOrderDbMySql -Context WorkOrderDbContext -OutputDir .\Migrations\MySql
+add-migration InitActivity -context ApplicationContext
+update-database -context ApplicationContext
