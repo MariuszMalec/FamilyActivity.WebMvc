@@ -93,6 +93,7 @@ using (var scope = app.Services.CreateScope())
     if (environment == EnumProvider.sqliteCommand.ToString())
     {
         //dataContext.Database.EnsureDeleted();
+        //dataContext?.Database.Migrate();
         dataContext.Database.EnsureCreated();
         //AppDbInitializerWithinSqliteCommand.CreateTableWithSqlLitePersonFamilies(app, Configuration);
         AppDbInitializerWithinSqliteCommand.SeedWithSqlLitePersonFamilies(app, Configuration);
@@ -101,6 +102,7 @@ using (var scope = app.Services.CreateScope())
         AppDbInitializerWithinSqliteCommand.SeedWithSqliteActivityDays(app, Configuration);
 
         //dayPilotContext.Database.EnsureDeleted();
+        //dayPilotContext?.Database.Migrate();
         dayPilotContext.Database.EnsureCreated();
         //await SeedActivityOrder.SeedActiviesOrders(dayPilotContext, dataContext);
     }

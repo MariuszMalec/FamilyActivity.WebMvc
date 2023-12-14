@@ -14,5 +14,6 @@
             "database": "activitydb",
             "password": ""
         }
-    ]
+    ],
+    "sqltools.useNodeRuntime": true
 }
