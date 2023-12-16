@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 //migracja wpisac $env:ASPNETCORE_ENVIRONMENT='MysqlClassSeed'
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-//aby migracja mysql zadzialala nie dziala env!
-bool sqlite = true;
+//aby migracja mysql zadzialala nie dziala env w vsc lub na linuxie! Patrz komentarz wyzej
+bool sqlite = false;
 
-if (environment.Contains("Mysql"))
+if (environment.Contains("Mysql") && environment.Contains("Postgres"))
     sqlite = false;//true sqlite, false mysql, add selection to environment
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,15 +51,30 @@ else
     //        .EnableDetailedErrors()
     //);
 
-    var conectionString = Configuration.GetConnectionString("Default");
-    builder.Services.AddDbContext<ApplicationContext>(o => o.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
-    builder.Services.AddDbContext<ApplicationContext>();
+    if (environment.Contains("Mysql"))
+    {
+        var conectionString = Configuration.GetConnectionString("Default");
+        builder.Services.AddDbContext<ApplicationContext>(o => o.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
+        builder.Services.AddDbContext<ApplicationContext>();
 
-    var conectionString2 = Configuration.GetConnectionString("WorkOrderContextMySql");
-    //builder.Services.AddDbContext<MaintenanceDbContext>(o => o.UseLazyLoadingProxies().UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
-    builder.Services.AddDbContext<WorkOrderDbContext>(o => o.UseMySql(conectionString2, ServerVersion.AutoDetect(conectionString2)));
-    builder.Services.AddDbContext<WorkOrderDbContext>();
+        var conectionString2 = Configuration.GetConnectionString("WorkOrderContextMySql");
+        //builder.Services.AddDbContext<MaintenanceDbContext>(o => o.UseLazyLoadingProxies().UseMySql(conectionString, ServerVersion.AutoDetect(conectionString)));
+        builder.Services.AddDbContext<WorkOrderDbContext>(o => o.UseMySql(conectionString2, ServerVersion.AutoDetect(conectionString2)));
+        builder.Services.AddDbContext<WorkOrderDbContext>();
+    }
+    if (environment.Contains("Postgres"))
+    {
+        var conectionString = Configuration.GetConnectionString("WinPgActivity");
+        builder.Services.AddDbContext<ApplicationContext>(o => o.UseNpgsql(conectionString));
+        builder.Services.AddDbContext<ApplicationContext>();
+
+        var conectionString2 = Configuration.GetConnectionString("WinPgWorkOrder");
+        builder.Services.AddDbContext<WorkOrderDbContext>(o => o.UseNpgsql(conectionString2));
+        builder.Services.AddDbContext<WorkOrderDbContext>();
+    }
 }
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);//TODO dodane aby poprawic blad zapisu czasu utc w postgres
 
 var app = builder.Build();
 
@@ -78,7 +93,7 @@ using (var scope = app.Services.CreateScope())
         await SeedDataFromJson.SeedActivityPictures(dataContext);
         await SeedDataFromJson.SeedActiviesDays(dataContext);
     }
-    if (environment == EnumProvider.MysqlClassSeed.ToString())
+    if (environment == EnumProvider.MysqlClassSeed.ToString() || environment == EnumProvider.WinPostgres.ToString())
     {
         dataContext.Database.EnsureDeleted();
         dataContext?.Database.Migrate();

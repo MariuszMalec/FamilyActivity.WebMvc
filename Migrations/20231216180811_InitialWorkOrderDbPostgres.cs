@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace FamilyActivity.WebMvc.Migrations
 {
-    public partial class InitWorkOrder : Migration
+    public partial class InitialWorkOrderDbPostgres : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,9 +14,9 @@ namespace FamilyActivity.WebMvc.Migrations
                 name: "Groups",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,10 +27,10 @@ namespace FamilyActivity.WebMvc.Migrations
                 name: "Resources",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    GroupId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    GroupId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,15 +47,15 @@ namespace FamilyActivity.WebMvc.Migrations
                 name: "WorkOrders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Text = table.Column<string>(type: "TEXT", nullable: false),
-                    Start = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    End = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ResourceId = table.Column<int>(type: "INTEGER", nullable: true),
-                    Ordinal = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrdinalPriority = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Color = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Text = table.Column<string>(type: "text", nullable: false),
+                    Start = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    End = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ResourceId = table.Column<int>(type: "integer", nullable: true),
+                    Ordinal = table.Column<int>(type: "integer", nullable: false),
+                    OrdinalPriority = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Color = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -69,42 +70,24 @@ namespace FamilyActivity.WebMvc.Migrations
             migrationBuilder.InsertData(
                 table: "Groups",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "Rodzice" });
-
-            migrationBuilder.InsertData(
-                table: "Groups",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 2, "Dzieci" });
-
-            migrationBuilder.InsertData(
-                table: "Groups",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 3, "Rodzina" });
+                values: new object[,]
+                {
+                    { 1, "Rodzice" },
+                    { 2, "Dzieci" },
+                    { 3, "Rodzina" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Resources",
                 columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 1, 1, "TATA" });
-
-            migrationBuilder.InsertData(
-                table: "Resources",
-                columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 2, 1, "MAMA" });
-
-            migrationBuilder.InsertData(
-                table: "Resources",
-                columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 3, 2, "GOSIA" });
-
-            migrationBuilder.InsertData(
-                table: "Resources",
-                columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 4, 2, "EMILKA" });
-
-            migrationBuilder.InsertData(
-                table: "Resources",
-                columns: new[] { "Id", "GroupId", "Name" },
-                values: new object[] { 5, 3, "ALL" });
+                values: new object[,]
+                {
+                    { 1, 1, "TATA" },
+                    { 2, 1, "MAMA" },
+                    { 3, 2, "GOSIA" },
+                    { 4, 2, "EMILKA" },
+                    { 5, 3, "ALL" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Resources_GroupId",

@@ -51,6 +51,15 @@
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7230;http://localhost:5292"
+    },
+    "WinPostgres": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "WinPostgres"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7230;http://localhost:5292"
     }
   },
   "iisSettings": {
