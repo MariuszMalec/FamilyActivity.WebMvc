@@ -17,7 +17,7 @@
     <div class="generated">Generated using <a href="https://builder.daypilot.org/">DayPilot UI Builder</a>.</div>
 </div>
 
-<script>\
+<script>
     const mytoday = new Date();
     const scheduler = new DayPilot.Scheduler("scheduler", {
         cellDuration: 30,
@@ -33,7 +33,7 @@
         rowMarginTop: 5,
         rowMarginBottom: 5,
         scale: "CellDuration",
-        showNonBusiness: false,
+        showNonBusiness: true,
         businessBeginsHour: mytoday.getHours()-1,
         businessEndsHour: 24,
         startDate: DayPilot.Date.today(),

@@ -102,6 +102,8 @@ using (var scope = app.Services.CreateScope())
         await SeedData.SeedPictureActivities(dataContext);
         await SeedData.SeedActiviesDays(dataContext);
 
+        //dayPilotContext.Database.EnsureDeleted();
+        //dayPilotContext?.Database.Migrate();
         dayPilotContext.Database.EnsureCreated();
         await SeedActivityOrder.SeedActiviesOrders(dayPilotContext, dataContext);
     }
