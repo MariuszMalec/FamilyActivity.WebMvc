@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 //aby migracja mysql zadzialala nie dziala env w vsc lub na linuxie! Patrz komentarz wyzej
-bool sqlite = true;
+bool sqlite = false;
 
 if (environment.Contains("Mysql") && environment.Contains("Postgres"))
     sqlite = false;//true sqlite, false mysql, add selection to environment
@@ -72,6 +72,16 @@ else
         builder.Services.AddDbContext<WorkOrderDbContext>(o => o.UseNpgsql(conectionString2));
         builder.Services.AddDbContext<WorkOrderDbContext>();
     }
+    if (environment.Contains("LinuxPg"))
+    {
+        var conectionString = Configuration.GetConnectionString("LinuxPgActivity");
+        builder.Services.AddDbContext<ApplicationContext>(o => o.UseNpgsql(conectionString));
+        builder.Services.AddDbContext<ApplicationContext>();
+
+        var conectionString2 = Configuration.GetConnectionString("LinuxPgWorkOrder");
+        builder.Services.AddDbContext<WorkOrderDbContext>(o => o.UseNpgsql(conectionString2));
+        builder.Services.AddDbContext<WorkOrderDbContext>();
+    }
 }
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);//TODO dodane aby poprawic blad zapisu czasu utc w postgres
@@ -93,7 +103,9 @@ using (var scope = app.Services.CreateScope())
         await SeedDataFromJson.SeedActivityPictures(dataContext);
         await SeedDataFromJson.SeedActiviesDays(dataContext);
     }
-    if (environment == EnumProvider.MysqlClassSeed.ToString() || environment == EnumProvider.WinPostgres.ToString())
+    if (environment == EnumProvider.MysqlClassSeed.ToString() 
+        || environment == EnumProvider.WinPostgres.ToString()
+        || environment == EnumProvider.LinuxPg.ToString())
     {
         dataContext.Database.EnsureDeleted();
         dataContext?.Database.Migrate();

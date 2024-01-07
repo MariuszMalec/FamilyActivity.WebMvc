@@ -6,6 +6,7 @@
         sqliteCommand,
         MysqlClassSeed,
         MysqlJsonSeed,
-        WinPostgres
+        WinPostgres,
+        LinuxPg
     }
 }
