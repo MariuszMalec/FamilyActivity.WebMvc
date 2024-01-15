@@ -447,7 +447,18 @@ namespace FamilyActivity.WebMvc.Contexts
               "https://images.unsplash.com/photo-1606474226448-4aa808468efc?q=80&w=1990&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
             context.Add(new ModelPictureActivity(17, Enums.ActivityName.Gry_i_zabawy,
               "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
-
+            context.Add(new ModelPictureActivity(18, Enums.ActivityName.Sniadanie,
+              "https://images.unsplash.com/photo-1615937722923-67f6deaf2cc9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"));
+            context.Add(new ModelPictureActivity(19, Enums.ActivityName.Malowanie,
+              "https://images.unsplash.com/photo-1456086272160-b28b0645b729?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80"));
+            context.Add(new ModelPictureActivity(20, Enums.ActivityName.Cwiczenia_fizyczne,
+              "https://images.unsplash.com/photo-1591291621164-2c6367723315?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80"));
+            context.Add(new ModelPictureActivity(21, Enums.ActivityName.Czas_z_mama,
+              "https://images.unsplash.com/photo-1623249288685-835abe0123b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80"));
+            context.Add(new ModelPictureActivity(22, Enums.ActivityName.Czas_z_tata,
+              "https://images.unsplash.com/photo-1437943085269-6da5dd4295bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"));
+            context.Add(new ModelPictureActivity(23, Enums.ActivityName.Tance,
+              "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"));
             await context.SaveChangesAsync();
         }
 
