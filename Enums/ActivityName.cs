@@ -20,7 +20,13 @@
         Spacer,
         Gry_i_zabawy,
         Kolacja,
-        Sniadanie
+        Sniadanie,
+        Malowanie,
+        Cwiczenia_fizyczne,
+        Czas_z_mama,
+        Czas_z_tata,
+        Tance
+        
 
     }
 }

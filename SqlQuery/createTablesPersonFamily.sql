@@ -1,0 +1,6 @@
+﻿USE activityDb;
+CREATE TABLE IF NOT EXISTS personFamilies(
+    Id INT(1) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	PersonName INT(1) DEFAULT 1,
+    PersonPicture VARCHAR(200)
+);

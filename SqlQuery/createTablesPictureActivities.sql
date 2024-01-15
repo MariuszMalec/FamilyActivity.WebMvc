@@ -1,0 +1,6 @@
+﻿USE activityDb;
+CREATE TABLE IF NOT EXISTS pictureActivities(
+    Id INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	ActivityName INT(1) DEFAULT 1,
+    Picture VARCHAR(200)
+);

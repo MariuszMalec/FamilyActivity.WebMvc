@@ -93,7 +93,7 @@ using (var scope = app.Services.CreateScope())
         await SeedDataFromJson.SeedActivityPictures(dataContext);
         await SeedDataFromJson.SeedActiviesDays(dataContext);
     }
-    if (environment == EnumProvider.MysqlClassSeed.ToString() || environment == EnumProvider.WinPostgres.ToString())
+    if (environment == EnumProvider.WinPostgres.ToString())
     {
         dataContext.Database.EnsureDeleted();
         dataContext?.Database.Migrate();
@@ -106,6 +106,18 @@ using (var scope = app.Services.CreateScope())
         //dayPilotContext?.Database.Migrate();
         dayPilotContext.Database.EnsureCreated();
         await SeedActivityOrder.SeedActiviesOrders(dayPilotContext, dataContext);
+    }
+    if (environment == EnumProvider.MysqlClassSeed.ToString())
+    {
+        //dataContext.Database.EnsureCreated();
+        //await SeedData.SeedPersonFamilies(dataContext);
+        //await SeedData.SeedPictureActivities(dataContext);
+        //await SeedData.SeedActiviesDays(dataContext);
+
+        //dayPilotContext.Database.EnsureDeleted();
+        //dayPilotContext?.Database.Migrate();
+        //dayPilotContext.Database.EnsureCreated();
+        //await SeedActivityOrder.SeedActiviesOrders(dayPilotContext, dataContext);
     }
     if (environment == EnumProvider.sqliteCommand.ToString())
     {
