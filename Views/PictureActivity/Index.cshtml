@@ -1,5 +1,5 @@
 ﻿@using FamilyActivity.WebMvc.Models;
-@model List<FamilyActivity.WebMvc.Models.ModelActivityDays>
+@model List<FamilyActivity.WebMvc.Models.ModelPictureActivity>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,9 +10,9 @@
 <div class="card" style="border-radius: 10px ;background-image: url('https://images.unsplash.com/photo-1519219788971-8d9797e0928e?q=80&w=2044&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
 
     <header class="w3-container w3-blue">
-        <h5>Roles</h5>
+        <h5>Pictures activity</h5>
         <p>
-            <a class="btn btn-success" asp-action="Create"><img class="rounded" alt="Image placeholder" src="~/icons8-add-user-male-32X32.png">Create New</a>
+            <a class="btn btn-success" asp-action="Create"><img class="rounded" alt="Image placeholder" src="~/pictures/create32X32.png">Create New</a>
         </p>
     </header>
 
@@ -36,12 +36,12 @@
                         @Html.DisplayFor(modelItem => item.Id)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Description)
+                        @Html.DisplayFor(modelItem => item.ActivityName)
                     </td>
                     <td>
-                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id" data-toggle="tooltip" data-placement="top" title="Edit"><img class="rounded" alt="Image placeholder" src="~/editX32.png"></a>
-                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id" data-toggle="tooltip" data-placement="top" title="Details"><img class="rounded" alt="Image placeholder" src="~/employeeX32.png"></a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id" data-toggle="tooltip" data-placement="top" title="Delete"><img class="rounded" alt="Image placeholder" src="~/trash-binX32.png"></a>
+                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id" data-toggle="tooltip" data-placement="top" title="Edit"><img class="rounded" alt="Image placeholder" src="~/pictures/editX32.png"></a>
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id" data-toggle="tooltip" data-placement="top" title="Details"><img class="rounded" alt="Image placeholder" src="~/pictures/details.png"></a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id" data-toggle="tooltip" data-placement="top" title="Delete"><img class="rounded" alt="Image placeholder" src="~/pictures/trash-binX32.png"></a>
                     </td>
                 </tr>
             }

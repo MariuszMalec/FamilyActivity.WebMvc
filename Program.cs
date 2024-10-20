@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 //aby migracja mysql zadzialala nie dziala env w vsc lub na linuxie! Patrz komentarz wyzej
-bool sqlite = false;
+bool sqlite = true;
 
 if (environment.Contains("Mysql") && environment.Contains("Postgres"))
     sqlite = false;//true sqlite, false mysql, add selection to environment
@@ -25,6 +25,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddTransient<IActivityService, ActivityService>();
+builder.Services.AddTransient<PictureService>();
 
 //To trzeba dodac!! aby zadzialalo Configuration!!
 IConfiguration Configuration;
