@@ -174,6 +174,11 @@ namespace FamilyActivity.WebMvc.Controllers
                     ModelPersonFamily = personalFamily,
                     ModelPictureActivity = modelPictureActivity
                 };
+
+                //validation
+                if (activity.StartTime >= activity.EndTime)
+                    return Content($"StartTime can't be bigger than EndTime!");
+
                 _context.Add(activity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
