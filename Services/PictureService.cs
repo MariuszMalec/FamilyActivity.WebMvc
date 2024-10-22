@@ -28,5 +28,11 @@ namespace FamilyActivity.WebMvc.Services
         {
             return await _context.PictureActivities.FindAsync(id);
         }
+
+        public async Task Create(ModelPictureActivity model)
+        {
+            _context.PictureActivities.Add(model);
+            await _context.SaveChangesAsync();
+        }
     }
 }

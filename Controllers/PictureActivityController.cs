@@ -72,5 +72,19 @@ namespace FamilyActivity.WebMvc.Controllers
             }
             return View(model);
         }
+
+        [HttpGet("Create")]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost("Create")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ModelPictureActivity activity)
+        {
+            await _pictureService.Create(activity);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
