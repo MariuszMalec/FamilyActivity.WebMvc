@@ -86,5 +86,11 @@ namespace FamilyActivity.WebMvc.Controllers
             await _pictureService.Create(activity);
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet("Delete")]
+        public ActionResult Delete()
+        {
+            return View();
+        }
     }
 }
