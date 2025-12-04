@@ -273,15 +273,6 @@ namespace FamilyActivity.WebMvc.Contexts
 
             context.Add(new ModelActivityDays()
             {
-                DayOfWeek = Enums.DayOfWeek.Thursday,
-                StartTime = TimeSpan.Parse("17:30:00".ToString()),
-                EndTime = TimeSpan.Parse("18:00:00".ToString()),
-                Description = "Lekcje",
-                ModelPersonFamily = AddModelPersonFamily(context, Enums.PersonFamily.TATA),
-                ModelPictureActivity = AddModelPictureActivity(context, Enums.ActivityName.Odrabianie_lekcji)
-            });
-            context.Add(new ModelActivityDays()
-            {
                 DayOfWeek = Enums.DayOfWeek.Wednesday,
                 StartTime = TimeSpan.Parse("17:30:00".ToString()),
                 EndTime = TimeSpan.Parse("18:00:00".ToString()),

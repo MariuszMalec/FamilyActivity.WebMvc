@@ -12,7 +12,7 @@ var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 //aby migracja mysql zadzialala nie dziala env w vsc lub na linuxie! Patrz komentarz wyzej
 bool sqlite = true;
 
-if (environment.Contains("Mysql") && environment.Contains("Postgres"))
+if (environment.Contains("Mysql") || environment.Contains("Postgres"))
     sqlite = false;//true sqlite, false mysql, add selection to environment
 
 var builder = WebApplication.CreateBuilder(args);
