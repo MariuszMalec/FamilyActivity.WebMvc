@@ -148,39 +148,12 @@ namespace FamilyActivity.WebMvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var allActivties = await _activityService.GetAll();
 
-                var id = (allActivties?.Max(m => m.Id) ?? 0) + 1;
+                var model = _activityService.Create(activity);
 
-                var allActivitiesPictures = _context.PictureActivities.ToList();
-                
-                var allPersonalFamily = _context.PersonFamilies.ToList();
+                if (model.Result == false)
+                    return Content($"model is not valid!");
 
-                var modelPictureActivity =
-                    allActivitiesPictures.Where(x => x.ActivityName == activity.ModelPictureActivity.ActivityName)
-                 .Select(x => x).FirstOrDefault();
-
-                var personalFamily = allPersonalFamily.Where(x => x.PersonName == activity.ModelPersonFamily.PersonName)
-                   .Select(p=>p).FirstOrDefault();                             
-
-                activity = new ModelActivityDays()
-                {
-                    Id = id,
-                    CreatedAt = DateTime.Now,
-                    Description = activity.Description,
-                    StartTime = activity.StartTime,
-                    EndTime = activity.EndTime,
-                    DayOfWeek = activity.DayOfWeek, 
-                    ModelPersonFamily = personalFamily,
-                    ModelPictureActivity = modelPictureActivity
-                };
-
-                //validation
-                if (activity.StartTime >= activity.EndTime)
-                    return Content($"StartTime can't be bigger than EndTime!");
-
-                _context.Add(activity);
-                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(activity);
