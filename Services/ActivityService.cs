@@ -1,9 +1,6 @@
 using FamilyActivity.WebMvc.Contexts;
-using FamilyActivity.WebMvc.Enums;
 using FamilyActivity.WebMvc.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Diagnostics;
 
 namespace FamilyActivity.WebMvc.Services
 {
@@ -36,10 +33,10 @@ namespace FamilyActivity.WebMvc.Services
 
         public async Task<ModelActivityDays> GetById(int id)
         {
-            var activity = _context.ActiviesDays
+            var activity = await _context.ActiviesDays
                 .Include(x => x.ModelPersonFamily)
                 .Include(x => x.ModelPictureActivity)
-                .ToListAsync().Result.Where(x=>x.Id == id).Select(x=>x).FirstOrDefault();
+                .Where(x=>x.Id == id).Select(x=>x).FirstOrDefaultAsync();
 
             if (activity == null)
             {
@@ -64,6 +61,21 @@ namespace FamilyActivity.WebMvc.Services
 
             var person = model.ModelPersonFamily.PersonName;
             var activityName = model.ModelPictureActivity.ActivityName;
+
+            var modelExist = _context.ActiviesDays.ToList()
+                .Where(x=>x.ModelPersonFamily.PersonName == person)
+                .Where(x=>x.ModelPictureActivity.ActivityName == activityName)
+                .Where(x=>x.StartTime == model.StartTime)
+                .Where(x => x.EndTime == model.EndTime)
+                .Where(x=>x.DayOfWeek == model.DayOfWeek)
+                .Count()
+                ;
+            if (modelExist > 0)
+            {
+                _logger.LogError($"Activity exists yet!");
+                return false;
+            }
+
             _context.Add(new ModelActivityDays()
             {
                 CreatedAt = DateTime.Now,
@@ -78,6 +90,45 @@ namespace FamilyActivity.WebMvc.Services
             await _context.SaveChangesAsync();
 
             return true ;
+        }
+
+        public async Task<ModelActivityDays> Edit(int id, ModelActivityDays model)
+        {
+            if (!_context.ActiviesDays.Any())
+                return new ModelActivityDays();
+
+            if (model == null)
+                return new ModelActivityDays();
+
+            if (model.StartTime >= model.EndTime)
+            {
+                _logger.LogError($"StartTime can't be bigger than EndTime!");
+                return new ModelActivityDays();
+            }
+
+            var getModel = await GetById(id);
+            if (getModel == null)
+            {
+                _logger.LogError($"Activity day doesn't exist!");
+                return new ModelActivityDays();
+            }
+
+            var modelPersonFamily = _context.PersonFamilies
+                .FirstOrDefault(x => x.PersonName == model.ModelPersonFamily.PersonName);
+
+            var modelPictureActivity = _context.PictureActivities
+                .FirstOrDefault(x => x.ActivityName == model.ModelPictureActivity.ActivityName);
+
+            // Modyfikujemy obiekt ju¿ œledzony przez EF
+            getModel.Description = model.Description;
+            getModel.StartTime = model.StartTime;
+            getModel.EndTime = model.EndTime;
+            getModel.DayOfWeek = model.DayOfWeek;
+            getModel.ModelPersonFamily = modelPersonFamily;
+            getModel.ModelPictureActivity = modelPictureActivity;
+
+            await _context.SaveChangesAsync();
+            return getModel;
         }
 
     }

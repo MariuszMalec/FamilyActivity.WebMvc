@@ -7,5 +7,6 @@ namespace FamilyActivity.WebMvc.Services
         Task<List<ModelActivityDays>> GetAll();
         Task<ModelActivityDays> GetById(int id);
         Task<bool> Create(ModelActivityDays model);
+        Task<ModelActivityDays> Edit(int id, ModelActivityDays model);
     }
 }
